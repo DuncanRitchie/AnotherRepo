@@ -28,7 +28,12 @@ h1{
 
 .drumkitPart {
     background-color: lightsalmon;
+    padding-top:18px;
     text-align:center;
+}
+
+.drumkitLetter {
+font-size: 24pt;
 }
 
 #drumkitBoom {
