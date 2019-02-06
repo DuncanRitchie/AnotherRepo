@@ -7,23 +7,34 @@
     <title>Duncan's JS challenges</title>
     <link rel="stylesheet" type="text/css" href="main.css" />
 </head>
-<body>
+<body onkeypress="keycode()">
 <h1>Keycode Generator</h1>
-<input type="text" onkeypress="keycode()" />
-<p id="keycode">Keycode</p>
-<div id="keyDiv">
+<div id="keyBody">
+<div id="keyDiv" class="oneOfThree">
     <h2>event.key</h2>
     <p id="keyP"></p>
 </div>
-<div id="codeDiv">
+<div id="codeDiv" class="oneOfThree">
     <h2>event.code</h2>
     <p id="codeP"></p>
 </div>
-<div id="whichDiv">
+<div id="whichDiv" class="oneOfThree">
     <h2>event.which</h2>
     <p id="whichP"></p>
 </div>
-
-<script src="main.css"></script>
+</div>
+<h1>Drumkit</h1>
+<div id="drumkitBody" onkeypress="drumkit()">
+    <div id="drumkitBoom" class="drumkitPart" onclick='drumkitPlay("boom")'>Boom</div>
+    <div id="drumkitClap" class="drumkitPart" onclick='drumkitPlay("clap")'>Clap</div>
+    <div id="drumkitHihat" class="drumkitPart" onclick='drumkitPlay("hihat")'>Hihat</div>
+    <div id="drumkitKick" class="drumkitPart" onclick='drumkitPlay("kick")'>Kick</div>
+    <div id="drumkitOpenhat" class="drumkitPart" onclick='drumkitPlay("openhat")'>Openhat</div>
+    <div id="drumkitRide" class="drumkitPart" onclick='drumkitPlay("ride")'>Ride</div>
+    <div id="drumkitSnare" class="drumkitPart" onclick='drumkitPlay("snare")'>Snare</div>
+    <div id="drumkitTink" class="drumkitPart" onclick='drumkitPlay("tink")'>Tink</div>
+    <div id="drumkitTom" class="drumkitPart" onclick='drumkitPlay("tom")'>Tom</div>
+</div>
+<script src="main.js"></script>
 </body>
 </html>

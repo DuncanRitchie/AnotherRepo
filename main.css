@@ -1,6 +1,79 @@
 h1{
     color:darkolivegreen;
     text-align:center;
+    width:100%
+}
+
+#keyBody {
+    display:flex;
+    flex-flow:row;
+    justify-content:space-around;
+    width:100%;
+}
+
+.oneOfThree {
+    width:33%;
+    text-align:center;
+}
+
+#drumkitBody {
+    width:100%;
+    height:750px;
+    background: url(JSdrumkit-files/images/bg.png) orange center no-repeat;
+    display:grid;
+    align-items: stretch;
+    grid-template-columns: repeat(9,auto);
+    grid-template-rows: repeat(2,auto);
+}
+
+.drumkitPart {
+    background-color: lightsalmon;
+    text-align:center;
+}
+
+#drumkitBoom {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 1;
+}
+
+#drumkitClap {
+    grid-column: 2 / span 1;
+    grid-row: 2 / span 1;
+}
+
+#drumkitHihat {
+    grid-column: 3 / span 1;
+    grid-row: 1 / span 1;
+}
+
+#drumkitKick {
+    grid-column: 4 / span 1;
+    grid-row: 2 / span 1;
+}
+
+#drumkitOpenhat {
+    grid-column: 5 / span 1;
+    grid-row: 1 / span 1;
+}
+
+#drumkitRide {
+    grid-column: 6 / span 1;
+    grid-row: 2 / span 1;
+}
+
+#drumkitSnare {
+    grid-column: 7 / span 1;
+    grid-row: 1 / span 1;
+}
+
+#drumkitTink {
+    grid-column: 8 / span 1;
+    grid-row: 2 / span 1;
+}
+
+#drumkitTom {
+    grid-column: 9 / span 1;
+    grid-row: 1 / span 1;
 }
 
 #whackamole{
