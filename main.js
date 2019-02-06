@@ -36,7 +36,8 @@ const keycode = () => {
         break;
     }
     drumkitPlay(sound);
-    document.getElementById(`drumkit${sound}`).style.background-color = white;
+    let element = document.getElementById(`drumkit${sound}`);
+    element.style.background-color = white;
 }
 
 const drumkitPlay = (sound) => {
