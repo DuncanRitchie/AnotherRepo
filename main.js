@@ -45,3 +45,26 @@ const keycode = () => {
     }
     drumkitPlay(sound);
 }
+
+diceImg = document.getElementById("diceImg");
+let diceTotal = 0;
+
+const diceGameStart = () => {
+    randNum = Math.ceil(Math.random()*6);
+    console.log(randNum);
+    diceImg.src=`./JSdiceGame/img/dice${randNum}.png`;
+    diceTotal += randNum;
+    if(randNum==1){
+        diceTotal=0;
+        document.getElementById("diceGameStart").textContent = "Play again"
+        document.getElementById("diceMessage").textContent = "You rolled a one! Your total has reset!"
+    }
+    else {
+        document.getElementById("diceGameStart").textContent = "Roll again"
+        document.getElementById("diceMessage").textContent = "Press 'Roll again' to keep playing!"
+        if(diceTotal>20){
+            document.getElementById("diceMessage").textContent = "Your score passed 20! You win!"
+        }
+    }
+    document.getElementById("diceTotalP").textContent = diceTotal;
+}
