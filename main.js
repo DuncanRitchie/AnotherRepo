@@ -1,5 +1,7 @@
 const drumkitPlay = (sound) => {
     new Audio(`./JSdrumkit-files/sounds/${sound}.wav`).play();
+    drumkitElement = document.getElementById(`drumkit${sound}`);
+    drumkitElement.style.animation = "drumkitAnimation 1s 1";
     }
     
 const drumkitBody = document.getElementById("drumkitBody")
@@ -42,8 +44,4 @@ const keycode = () => {
         break;
     }
     drumkitPlay(sound);
-    drumkitElement = document.getElementById(`drumkit${sound}`);
-    console.log(drumkitElement)
-    // drumkitElement.textContent = "This is the element!"
-    // drumkitElement.style.background-color = white;
 }

@@ -32,6 +32,11 @@ h1{
     text-align:center;
 }
 
+@keyframes drumkitAnimation {
+    0% {background-color: whitesmoke};
+    100% {background-color: lightsalmon;}
+}
+
 .drumkitLetter {
 font-size: 24pt;
 }
