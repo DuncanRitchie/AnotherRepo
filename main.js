@@ -1,3 +1,9 @@
+const drumkitPlay = (sound) => {
+    new Audio(`./JSdrumkit-files/sounds/${sound}.wav`).play();
+    }
+    
+const drumkitBody = document.getElementById("drumkitBody")
+    
 const keycode = () => {
     let key = event.key;
     let code = event.code;
@@ -8,40 +14,36 @@ const keycode = () => {
     console.log(code);
     switch (code) {
         case "KeyA":
-        sound = "boom";
+        sound = "Boom";
         break;
         case "KeyS":
-        sound = "clap";
+        sound = "Clap";
         break;
         case "KeyD":
-        sound = "hihat";
+        sound = "Hihat";
         break;
         case "KeyF":
-        sound = "kick";
+        sound = "Kick";
         break;
         case "KeyG":
-        sound = "openhat";
+        sound = "Openhat";
         break;
         case "KeyH":
-        sound = "ride";
+        sound = "Ride";
         break;
         case "KeyJ":
-        sound = "snare";
+        sound = "Snare";
         break;
         case "KeyK":
-        sound ="tink";
+        sound ="Tink";
         break;
         case "KeyL":
-        sound = "tom";
+        sound = "Tom";
         break;
     }
     drumkitPlay(sound);
-    let element = document.getElementById(`drumkit${sound}`);
-    element.style.background-color = white;
+    drumkitElement = document.getElementById(`drumkit${sound}`);
+    console.log(drumkitElement)
+    // drumkitElement.textContent = "This is the element!"
+    // drumkitElement.style.background-color = white;
 }
-
-const drumkitPlay = (sound) => {
-new Audio(`./JSdrumkit-files/sounds/${sound}.wav`).play();
-}
-
-const drumkitBody = document.getElementById("drumkitBody")
