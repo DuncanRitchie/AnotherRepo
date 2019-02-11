@@ -1,5 +1,6 @@
 const drumkitPlay = (sound) => {
-    new Audio(`./JSdrumkit-files/sounds/${sound.toLowerCase()}.wav`).play();
+    sound = sound.toLowerCase();
+    new Audio(`./JSdrumkit-files/sounds/${sound}.wav`).play();
     drumkitElement = document.getElementById(`drumkit${sound}`);
     drumkitElement.style.animation = "drumkitAnimation 1s 1";
     }
