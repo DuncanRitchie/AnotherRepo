@@ -36,16 +36,23 @@
     <div id="drumkitTom" class="drumkitPart" onclick='drumkitPlay("Tom")'><p>Tom</p><p class="drumkitLetter">L</p></div>
 </div>
 <h1>Dice game</h1>
-<div id="diceGameBody">
-    <h2 id="diceGameStart" onclick="diceGameStart()">Start game</h2>
-    <div id="diceImgAndTotal"> 
-        <img id="diceImg" />
-        <div id="diceTotalDiv">
-            <h3>Total</h3>
-            <p id="diceTotalP">0</p>
+<div id="diceBody">
+    <div id="diceInputDiv">
+        <p>Type the amount of players to be set!</p>
+        <input id="diceInput" type="text" value="3"></input>
+    </div>
+    <div id="diceStartButton">Start game</div>
+    <div id="dicePlayArea">
+        <h2 id="diceStart" onclick="dicePlay()">Player 1: Click to roll!</h2>
+        <div id="diceImgsAndTotals"> 
+            <img class="diceImg" />
+            <div class="diceTotalDiv">
+                <h3 class="diceTotalH">Total</h3>
+                <p class="diceTotalP">0</p>
+            </div>
         </div>
     </div>
-<p id="diceMessage">Click 'Start game' to roll the die!</p>
+    <p id="diceMessage">Click 'Start game'! Can a winning score be met?</p>
 </div>
 <script src="main.js"></script>
 </body>
