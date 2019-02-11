@@ -115,11 +115,11 @@ font-size: 24pt;
     display:none;
 }
 
-#diceStart{
+#dicePlay{
     width:100%;
 }
 
-#diceStart:hover{
+#dicePlay:hover{
     color:grey;
 }
 

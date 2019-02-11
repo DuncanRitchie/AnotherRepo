@@ -86,7 +86,7 @@ const dicePlay = () => {
     diceTotals[currentPlayer-1] += randNum;
     if(randNum==1){
         diceTotals[currentPlayer-1]=0;
-        document.getElementById("diceStart").textContent = `Player ${currentPlayer}: Click to roll!`
+        document.getElementById("dicePlay").textContent = `Player ${currentPlayer}: Click to roll!`
         document.getElementById("diceMessage").textContent = "You rolled a one! Your total has reset!"
     }
     diceTotalP.textContent = diceTotals[currentPlayer-1];
@@ -97,14 +97,14 @@ const dicePlay = () => {
         currentPlayer+=1
     }
     if (randNum>1) {
-        document.getElementById("diceStart").textContent = `Player ${currentPlayer}: Click to roll!`
+        document.getElementById("dicePlay").textContent = `Player ${currentPlayer}: Click to roll!`
         document.getElementById("diceMessage").textContent = "What new score will the next contender get?"
         if(diceTotals[currentPlayer-1]>20){
-            document.getElementById("diceStart").textContent = `Player ${currentPlayer} wins!`;
+            document.getElementById("dicePlay").textContent = `Player ${currentPlayer} wins!`;
             document.getElementById("diceMessage").innerHTML = "Your score passed 20! You have won your bet!";
             document.getElementById("diceImgsAndTotals").style.display="none";
-            document.getElementById("diceStart").onclick="";
-            document.querySelector("#diceStart:hover").style.color="black";
+            document.getElementById("dicePlay").onclick="";
+            document.querySelector("#dicePlay:hover").style.color="black";
         }
     }
     console.log(`The current player is ${currentPlayer}`)
