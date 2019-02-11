@@ -7,57 +7,27 @@
     <title>Duncan's JS challenges</title>
     <link rel="stylesheet" type="text/css" href="main.css" />
 </head>
-<body onkeypress="keycode()">
-<h1>Keycode Generator</h1>
-<div id="keyBody">
-<div id="keyDiv" class="oneOfThree">
-    <h2>event.key</h2>
-    <p id="keyP"></p>
-</div>
-<div id="codeDiv" class="oneOfThree">
-    <h2>event.code</h2>
-    <p id="codeP"></p>
-</div>
-<div id="whichDiv" class="oneOfThree">
-    <h2>event.which</h2>
-    <p id="whichP"></p>
-</div>
-</div>
-<h1>Drumkit</h1>
-<div id="drumkitBody" onkeypress="drumkit(event)">
-    <div id="drumkitBoom" class="drumkitPart" onclick='drumkitPlay("Boom")'><p>Boom</p><p class="drumkitLetter">A</p></div>
-    <div id="drumkitClap" class="drumkitPart" onclick='drumkitPlay("Clap")'><p>Clap</p><p class="drumkitLetter">S</p></div>
-    <div id="drumkitHihat" class="drumkitPart" onclick='drumkitPlay("Hihat")'><p>Hihat</p><p class="drumkitLetter">D</p></div>
-    <div id="drumkitKick" class="drumkitPart" onclick='drumkitPlay("Kick")'><p>Kick</p><p class="drumkitLetter">F</p></div>
-    <div id="drumkitOpenhat" class="drumkitPart" onclick='drumkitPlay("Openhat")'><p>Openhat</p><p class="drumkitLetter">G</p></div>
-    <div id="drumkitRide" class="drumkitPart" onclick='drumkitPlay("Ride")'><p>Ride</p><p class="drumkitLetter">H</p></div>
-    <div id="drumkitSnare" class="drumkitPart" onclick='drumkitPlay("Snare")'><p>Snare</p><p class="drumkitLetter">J</p></div>
-    <div id="drumkitTink" class="drumkitPart" onclick='drumkitPlay("Tink")'><p>Tink</p><p class="drumkitLetter">K</p></div>
-    <div id="drumkitTom" class="drumkitPart" onclick='drumkitPlay("Tom")'><p>Tom</p><p class="drumkitLetter">L</p></div>
-</div>
-<h1>Dice game</h1>
-<div id="diceBody">
-    <div id="diceInputDiv">
-        <p>Please type how many players will be set!</p>
-        <input id="diceInput" type="text" value="3"></input>
-    </div>
-    <div id="diceStartButton">Start game</div>
-    <div id="dicePlayArea">
-        <h2 id="dicePlay" onclick="dicePlay()">Player 1: Click to roll!</h2>
-        <div id="diceImgsAndTotals"> 
-            <img class="diceImg" />
-            <div class="diceTotalDiv">
-                <h3 class="diceTotalH">Total</h3>
-                <p class="diceTotalP">0</p>
-            </div>
+<body>
+    <h1>
+        Welcome to Duncan's game page! Click on a thing!
+    </h1>
+    <div id="indexLinksBody">
+        <div class="indexLinkDiv">
+            <a href="keycodedrumkit.html" alt="Keycode generator and drumkit">
+                Keycode generator and drumkit
+            </a>
+        </div>
+        <div class="indexLinkDiv">
+                <a href="dice.html" alt="Dice-game">
+                    Dice game
+                </a>
+        </div>
+        <div class="indexLinkDiv">
+                <a href="whackamole.html" alt="Whack-a-mole (not done)">
+                    Whack-a-mole (not done)
+                </a>
         </div>
     </div>
-    <p id="diceMessage">Click 'Start game'! Can a winning score be met?</p>
-</div>
-<h1>Whack-a-mole</h1>
-<div>
-Whack-a-moley stuff
-</div>
 <script src="main.js"></script>
 </body>
 </html>

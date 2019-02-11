@@ -56,23 +56,28 @@ let diceButton=document.getElementById("diceStartButton");
 let dicePA=document.getElementById("dicePlayArea");
 
 const diceStart = () => {
-    let diceImgsAndTotalsContent = "";
-    numPlayers = document.getElementById("diceInput").value;
-    console.log(`Number of players is ${numPlayers}`)
-    for(i=0;i<numPlayers;i++){
-        diceTotals.push(0)
-        diceImgsAndTotalsContent += document.getElementById("diceImgsAndTotals").innerHTML;
+    if(diceInput.value>0 && diceInput.value%1==0){
+        let diceImgsAndTotalsContent = "";
+        numPlayers = diceInput.value;
+        console.log(`Number of players is ${numPlayers}`)
+        for(i=0;i<numPlayers;i++){
+            diceTotals.push(0)
+            diceImgsAndTotalsContent += document.getElementById("diceImgsAndTotals").innerHTML;
+        }
+        console.log(`Initial dice totals are ${diceTotals}`);
+        document.getElementById("diceImgsAndTotals").innerHTML = diceImgsAndTotalsContent;
+        // document.getElementById("diceImgsAndTotals").style.display = flex;
+        for (i=0;i<numPlayers;i++){
+            document.getElementsByClassName("diceTotalH")[i].textContent=`Player ${i+1} Total`;
+        }
+        diceInputDiv.style.display="none";
+        diceButton.style.display="none";
+        dicePA.style.display="block";
+        document.getElementById("diceMessage").textContent = "Roll the die! What's the first score you will get?"
+}
+    else {
+        document.getElementById("diceInputP").textContent = "That's not a valid number we can let!"
     }
-    console.log(`Initial dice totals are ${diceTotals}`);
-    document.getElementById("diceImgsAndTotals").innerHTML = diceImgsAndTotalsContent;
-    // document.getElementById("diceImgsAndTotals").style.display = flex;
-    for (i=0;i<numPlayers;i++){
-        document.getElementsByClassName("diceTotalH")[i].textContent=`Player ${i+1} Total`;
-    }
-    diceInputDiv.style.display="none";
-    diceButton.style.display="none";
-    dicePA.style.display="block";
-    document.getElementById("diceMessage").textContent = "Roll the die! What's the first score you will get?"
 }
 
 diceButton.addEventListener("click",diceStart)
@@ -90,6 +95,15 @@ const dicePlay = () => {
         document.getElementById("diceMessage").textContent = "You rolled a one! Your total has reset!"
     }
     diceTotalP.textContent = diceTotals[currentPlayer-1];
+    if(diceTotals[currentPlayer-1]>=20){
+        document.getElementById("dicePlay").textContent = `Player ${currentPlayer} wins with ${diceTotals[currentPlayer-1]} points!`;
+        document.getElementById("diceMessage").innerHTML = "Your score reached 20! You have won your bet!";
+        document.getElementById("diceImgsAndTotals").style.display="none";
+        document.getElementById("dicePlay").onclick="";
+        document.querySelector("#dicePlay:hover").style.color="black";
+        document.querySelector("#dicePlay:hover").style.backgroundColor="palevioletred";
+    }
+    else {
     if(currentPlayer==numPlayers){
         currentPlayer=1
     }
@@ -99,13 +113,7 @@ const dicePlay = () => {
     if (randNum>1) {
         document.getElementById("dicePlay").textContent = `Player ${currentPlayer}: Click to roll!`
         document.getElementById("diceMessage").textContent = "What new score will the next contender get?"
-        if(diceTotals[currentPlayer-1]>20){
-            document.getElementById("dicePlay").textContent = `Player ${currentPlayer} wins!`;
-            document.getElementById("diceMessage").innerHTML = "Your score passed 20! You have won your bet!";
-            document.getElementById("diceImgsAndTotals").style.display="none";
-            document.getElementById("dicePlay").onclick="";
-            document.querySelector("#dicePlay:hover").style.color="black";
-        }
     }
     console.log(`The current player is ${currentPlayer}`)
+    }
 }

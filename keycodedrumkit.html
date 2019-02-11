@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Duncan's Keycode Generator & Drumkit</title>
+    <link rel="stylesheet" type="text/css" href="main.css" />
+</head>
+<body onkeypress="keycode()">
+<h1>Duncan's Keycode Generator</h1>
+<div id="keyBody">
+<div id="keyDiv" class="oneOfThree">
+    <h2>event.key</h2>
+    <p id="keyP"></p>
+</div>
+<div id="codeDiv" class="oneOfThree">
+    <h2>event.code</h2>
+    <p id="codeP"></p>
+</div>
+<div id="whichDiv" class="oneOfThree">
+    <h2>event.which</h2>
+    <p id="whichP"></p>
+</div>
+</div>
+<h1>Duncan's Drumkit</h1>
+<div id="drumkitBody" onkeypress="drumkit(event)">
+    <div id="drumkitBoom" class="drumkitPart" onclick='drumkitPlay("Boom")'><p>Boom</p><p class="drumkitLetter">A</p></div>
+    <div id="drumkitClap" class="drumkitPart" onclick='drumkitPlay("Clap")'><p>Clap</p><p class="drumkitLetter">S</p></div>
+    <div id="drumkitHihat" class="drumkitPart" onclick='drumkitPlay("Hihat")'><p>Hihat</p><p class="drumkitLetter">D</p></div>
+    <div id="drumkitKick" class="drumkitPart" onclick='drumkitPlay("Kick")'><p>Kick</p><p class="drumkitLetter">F</p></div>
+    <div id="drumkitOpenhat" class="drumkitPart" onclick='drumkitPlay("Openhat")'><p>Openhat</p><p class="drumkitLetter">G</p></div>
+    <div id="drumkitRide" class="drumkitPart" onclick='drumkitPlay("Ride")'><p>Ride</p><p class="drumkitLetter">H</p></div>
+    <div id="drumkitSnare" class="drumkitPart" onclick='drumkitPlay("Snare")'><p>Snare</p><p class="drumkitLetter">J</p></div>
+    <div id="drumkitTink" class="drumkitPart" onclick='drumkitPlay("Tink")'><p>Tink</p><p class="drumkitLetter">K</p></div>
+    <div id="drumkitTom" class="drumkitPart" onclick='drumkitPlay("Tom")'><p>Tom</p><p class="drumkitLetter">L</p></div>
+</div>
+<script src="main.js"></script>
+</body>
+</html>

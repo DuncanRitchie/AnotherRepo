@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Duncan's Dice Game</title>
+    <link rel="stylesheet" type="text/css" href="main.css" />
+</head>
+<body>
+<h1>Duncan's Dice Game</h1>
+<div id="diceBody">
+    <div id="diceInputDiv">
+        <p id="diceInputP">Please type how many players will be set!</p>
+        <input id="diceInput" type="text" value="3"></input>
+    </div>
+    <div id="diceStartButton">Start game</div>
+    <div id="dicePlayArea">
+        <h2 id="dicePlay" onclick="dicePlay()">Player 1: Click to roll!</h2>
+        <div id="diceImgsAndTotals"> 
+            <img class="diceImg" />
+            <div class="diceTotalDiv">
+                <h3 class="diceTotalH">Total</h3>
+                <p class="diceTotalP">0</p>
+            </div>
+        </div>
+    </div>
+    <p id="diceMessage">Click 'Start game'! Can a winning score be met?</p>
+</div>
+<script src="main.js"></script>
+</body>
+</html>
