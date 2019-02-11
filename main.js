@@ -108,16 +108,16 @@ const dicePlay = () => {
         document.querySelector("#dicePlayH:hover").style.backgroundColor="palevioletred";
     }
     else {
-    if(currentPlayer==numPlayers){
-        currentPlayer=1
-    }
-    else{
-        currentPlayer+=1
-    }
-    if (randNum>1) {
-        dicePlayH.textContent = `Player ${currentPlayer}: Click to roll!`
-        diceMessage.textContent = "What new score will the next contender get?"
-    }
-    console.log(`The current player is ${currentPlayer}`)
-    }
+        if(currentPlayer==numPlayers){
+            currentPlayer=1
+            }
+            else {
+            currentPlayer+=1
+            }
+        if (randNum>1) {
+            dicePlayH.textContent = `Player ${currentPlayer}: Click to roll!`
+            diceMessage.textContent = "What new score will the next contender get?"
+            }
+        console.log(`The current player is ${currentPlayer}`)
+        }
 }
