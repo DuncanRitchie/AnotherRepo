@@ -45,7 +45,21 @@ h1{
 }
 
 .indexLinkDiv a:hover {
-    color:darkseagreen;}
+    color:darkseagreen;
+}
+
+.indexLinkToBadPage {
+    background-color:lavenderblush;
+    border:5px solid maroon;
+}
+
+.indexLinkToBadPage a {
+    color:maroon;
+}
+
+.indexLinkToBadPage a:hover {
+    color:indianred;
+}
 
 #keyBody {
     display:flex;
