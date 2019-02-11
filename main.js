@@ -85,7 +85,7 @@ const diceStart = () => {
     }
 }
 
-diceStartButton.addEventListener("click",diceStart)
+if (diceStartButton==""){diceStartButton.addEventListener("click",diceStart)}
 
 const dicePlay = () => {
     let diceImg = document.getElementsByClassName("diceImg")[currentPlayer-1];
@@ -122,3 +122,24 @@ const dicePlay = () => {
         console.log(`The current player is ${currentPlayer}`)
         }
 }
+
+let dateAppeared = Date.now()
+
+let mole = document.getElementById("whackamoleMole");
+let whackamoleMessage = document.getElementById("whackamoleMessage");
+let whackamoleTimeToKill = document.getElementById("whackamoleTimeToKill");
+const whackMole = () => {
+    mole.style.display = "none";
+    setTimeout(moleAppear,2000)
+    timeToKill = Date.now()-dateAppeared;
+    whackamoleMessage.style.display = "block";
+    whackamoleTimeToKill.textContent = timeToKill;
+
+}
+const moleAppear = () => {
+    mole.style.display = "block";
+    dateAppeared = Date.now()
+}
+
+
+mole.addEventListener("click",whackMole)
