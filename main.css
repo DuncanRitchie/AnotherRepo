@@ -159,13 +159,13 @@ font-size: 24pt;
     display:none;
 }
 
-#dicePlay{
+#dicePlayH{
     width:100%;
     background-color:palevioletred;
     color:#400000;
 }
 
-#dicePlay:hover{
+#dicePlayH:hover{
     background-color:pink;
     color:grey;
 }

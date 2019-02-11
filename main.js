@@ -1,7 +1,7 @@
 const drumkitPlay = (Sound) => {
     sound = Sound.toLowerCase();
     new Audio(`./JSdrumkit-files/sounds/${sound}.wav`).play();
-    drumkitElement = document.getElementById(`drumkit${sound}`);
+    drumkitElement = document.getElementById(`drumkit${Sound}`);
     drumkitElement.style.animation = "drumkitAnimation 1s 1";
     }
     
@@ -53,8 +53,12 @@ let numPlayers = 1;
 let diceTotals=[];
 let diceInput=document.getElementById("diceInput");
 let diceInputDiv=document.getElementById("diceInputDiv");
-let diceButton=document.getElementById("diceStartButton");
+let diceInputP=document.getElementById("diceInputP");
+let diceStartButton=document.getElementById("diceStartButton");
+let dicePlayH=document.getElementById("dicePlayH");
 let dicePA=document.getElementById("dicePlayArea");
+let diceIsAndTs=document.getElementById("diceImgsAndTotals");
+let diceMessage=document.getElementById("diceMessage");
 
 const diceStart = () => {
     if(diceInput.value>0 && diceInput.value%1==0){
@@ -63,25 +67,24 @@ const diceStart = () => {
         console.log(`Number of players is ${numPlayers}`)
         for(i=0;i<numPlayers;i++){
             diceTotals.push(0)
-            diceImgsAndTotalsContent += document.getElementById("diceImgsAndTotals").innerHTML;
+            diceImgsAndTotalsContent += diceIsAndTs.innerHTML;
         }
         console.log(`Initial dice totals are ${diceTotals}`);
-        document.getElementById("diceImgsAndTotals").innerHTML = diceImgsAndTotalsContent;
-        // document.getElementById("diceImgsAndTotals").style.display = flex;
+        diceIsAndTs.innerHTML = diceImgsAndTotalsContent;
         for (i=0;i<numPlayers;i++){
             document.getElementsByClassName("diceTotalH")[i].textContent=`Player ${i+1} Total`;
         }
         diceInputDiv.style.display="none";
-        diceButton.style.display="none";
+        diceStartButton.style.display="none";
         dicePA.style.display="block";
-        document.getElementById("diceMessage").textContent = "Roll the die! What's the first score you will get?"
+        diceMessage.textContent = "Roll the die! What's the first score you will get?"
 }
     else {
-        document.getElementById("diceInputP").textContent = "That's not a valid number we can let!"
+        diceInputP.textContent = "That's not a valid number we can let!"
     }
 }
 
-diceButton.addEventListener("click",diceStart)
+diceStartButton.addEventListener("click",diceStart)
 
 const dicePlay = () => {
     let diceImg = document.getElementsByClassName("diceImg")[currentPlayer-1];
@@ -92,17 +95,17 @@ const dicePlay = () => {
     diceTotals[currentPlayer-1] += randNum;
     if(randNum==1){
         diceTotals[currentPlayer-1]=0;
-        document.getElementById("dicePlay").textContent = `Player ${currentPlayer}: Click to roll!`
-        document.getElementById("diceMessage").textContent = "You rolled a one! Your total has reset!"
+        dicePlayH.textContent = `Player ${currentPlayer}: Click to roll!`
+        diceMessage.textContent = "You rolled a one! Your total has reset!"
     }
     diceTotalP.textContent = diceTotals[currentPlayer-1];
     if(diceTotals[currentPlayer-1]>=20){
-        document.getElementById("dicePlay").textContent = `Player ${currentPlayer} wins with ${diceTotals[currentPlayer-1]} points!`;
-        document.getElementById("diceMessage").innerHTML = "Your score reached 20! You have won your bet!";
-        document.getElementById("diceImgsAndTotals").style.display="none";
-        document.getElementById("dicePlay").onclick="";
-        document.querySelector("#dicePlay:hover").style.color="black";
-        document.querySelector("#dicePlay:hover").style.backgroundColor="palevioletred";
+        dicePlayH.textContent = `Player ${currentPlayer} wins with ${diceTotals[currentPlayer-1]} points!`;
+        diceMessage.innerHTML = "Your score reached 20! You have won your bet!";
+        diceIsAndTs.style.display="none";
+        dicePlayH.onclick="";
+        document.querySelector("#dicePlayH:hover").style.color="black";
+        document.querySelector("#dicePlayH:hover").style.backgroundColor="palevioletred";
     }
     else {
     if(currentPlayer==numPlayers){
@@ -112,8 +115,8 @@ const dicePlay = () => {
         currentPlayer+=1
     }
     if (randNum>1) {
-        document.getElementById("dicePlay").textContent = `Player ${currentPlayer}: Click to roll!`
-        document.getElementById("diceMessage").textContent = "What new score will the next contender get?"
+        dicePlay.textContent = `Player ${currentPlayer}: Click to roll!`
+        diceMessage.textContent = "What new score will the next contender get?"
     }
     console.log(`The current player is ${currentPlayer}`)
     }
