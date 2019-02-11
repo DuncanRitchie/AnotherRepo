@@ -128,13 +128,19 @@ let dateAppeared = Date.now()
 let mole = document.getElementById("whackamoleMole");
 let whackamoleMessage = document.getElementById("whackamoleMessage");
 let whackamoleTimeToKill = document.getElementById("whackamoleTimeToKill");
+let whackamoleBestTime = document.getElementById("whackamoleBestTime");
+let bestTime = 10000000;
 const whackMole = () => {
     mole.style.display = "none";
-    setTimeout(moleAppear,2000)
+    randInterval = Math.ceil(Math.random()*5000);
+    setTimeout(moleAppear,randInterval)
     timeToKill = Date.now()-dateAppeared;
     whackamoleMessage.style.display = "block";
     whackamoleTimeToKill.textContent = timeToKill;
-
+    if (whackamoleBestTime.textContent == "" || timeToKill<bestTime){
+        bestTime = timeToKill;
+        whackamoleBestTime.textContent = bestTime;
+    }
 }
 const moleAppear = () => {
     mole.style.display = "block";
