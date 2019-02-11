@@ -115,7 +115,7 @@ const dicePlay = () => {
         currentPlayer+=1
     }
     if (randNum>1) {
-        dicePlay.textContent = `Player ${currentPlayer}: Click to roll!`
+        dicePlayH.textContent = `Player ${currentPlayer}: Click to roll!`
         diceMessage.textContent = "What new score will the next contender get?"
     }
     console.log(`The current player is ${currentPlayer}`)
