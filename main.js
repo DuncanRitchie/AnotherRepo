@@ -51,12 +51,13 @@ let currentPlayer = 1;
 // let numPlayers = document.getElementsByClassName("diceImg").length;
 let numPlayers = 1;
 let diceTotals=[];
+let diceBody=document.getElementById("diceBody");
 let diceInput=document.getElementById("diceInput");
 let diceInputDiv=document.getElementById("diceInputDiv");
 let diceInputP=document.getElementById("diceInputP");
 let diceStartButton=document.getElementById("diceStartButton");
-let dicePlayH=document.getElementById("dicePlayH");
 let dicePA=document.getElementById("dicePlayArea");
+let dicePlayH=document.getElementById("dicePlayH");
 let diceIsAndTs=document.getElementById("diceImgsAndTotals");
 let diceMessage=document.getElementById("diceMessage");
 
