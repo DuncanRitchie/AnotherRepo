@@ -7,6 +7,8 @@ h1{
 .explanation {
     text-align:center;
     background-color:lightcoral;
+    color:rgb(20,20,20);
+    font-weight:bold;
     padding:10px;
     margin:0px;
 }
