@@ -4,6 +4,13 @@ h1{
     width:100%
 }
 
+.explanation {
+    text-align:center;
+    background-color:lightcoral;
+    padding:10px;
+    margin:0px;
+}
+
 #indexLinksBody {
     display:flex;
     flex-flow:row;
