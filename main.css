@@ -418,6 +418,7 @@ font-size: 24pt;
     width:600px;
     height:600px;
     border:10px solid saddlebrown;
+    font-size:18px;
 }
 
 .chessRow {
@@ -452,7 +453,7 @@ font-size: 24pt;
     width:30px;
     height:30px;
     background-color:white;
-    color:black;
+    color:grey;
     border-radius:50px;
     border: 1px solid black;
     text-align:center;
@@ -466,15 +467,9 @@ font-size: 24pt;
     background-color:black;
     color:white;
     border-radius:50px;
-    border: 1px solid white;
+    border: 1px solid grey;
     text-align:center;
-    font-size:18px;
     padding:10px;
-}
-
-#chessBlackRook1 {
-    grid-row:1/2;
-    grid-column:1/2
 }
 
 #chessMessageDiv {
