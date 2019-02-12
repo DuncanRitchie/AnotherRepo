@@ -215,7 +215,7 @@ font-size: 24pt;
     justify-content:center;
     align-items:center;
     width:100%;
-    height:80vh;
+    height:75vh;
     background: url(https://farm5.staticflickr.com/4412/36740862726_d5da324eac_k.jpg) center;
     background-color:honeydew;
 }
@@ -238,4 +238,11 @@ font-size: 24pt;
 #whackamoleMessage {
     display:none;
     text-align:center;
+}
+
+#whackamoleScoreMessage {
+    display:none;
+    font-size:20px;
+    text-align:center;
+    color:indianred;
 }
