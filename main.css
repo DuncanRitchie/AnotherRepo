@@ -250,3 +250,26 @@ font-size: 24pt;
     text-align:center;
     color:indianred;
 }
+
+#clockBody{
+    display:grid;
+    justify-content:center;
+    align-items:center;
+}
+
+#clockFace{
+    align-self:center;
+    display:block;
+    margin-top:50px;
+    width:600px;
+    height:600px;
+    border-radius:50%;
+    border: 10px solid saddlebrown;
+    background-color:antiquewhite;
+}
+
+#clockDigital {
+    padding-top:50px;
+    text-align:center;
+    font-size:24px;
+}

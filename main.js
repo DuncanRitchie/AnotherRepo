@@ -169,5 +169,31 @@ const moleAppear = () => {
     dateAppeared = Date.now()
 }
 
-
 if(mole!==null){mole.addEventListener("click",whackMole)}
+
+let clockDigital = document.getElementById("clockDigital");
+
+const updateTime = () => {
+if(clockDigital!==null){
+    let d = new Date()
+    dateFormatted = ""
+    if(d.getHours()<10){
+        dateFormatted="0";
+    }
+    dateFormatted+=`${d.getHours()}`;
+    dateFormatted+=":";
+    if(d.getMinutes()<10){
+        dateFormatted+="0";
+    }
+    dateFormatted+=`${d.getMinutes()}`;
+    dateFormatted+=":";
+    if(d.getSeconds()<10){
+        dateFormatted+="0";
+    }
+    dateFormatted+=`${d.getSeconds()}`;
+    clockDigital.textContent=dateFormatted;
+    // clockDigital.textContent=`${d.getHours()}:${d.getMinutes()}:${d.getSeconds()} `
+}
+}
+
+let updateTimeInterval = setInterval(updateTime,1);
