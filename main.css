@@ -330,3 +330,40 @@ font-size: 24pt;
     text-align:center;
     font-size:24px;
 }
+
+#chessBody {
+    display:grid;
+    justify-content:center
+}
+#chessBoard {
+    display:flex;
+    flex-direction:column;
+    grid-template: repeat(8 1fr)/repeat(8 1fr);
+    margin-top:30px;
+    width:600px;
+    height:600px;
+    border:10px solid saddlebrown;
+}
+
+.chessRow {
+    display:flex;
+    /* grid-template:repeat(8 1fr)/1; */
+    width:600px;
+    height:75px;
+    grid-column:1/9;
+    grid-row:1/2;
+}
+
+.chessCellOdd {
+    display:block;
+    width:75px;
+    height:75px;
+    background-color:beige;
+}
+
+.chessCellEven {
+    display:block;
+    width:75px;
+    height:75px;
+    background-color:antiquewhite;
+}

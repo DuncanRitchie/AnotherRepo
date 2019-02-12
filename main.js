@@ -206,3 +206,5 @@ const updateTime = () => {
 }
 
 let updateTimeInterval = setInterval(updateTime,1);
+
+let chessBoard = document.getElementById("chessBoard");
