@@ -57,6 +57,10 @@ h1{
     color:maroon;
 }
 
+.indexLinkToBadPage a:after {
+    content: " (not done)";
+}
+
 .indexLinkToBadPage a:hover {
     color:indianred;
 }
