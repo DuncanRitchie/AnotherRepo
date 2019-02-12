@@ -208,3 +208,14 @@ const updateTime = () => {
 let updateTimeInterval = setInterval(updateTime,1);
 
 let chessBoard = document.getElementById("chessBoard");
+let chessInput = document.getElementById("chessInput");
+let currentPlayer = "White";
+let newSquare = "a1";
+let pieceToMove = "P1";
+
+const chessMovePiece = () => {
+    pieceToMove = document.getElementById(`chess${currentPlayer}${newSquare}`)
+    pieceToMove.appendChild(newSquare)
+}
+
+chessInputButton.addEventListener("click",chessMovePiece)
