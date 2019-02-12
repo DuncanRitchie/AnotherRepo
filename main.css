@@ -268,6 +268,63 @@ font-size: 24pt;
     background-color:antiquewhite;
 }
 
+#clockHourHandWrap {
+    position:absolute;
+    align-self:center;
+    display:block;
+    margin-top:150px;
+    margin-left:290px;
+    margin-right:290px;
+    margin-bottom:150px;
+    height:300px;
+    width:20px;
+}
+
+#clockHourHand {
+    display:block;
+    height:150px;
+    width:20px;
+    background-color:saddlebrown;
+}
+
+#clockMinuteHandWrap {
+    position:absolute;
+    align-self:center;
+    display:block;
+    margin-top:50px;
+    margin-left:290px;
+    margin-right:290px;
+    margin-bottom:50px;
+    height:500px;
+    width:20px;
+}
+
+#clockMinuteHand {
+    display:block;
+    height:250px;
+    width:20px;
+    background-color:sienna;
+}
+
+#clockSecondHandWrap {
+    position:absolute;
+    align-self:center;
+    display:block;
+    margin-top:50px;
+    margin-left:296px;
+    margin-right:296px;
+    margin-bottom:50px;
+    height:500px;
+    width:10px;
+}
+
+#clockSecondHand {
+    display:block;
+    height:250px;
+    width:8px;
+    background-color:goldenrod;
+}
+
 #clockDigital {
     padding-top:50px;
     text-align:center;
