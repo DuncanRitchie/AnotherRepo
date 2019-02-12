@@ -211,15 +211,28 @@ font-size: 24pt;
 
 #whackamoleBody{
     display:grid;
+    grid-template: repeat(12, 1fr) / repeat(12, 1fr);
     justify-content:center;
     align-items:center;
     width:100%;
-    height:800px;
+    height:80vh;
+    background: url(https://farm5.staticflickr.com/4412/36740862726_dcdad19b75_h.jpg) center;
     background-color:honeydew;
 }
 
 #whackamoleMole {
-    width:200px
+    width:200px;
+    grid-row:6 / span 2;
+    grid-column:6 / span 2;
+    animation: moleAnimation 2s infinite 0s linear;
+}
+
+@keyframes moleAnimation {
+    0% {transform:translate(0)}
+    25% {transform:translateX(-2px) translateY(-10px) rotate(2deg);}
+    50% {transform:translate(0)}
+    75% {transform:translateX(2px) translateY(-10px) rotate(-2deg);}
+    100% {transform:translate(0)}
 }
 
 #whackamoleMessage {

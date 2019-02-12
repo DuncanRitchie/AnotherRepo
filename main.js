@@ -124,6 +124,8 @@ const dicePlay = () => {
 }
 
 let dateAppeared = Date.now()
+let randRow = 6
+let randCol = 6
 
 let mole = document.getElementById("whackamoleMole");
 let whackamoleMessage = document.getElementById("whackamoleMessage");
@@ -143,6 +145,10 @@ const whackMole = () => {
     }
 }
 const moleAppear = () => {
+    randRow = Math.ceil(Math.random()*11);
+    randCol = Math.ceil(Math.random()*11);
+    mole.style.gridRow = `${randRow} / span 2`;
+    mole.style.gridColumn = `${randCol} / span 2`;
     mole.style.display = "block";
     dateAppeared = Date.now()
 }
