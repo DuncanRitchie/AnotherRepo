@@ -85,7 +85,7 @@ const diceStart = () => {
     }
 }
 
-if (diceStartButton==""){diceStartButton.addEventListener("click",diceStart)}
+if (diceStartButton!==null){diceStartButton.addEventListener("click",diceStart)}
 
 const dicePlay = () => {
     let diceImg = document.getElementsByClassName("diceImg")[currentPlayer-1];
