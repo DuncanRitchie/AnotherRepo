@@ -11,152 +11,198 @@
     <h1>Duncan's chess game</h1>
     <p class="explanation">Let's play chess! (Once I've coded it up. Which could take a while.)</p>
     <div id="chessBody">
-        <div id="chessBoard">
-            <div class="chessRow">
-                <div class="chessCellOdd" id="chessA8">
-                    <div class="chessPieceBlack" id="chessBlackRook1">R</div>
-                </div>
-                <div class="chessCellEven" id="chessB8">
-                    <div class="chessPieceBlack" id="chessBlackKnight1">N</div>
-                </div>
-                <div class="chessCellOdd" id="chessC8">
-                    <div class="chessPieceBlack" id="chessBlackBishop1">B</div>
-                </div>
-                <div class="chessCellEven" id="chessD8">
-                    <div class="chessPieceBlack" id="chessBlackQueen">Q</div>
-                </div>
-                <div class="chessCellOdd" id="chessE8">
-                    <div class="chessPieceBlack" id="chessBlackKing">K</div>
-                </div>
-                <div class="chessCellEven" id="chessF8">
-                    <div class="chessPieceBlack" id="chessBlackBishop2">B</div>
-                </div>
-                <div class="chessCellOdd" id="chessG8">
-                    <div class="chessPieceBlack" id="chessBlackKnight2">N</div>
-                </div>
-                <div class="chessCellEven" id="chessH8">
-                    <div class="chessPieceBlack" id="chessBlackRook2">R</div>
-                </div>
+        <div id="chessBoardEdge">
+            <div id="chessFilesEdgeBlack">
+                <div>A</div>
+                <div>B</div>
+                <div>C</div>
+                <div>D</div>
+                <div>E</div>
+                <div>F</div>
+                <div>G</div>
+                <div>H</div>
             </div>
-            <div class="chessRow">
-                <div class="chessCellEven" id="chessA7">
-                    <div class="chessPieceBlack" id="chessBlackPawn1">P</div>
-                </div>
-                <div class="chessCellOdd" id="chessB7">
-                    <div class="chessPieceBlack" id="chessBlackPawn2">P</div>
-                </div>
-                <div class="chessCellEven" id="chessC7">
-                    <div class="chessPieceBlack" id="chessBlackPawn3">P</div>
-                </div>
-                <div class="chessCellOdd" id="chessD7">
-                    <div class="chessPieceBlack" id="chessBlackPawn4">P</div>
-                </div>
-                <div class="chessCellEven" id="chessE7">
-                    <div class="chessPieceBlack" id="chessBlackPawn5">P</div>
-                </div>
-                <div class="chessCellOdd" id="chessF7">
-                    <div class="chessPieceBlack" id="chessBlackPawn6">P</div>
-                </div>
-                <div class="chessCellEven" id="chessG7">
-                    <div class="chessPieceBlack" id="chessBlackPawn7">P</div>
-                </div>
-                <div class="chessCellOdd" id="chessH7">
-                    <div class="chessPieceBlack" id="chessBlackPawn8">P</div>
-                </div>
+            <div id="chessRanksEdgeLeft">
+                <div>8</div>
+                <div>7</div>
+                <div>6</div>
+                <div>5</div>
+                <div>4</div>
+                <div>3</div>
+                <div>2</div>
+                <div>1</div>
             </div>
-            <div class="chessRow">
-                <div class="chessCellOdd" id="chessA6"></div>
-                <div class="chessCellEven" id="chessB6"></div>
-                <div class="chessCellOdd" id="chessC6"></div>
-                <div class="chessCellEven" id="chessD6"></div>
-                <div class="chessCellOdd" id="chessE6"></div>
-                <div class="chessCellEven" id="chessF6"></div>
-                <div class="chessCellOdd" id="chessG6"></div>
-                <div class="chessCellEven" id="chessH6"></div>
+            <div id="chessRanksEdgeRight">
+                <div>8</div>
+                <div>7</div>
+                <div>6</div>
+                <div>5</div>
+                <div>4</div>
+                <div>3</div>
+                <div>2</div>
+                <div>1</div>
             </div>
-            <div class="chessRow">
-                <div class="chessCellEven" id="chessA5"></div>
-                <div class="chessCellOdd" id="chessB5"></div>
-                <div class="chessCellEven" id="chessC5"></div>
-                <div class="chessCellOdd" id="chessD5"></div>
-                <div class="chessCellEven" id="chessE5"></div>
-                <div class="chessCellOdd" id="chessF5"></div>
-                <div class="chessCellEven" id="chessG5"></div>
-                <div class="chessCellOdd" id="chessH5"></div>
+            <div id="chessFilesEdgeWhite">
+                <div>A</div>
+                <div>B</div>
+                <div>C</div>
+                <div>D</div>
+                <div>E</div>
+                <div>F</div>
+                <div>G</div>
+                <div>H</div>
             </div>
-            <div class="chessRow">
-                <div class="chessCellOdd" id="chessA4"></div>
-                <div class="chessCellEven" id="chessB4"></div>
-                <div class="chessCellOdd" id="chessC4"></div>
-                <div class="chessCellEven" id="chessD4"></div>
-                <div class="chessCellOdd" id="chessE4"></div>
-                <div class="chessCellEven" id="chessF4"></div>
-                <div class="chessCellOdd" id="chessG4"></div>
-                <div class="chessCellEven" id="chessH4"></div>
-            </div>
-            <div class="chessRow">
-                <div class="chessCellEven" id="chessA3"></div>
-                <div class="chessCellOdd" id="chessB3"></div>
-                <div class="chessCellEven" id="chessC3"></div>
-                <div class="chessCellOdd" id="chessD3"></div>
-                <div class="chessCellEven" id="chessE3"></div>
-                <div class="chessCellOdd" id="chessF3"></div>
-                <div class="chessCellEven" id="chessG3"></div>
-                <div class="chessCellOdd" id="chessH3"></div>
-            </div>
-            <div class="chessRow">
-                <div class="chessCellOdd" id="chessA2">
-                    <div class="chessPieceWhite" id="chessWhitePawn8">P</div>
+            <div id="chessBoard">
+                <div class="chessRow">
+                    <div class="chessCellOdd" id="chessA8">
+                        <div class="chessPieceBlack" id="chessBlackRook1">R</div>
+                    </div>
+                    <div class="chessCellEven" id="chessB8">
+                        <div class="chessPieceBlack" id="chessBlackKnight1">N</div>
+                    </div>
+                    <div class="chessCellOdd" id="chessC8">
+                        <div class="chessPieceBlack" id="chessBlackBishop1">B</div>
+                    </div>
+                    <div class="chessCellEven" id="chessD8">
+                        <div class="chessPieceBlack" id="chessBlackQueen">Q</div>
+                    </div>
+                    <div class="chessCellOdd" id="chessE8">
+                        <div class="chessPieceBlack" id="chessBlackKing">K</div>
+                    </div>
+                    <div class="chessCellEven" id="chessF8">
+                        <div class="chessPieceBlack" id="chessBlackBishop2">B</div>
+                    </div>
+                    <div class="chessCellOdd" id="chessG8">
+                        <div class="chessPieceBlack" id="chessBlackKnight2">N</div>
+                    </div>
+                    <div class="chessCellEven" id="chessH8">
+                        <div class="chessPieceBlack" id="chessBlackRook2">R</div>
+                    </div>
                 </div>
-                <div class="chessCellEven" id="chessB2">
-                    <div class="chessPieceWhite" id="chessWhitePawn7">P</div>
+                <div class="chessRow">
+                    <div class="chessCellEven" id="chessA7">
+                        <div class="chessPieceBlack" id="chessBlackPawn1">P</div>
+                    </div>
+                    <div class="chessCellOdd" id="chessB7">
+                        <div class="chessPieceBlack" id="chessBlackPawn2">P</div>
+                    </div>
+                    <div class="chessCellEven" id="chessC7">
+                        <div class="chessPieceBlack" id="chessBlackPawn3">P</div>
+                    </div>
+                    <div class="chessCellOdd" id="chessD7">
+                        <div class="chessPieceBlack" id="chessBlackPawn4">P</div>
+                    </div>
+                    <div class="chessCellEven" id="chessE7">
+                        <div class="chessPieceBlack" id="chessBlackPawn5">P</div>
+                    </div>
+                    <div class="chessCellOdd" id="chessF7">
+                        <div class="chessPieceBlack" id="chessBlackPawn6">P</div>
+                    </div>
+                    <div class="chessCellEven" id="chessG7">
+                        <div class="chessPieceBlack" id="chessBlackPawn7">P</div>
+                    </div>
+                    <div class="chessCellOdd" id="chessH7">
+                        <div class="chessPieceBlack" id="chessBlackPawn8">P</div>
+                    </div>
                 </div>
-                <div class="chessCellOdd" id="chessC2">
-                    <div class="chessPieceWhite" id="chessWhitePawn6">P</div>
+                <div class="chessRow">
+                    <div class="chessCellOdd" id="chessA6"></div>
+                    <div class="chessCellEven" id="chessB6"></div>
+                    <div class="chessCellOdd" id="chessC6"></div>
+                    <div class="chessCellEven" id="chessD6"></div>
+                    <div class="chessCellOdd" id="chessE6"></div>
+                    <div class="chessCellEven" id="chessF6"></div>
+                    <div class="chessCellOdd" id="chessG6"></div>
+                    <div class="chessCellEven" id="chessH6"></div>
                 </div>
-                <div class="chessCellEven" id="chessD2">
-                    <div class="chessPieceWhite" id="chessWhitePawn5">P</div>
+                <div class="chessRow">
+                    <div class="chessCellEven" id="chessA5"></div>
+                    <div class="chessCellOdd" id="chessB5"></div>
+                    <div class="chessCellEven" id="chessC5"></div>
+                    <div class="chessCellOdd" id="chessD5"></div>
+                    <div class="chessCellEven" id="chessE5"></div>
+                    <div class="chessCellOdd" id="chessF5"></div>
+                    <div class="chessCellEven" id="chessG5"></div>
+                    <div class="chessCellOdd" id="chessH5"></div>
                 </div>
-                <div class="chessCellOdd" id="chessE2">
-                    <div class="chessPieceWhite" id="chessWhitePawn4">P</div>
+                <div class="chessRow">
+                    <div class="chessCellOdd" id="chessA4"></div>
+                    <div class="chessCellEven" id="chessB4"></div>
+                    <div class="chessCellOdd" id="chessC4"></div>
+                    <div class="chessCellEven" id="chessD4"></div>
+                    <div class="chessCellOdd" id="chessE4"></div>
+                    <div class="chessCellEven" id="chessF4"></div>
+                    <div class="chessCellOdd" id="chessG4"></div>
+                    <div class="chessCellEven" id="chessH4"></div>
                 </div>
-                <div class="chessCellEven" id="chessF2">
-                    <div class="chessPieceWhite" id="chessWhitePawn3">P</div>
+                <div class="chessRow">
+                    <div class="chessCellEven" id="chessA3"></div>
+                    <div class="chessCellOdd" id="chessB3"></div>
+                    <div class="chessCellEven" id="chessC3"></div>
+                    <div class="chessCellOdd" id="chessD3"></div>
+                    <div class="chessCellEven" id="chessE3"></div>
+                    <div class="chessCellOdd" id="chessF3"></div>
+                    <div class="chessCellEven" id="chessG3"></div>
+                    <div class="chessCellOdd" id="chessH3"></div>
                 </div>
-                <div class="chessCellOdd" id="chessG2">
-                    <div class="chessPieceWhite" id="chessWhitePawn2">P</div>
+                <div class="chessRow">
+                    <div class="chessCellOdd" id="chessA2">
+                        <div class="chessPieceWhite" id="chessWhitePawn8">P</div>
+                    </div>
+                    <div class="chessCellEven" id="chessB2">
+                        <div class="chessPieceWhite" id="chessWhitePawn7">P</div>
+                    </div>
+                    <div class="chessCellOdd" id="chessC2">
+                        <div class="chessPieceWhite" id="chessWhitePawn6">P</div>
+                    </div>
+                    <div class="chessCellEven" id="chessD2">
+                        <div class="chessPieceWhite" id="chessWhitePawn5">P</div>
+                    </div>
+                    <div class="chessCellOdd" id="chessE2">
+                        <div class="chessPieceWhite" id="chessWhitePawn4">P</div>
+                    </div>
+                    <div class="chessCellEven" id="chessF2">
+                        <div class="chessPieceWhite" id="chessWhitePawn3">P</div>
+                    </div>
+                    <div class="chessCellOdd" id="chessG2">
+                        <div class="chessPieceWhite" id="chessWhitePawn2">P</div>
+                    </div>
+                    <div class="chessCellEven" id="chessH2">
+                        <div class="chessPieceWhite" id="chessWhitePawn1">P</div>
+                    </div>
                 </div>
-                <div class="chessCellEven" id="chessH2">
-                    <div class="chessPieceWhite" id="chessWhitePawn1">P</div>
-                </div>
-            </div>
-            <div class="chessRow">
-                <div class="chessCellEven" id="chessA1">
-                    <div class="chessPieceWhite" id="chessWhiteRook1">R</div>
-                </div>
-                <div class="chessCellOdd" id="chessB1">
-                    <div class="chessPieceWhite" id="chessWhiteKnight1">N</div>
-                </div>
-                <div class="chessCellEven" id="chessC1">
-                    <div class="chessPieceWhite" id="chessWhiteBishop1">B</div>
-                </div>
-                <div class="chessCellOdd" id="chessD1">
-                    <div class="chessPieceWhite" id="chessWhiteQueen">Q</div>
-                </div>
-                <div class="chessCellEven" id="chessE1">
-                    <div class="chessPieceWhite" id="chessWhiteKing">K</div>
-                </div>
-                <div class="chessCellOdd" id="chessF1">
-                    <div class="chessPieceWhite" id="chessWhiteBishop2">B</div>
-                </div>
-                <div class="chessCellEven" id="chessG1">
-                    <div class="chessPieceWhite" id="chessWhiteKnight2">N</div>
-                </div>
-                <div class="chessCellOdd" id="chessH1">
-                    <div class="chessPieceWhite" id="chessWhiteRook2">R</div>
+                <div class="chessRow">
+                    <div class="chessCellEven" id="chessA1">
+                        <div class="chessPieceWhite" id="chessWhiteRook1">R</div>
+                    </div>
+                    <div class="chessCellOdd" id="chessB1">
+                        <div class="chessPieceWhite" id="chessWhiteKnight1">N</div>
+                    </div>
+                    <div class="chessCellEven" id="chessC1">
+                        <div class="chessPieceWhite" id="chessWhiteBishop1">B</div>
+                    </div>
+                    <div class="chessCellOdd" id="chessD1">
+                        <div class="chessPieceWhite" id="chessWhiteQueen">Q</div>
+                    </div>
+                    <div class="chessCellEven" id="chessE1">
+                        <div class="chessPieceWhite" id="chessWhiteKing">K</div>
+                    </div>
+                    <div class="chessCellOdd" id="chessF1">
+                        <div class="chessPieceWhite" id="chessWhiteBishop2">B</div>
+                    </div>
+                    <div class="chessCellEven" id="chessG1">
+                        <div class="chessPieceWhite" id="chessWhiteKnight2">N</div>
+                    </div>
+                    <div class="chessCellOdd" id="chessH1">
+                        <div class="chessPieceWhite" id="chessWhiteRook2">R</div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div id="chessMessageDiv">
+            White to play!
+        </div>
+        <input id="chessInput" type="text" value=""></input>
     </div>
     <script src="main.js"></script>
 </body>
