@@ -199,7 +199,7 @@ const updateTime = () => {
         // clockDigital.textContent=`${d.getHours()}:${d.getMinutes()}:${d.getSeconds()} `
     }
     if(clockFace!==null){
-        clockHour.style.transform=`rotate(${d.getHours()*6-24}deg)`;
+        clockHour.style.transform=`rotate(${d.getHours()*30}deg)`;
         clockMinute.style.transform=`rotate(${d.getMinutes()*6}deg)`;
         clockSecond.style.transform=`rotate(${d.getSeconds()*6}deg)`;
     }
