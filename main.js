@@ -123,15 +123,18 @@ const dicePlay = () => {
         }
 }
 
-let dateAppeared = Date.now()
-let randRow = 6
-let randCol = 6
+let dateAppeared = Date.now();
+let molesWhacked = 0;
+let randRow = 6;
+let randCol = 6;
 
 let mole = document.getElementById("whackamoleMole");
 let whackamoleMessage = document.getElementById("whackamoleMessage");
 let whackamoleTimeToKill = document.getElementById("whackamoleTimeToKill");
 let whackamoleBestTime = document.getElementById("whackamoleBestTime");
+let whackamoleMolesWhacked = document.getElementById("whackamoleMolesWhacked");
 let bestTime = 10000000;
+
 const whackMole = () => {
     mole.style.display = "none";
     randInterval = Math.ceil(Math.random()*5000);
@@ -143,6 +146,8 @@ const whackMole = () => {
         bestTime = timeToKill;
         whackamoleBestTime.textContent = bestTime;
     }
+    molesWhacked++;
+    whackamoleMolesWhacked.textContent = molesWhacked;
 }
 const moleAppear = () => {
     randRow = Math.ceil(Math.random()*11);
