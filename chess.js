@@ -32,7 +32,7 @@ const chessMovePiece = () => {
             else {
                 chessWinner="White"
             }
-            chessMessage.textContent = `Checkmate! The ${chessKingColour} king is dead! ${chessWinner} has won!`;
+            chessMessage.textContent = `Checkmate! ${pieceToMoveEl.id.substr(5)} has killed the ${chessKingColour} king! ${chessWinner} has won!`;
             chessInput.style.display = "none";
             chessInputButton.style.display = "none";
         }
