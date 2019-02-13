@@ -48,7 +48,7 @@ const chessMovePiece = () => {
         console.log(`${capturedPieceEl.id} captured!`);
         if(capturedPieceEl.id.substr(-1,1)=="K"){
             chessKingColour = capturedPieceEl.id.substr(-6,5);
-            chessWinner = otherColour(chessKingColour);
+            chessWinner = otherPlayer(chessKingColour);
             chessMessage.textContent = `Checkmate! ${pieceToMoveEl.id.substr(5)} has killed the ${chessKingColour} king! ${chessWinner} has won!`;
             chessInput.style.display = "none";
             chessInputButton.style.display = "none";
@@ -61,7 +61,7 @@ const chessMovePiece = () => {
     newSquareEl.appendChild(pieceToMoveEl);
     chessInput.value="";
     if(chessMessage.textContent.substr(0,9)!=="Checkmate"){
-        chessCurrentPlayer=otherColour(chessCurrentPlayer)
+        chessCurrentPlayer=otherPlayer(chessCurrentPlayer);
         chessMessage.textContent += `${chessCurrentPlayer} to play!`
     }
 }
