@@ -47,7 +47,7 @@ const keycode = () => {
     drumkitPlay(sound);
 }
 
-let currentPlayer = 1;
+let diceCurrentPlayer = 1;
 // let numPlayers = document.getElementsByClassName("diceImg").length;
 let numPlayers = 1;
 let diceTotals=[];
@@ -88,20 +88,20 @@ const diceStart = () => {
 if (diceStartButton!==null){diceStartButton.addEventListener("click",diceStart)}
 
 const dicePlay = () => {
-    let diceImg = document.getElementsByClassName("diceImg")[currentPlayer-1];
-    let diceTotalP = document.getElementsByClassName("diceTotalP")[currentPlayer-1];
+    let diceImg = document.getElementsByClassName("diceImg")[diceCurrentPlayer-1];
+    let diceTotalP = document.getElementsByClassName("diceTotalP")[diceCurrentPlayer-1];
     randNum = Math.ceil(Math.random()*6);
     console.log(`You rolled a ${randNum}`);
     diceImg.src=`./JSdiceGame/img/dice${randNum}.png`;
-    diceTotals[currentPlayer-1] += randNum;
+    diceTotals[diceCurrentPlayer-1] += randNum;
     if(randNum==1){
-        diceTotals[currentPlayer-1]=0;
-        dicePlayH.textContent = `Player ${currentPlayer}: Click to roll!`
+        diceTotals[diceCurrentPlayer-1]=0;
+        dicePlayH.textContent = `Player ${diceCurrentPlayer}: Click to roll!`
         diceMessage.textContent = "You rolled a one! Your total has reset!"
     }
-    diceTotalP.textContent = diceTotals[currentPlayer-1];
-    if(diceTotals[currentPlayer-1]>=20){
-        dicePlayH.textContent = `Player ${currentPlayer} wins with ${diceTotals[currentPlayer-1]} points!`;
+    diceTotalP.textContent = diceTotals[diceCurrentPlayer-1];
+    if(diceTotals[diceCurrentPlayer-1]>=20){
+        dicePlayH.textContent = `Player ${diceCurrentPlayer} wins with ${diceTotals[diceCurrentPlayer-1]} points!`;
         diceMessage.innerHTML = "Your score reached 20! You have won your bet!";
         diceIsAndTs.style.display="none";
         dicePlayH.onclick="";
@@ -109,17 +109,17 @@ const dicePlay = () => {
         document.querySelector("#dicePlayH:hover").style.backgroundColor="palevioletred";
     }
     else {
-        if(currentPlayer==numPlayers){
-            currentPlayer=1
+        if(diceCurrentPlayer==numPlayers){
+            diceCurrentPlayer=1
             }
             else {
-            currentPlayer+=1
+            diceCurrentPlayer+=1
             }
         if (randNum>1) {
-            dicePlayH.textContent = `Player ${currentPlayer}: Click to roll!`
+            dicePlayH.textContent = `Player ${diceCurrentPlayer}: Click to roll!`
             diceMessage.textContent = "What new score will the next contender get?"
             }
-        console.log(`The current player is ${currentPlayer}`)
+        console.log(`The current player is ${diceCurrentPlayer}`)
         }
 }
 
@@ -209,13 +209,33 @@ let updateTimeInterval = setInterval(updateTime,1);
 
 let chessBoard = document.getElementById("chessBoard");
 let chessInput = document.getElementById("chessInput");
-let currentPlayer = "White";
-let newSquare = "a1";
+let chessMessage = document.getElementById("chessMessageDiv");
+let chessCurrentPlayer = "White";
+let newSquare = "A4";
+let newSquareId = document.getElementById("chessA4");
 let pieceToMove = "P1";
+let pieceToMoveId = document.getElementById("chessWhiteP1");
 
 const chessMovePiece = () => {
-    pieceToMove = document.getElementById(`chess${currentPlayer}${newSquare}`)
-    pieceToMove.appendChild(newSquare)
+    if(chessInput.value.substr(0,1)=="K"||chessInput.value.substr(0,1)=="Q") {
+        pieceToMove = chessInput.value.substr(0,1);
+    }
+    else {
+        pieceToMove = chessInput.value.substr(0,2);
+    }
+    newSquare = chessInput.value.substr(-2,2);
+    pieceToMoveId = document.getElementById("chess"+chessCurrentPlayer+pieceToMove);
+    console.log(pieceToMoveId);
+    newSquareId = document.getElementById("chess"+newSquare.toUpperCase());
+    console.log(newSquareId);
+    newSquareId.appendChild(pieceToMoveId);
+    if(chessCurrentPlayer=="White"){
+        chessCurrentPlayer="Black"
+    }
+    else {
+        chessCurrentPlayer="White"
+    }
+    chessMessage.textContent = `${chessCurrentPlayer} to play!`
 }
 
 chessInputButton.addEventListener("click",chessMovePiece)
