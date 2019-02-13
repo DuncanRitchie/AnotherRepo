@@ -9,6 +9,7 @@ let pieceToMove = "P1";
 let pieceToMoveEl = document.getElementById("chessWhiteP1");
 
 const chessMovePiece = () => {
+    chessMessage.textContent="";
     if(chessInput.value.substr(0,1)=="K"||chessInput.value.substr(0,1)=="Q") {
         pieceToMove = chessInput.value.substr(0,1);
     }
@@ -24,9 +25,19 @@ const chessMovePiece = () => {
         capturedPieceEl = newSquareEl.lastElementChild;
         console.log(`${capturedPieceEl.id} captured!`);
         if(capturedPieceEl.id.substr(-1,1)=="K"){
-            chessMessage.textContent = `Checkmate! ${chessCurrentPlayer} wins!`;
+            chessKingColour = capturedPieceEl.id.substr(-6,5);
+            if(chessKingColour=="White"){
+                chessWinner="Black"
+            }
+            else {
+                chessWinner="White"
+            }
+            chessMessage.textContent = `Checkmate! The ${chessKingColour} king is dead! ${chessWinner} has won!`;
             chessInput.style.display = "none";
             chessInputButton.style.display = "none";
+        }
+        else {
+            chessMessage.textContent=`${capturedPieceEl.id.substr(5)} captured! `;
         }
         newSquareEl.removeChild(newSquareEl.childNodes[0]);
     }
@@ -39,7 +50,7 @@ const chessMovePiece = () => {
         else {
             chessCurrentPlayer="White"
         }
-        chessMessage.textContent = `${chessCurrentPlayer} to play!`
+        chessMessage.textContent += `${chessCurrentPlayer} to play!`
     }
 }
 
