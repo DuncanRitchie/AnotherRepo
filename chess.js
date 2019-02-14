@@ -15,63 +15,81 @@ const otherPlayer = (colour) => {
     return otherColour
 }
 
+const numToLetter = (number) =>{
+    switch (number){
+        case 1:
+        numToLettr="A";
+        break;
+        case 2:
+        numToLettr="B";
+        break;
+        case 3:
+        numToLettr="C";
+        break;
+        case 4:
+        numToLettr="D";
+        break;
+        case 5:
+        numToLettr="E";
+        break;
+        case 6:
+        numToLettr="F";
+        break;
+        case 7:
+        numToLettr="G";
+        break;
+        case 8:
+        numToLettr="H";
+        break;
+        default:
+        numToLettr=null
+    }
+    return numToLettr
+}
+
+const letterToNum = (letter) =>{
+    switch (letter.toLowerCase()){
+        case "a":
+        lettrToNum=1;
+        break;
+        case "b":
+        lettrToNum=2;
+        break;
+        case "c":
+        lettrToNum=3;
+        break;
+        case "d":
+        lettrToNum=4;
+        break;
+        case "e":
+        lettrToNum=5;
+        break;
+        case "f":
+        lettrToNum=6;
+        break;
+        case "g":
+        lettrToNum=7;
+        break;
+        case "h":
+        lettrToNum=8;
+        break;
+        default:
+        lettrToNum=null
+    }
+    return lettrToNum
+}
+
+const cellRankNum = (coord) => {
+    return parseInt(coord.substr(1,1))
+}
+
+const cellFileNum = (coord) => {
+    return letterToNum(coord.substr(0,1).toLowerCase())
+}
+
 const subtractCoords = (coord1,coord2) => {
-    switch (coord1.substr(0,1).toLowerCase()) {
-        case "a":
-        file1Num=1;
-        break;
-        case "b":
-        file1Num=2;
-        break;
-        case "c":
-        file1Num=3;
-        break;
-        case "d":
-        file1Num=4;
-        break;
-        case "e":
-        file1Num=5;
-        break;
-        case "f":
-        file1Num=6;
-        break;
-        case "g":
-        file1Num=7;
-        break;
-        case "h":
-        file1Num=8;
-        break;
-        default:
-        file1Num=null
-    }
-    switch (coord2.substr(0,1).toLowerCase()) {
-        case "a":
-        file2Num=1;
-        break;
-        case "b":
-        file2Num=2;
-        break;
-        case "c":
-        file2Num=3;
-        break;
-        case "d":
-        file2Num=4;
-        break;
-        case "e":
-        file2Num=5;
-        break;
-        case "f":
-        file2Num=6;
-        break;
-        case "g":
-        file2Num=7;
-        break;
-        case "h":
-        file2Num=8;
-        break;
-        default:
-        file2Num=null
-    }
+    file1Num = cellFileNum(coord1);
+    file2Num = cellFileNum(coord2);
     rank1Num=parseInt(coord1.substr(1,1));
     rank2Num=parseInt(coord2.substr(1,1));
     if (currentPlayer=="Black") {
@@ -80,6 +98,48 @@ const subtractCoords = (coord1,coord2) => {
     else {subtractCoordsMultiplier = 1}
     return [Math.abs(file2Num-file1Num),(rank2Num-rank1Num)*subtractCoordsMultiplier]
 }
+
+const areCellsBetweenEmpty = (coord1,coord2) => {
+    colDiff=subtractCoords(coord1,coord2)[0];
+    rowDiff=subtractCoords(coord1,coord2)[1];
+    console.log(colDiff);
+    console.log(rowDiff);
+    rCBE = true;
+    // if the cells are the same, there are no pieces in the way (but no move is happening).
+    if (colDiff==0&&rowDiff==0) {
+        rCBE = true;
+    }
+    // check if the cells are in the same file (column).
+    else if (colDiff==0) {
+        // if one cell is directly above the other, there are no pieces in the way.
+        if (rowDiff==1||rowDiff==-1) {
+            rCBE = true
+        }
+        else {
+            rcBE = false
+            // INSERT CODE HERE for determining whether there is a piece in cells between one row and the other
+        }
+    }
+    else if (rowDiff==0){
+        // if one cell is directly beside the other, there are no pieces in the way.
+        if (colDiff==1||colDiff==-1) {
+            rCBE = true
+        }
+        else {
+            rcBE = false
+            // INSERT CODE HERE for determining whether there is a piece in cells between one row and the other
+        }
+    }
+    else {rcBE = false}
+    return rCBE
+}
+
+
+        
+// currentEl = document.getElementById("chess"+currentSquare.substr(0,1).toUpperCase()+2);
+// rCBE = (currentEl.childElementCount==0);
+
+console.log(areCellsBetweenEmpty("b2","e2"))
 
 const chessMovePiece = () => {
     isMoveLegal=true;
@@ -100,8 +160,8 @@ const chessMovePiece = () => {
     currentSquareEl=pieceToMoveEl.parentElement;
     currentSquare=currentSquareEl.id.substr(-2,2);
     console.log(currentSquare);
-    newSquare = chessInput.value.substr(-2,2);
-    newSquareEl = document.getElementById("chess"+newSquare.toUpperCase());
+    newSquare = chessInput.value.substr(-2,2).toUpperCase();
+    newSquareEl = document.getElementById("chess"+newSquare);
     console.log(newSquare);
     console.log(subtractCoords(currentSquare,newSquare));
     pieceToMoveType = pieceToMove.substr(0,1);
@@ -126,6 +186,11 @@ const chessMovePiece = () => {
             break; 
         case "R":
             console.log("This is a rook.");
+            isMoveLegal=true;
+            if (subtractCoords(currentSquare,newSquare)[0]==0)
+            {isMoveLegal=true;}
+            else if (subtractCoords(currentSquare,newSquare)[0]==1 && subtractCoords(currentSquare,newSquare)[1]==0)
+            {isMoveLegal=true;}
             break; 
         case "N":
             console.log("This is a knight.");
