@@ -5,6 +5,8 @@ let chessMessage = document.getElementById("chessMessageDiv");
 let currentPlayer = "White";
 let currentSquare, currentSquareEl, newSquare, newSquareEl, pieceToMove, pieceToMoveEl;
 let isMoveLegal = false;
+let numOfWhiteQueens = 1;
+let numOfBlackQueens = 1;
 let file1Num,file2Num,rank1Num,rank2Num;
 
 const otherPlayer = (colour) => {
@@ -154,7 +156,10 @@ const chessMovePiece = () => {
     else {
         chessMessage.textContent="";
     }
-    if(chessInput.value.substr(0,1)=="K"||chessInput.value.substr(0,1)=="Q") {
+    if(chessInput.value.substr(0,1)=="K") {
+        pieceToMove = chessInput.value.substr(0,1);
+    }
+    else if ((currentPlayer=="White"&&numOfWhiteQueens==1&&chessInput.value.substr(0,1)=="Q")||(currentPlayer=="Black"&&numOfBlackQueens==1&&chessInput.value.substr(0,1)=="Q")){
         pieceToMove = chessInput.value.substr(0,1);
     }
     else {
@@ -258,6 +263,30 @@ const chessMovePiece = () => {
             newSquareEl.removeChild(capturedPieceEl);
         }
         newSquareEl.appendChild(pieceToMoveEl);
+        if (currentPlayer=="White"){promotionRow=8}
+        else {promotionRow=1};
+        if(pieceToMoveType=="P"&&cellRankNum(newSquare)==promotionRow)
+            {
+                chessMessage.textContent += `Promotion! ${pieceToMoveEl.id.substr(5)} has turned into a Queen. `;
+                if (currentPlayer=="White") {
+                    if (numOfWhiteQueens==1) {
+                        document.getElementById("chessWhiteQ").id="chessWhiteQ1";
+                        document.getElementById("chessWhiteQ1").textContent="Q1";
+                    }
+                    numOfWhiteQueens++;
+                    pieceToMoveEl.id=`chessWhiteQ${numOfWhiteQueens}`;
+                    pieceToMoveEl.textContent=`Q${numOfWhiteQueens}`;
+                }
+                else {
+                    if (numOfBlackQueens==1) {
+                        document.getElementById("chessBlackQ").id="chessBlackQ1";
+                        document.getElementById("chessBlackQ1").textContent="Q1";
+                    }
+                    numOfBlackQueens++;
+                    pieceToMoveEl.id=`chessBlackQ${numOfBlackQueens}`;
+                    pieceToMoveEl.textContent=`Q${numOfBlackQueens}`;
+                }
+            }
         chessInput.value="";
         if(chessMessage.textContent.substr(0,9)!=="Checkmate"){
             currentPlayer=otherPlayer(currentPlayer);
