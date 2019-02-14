@@ -81,11 +81,14 @@ const subtractCoords = (coord1,coord2) => {
     return [Math.abs(file2Num-file1Num),(rank2Num-rank1Num)*subtractCoordsMultiplier]
 }
 
-console.log(subtractCoords("e5","c8"))
-
 const chessMovePiece = () => {
-    isMoveLegal=false;
-    chessMessage.textContent="";
+    isMoveLegal=true;
+    if(chessInput.value==null){
+        chessMessage.textContent=`Please type a piece name and a cell. ${currentPlayer} to play!`;
+    }
+    else {
+        chessMessage.textContent="";
+    }
     if(chessInput.value.substr(0,1)=="K"||chessInput.value.substr(0,1)=="Q") {
         pieceToMove = chessInput.value.substr(0,1);
     }
@@ -144,27 +147,30 @@ const chessMovePiece = () => {
             break; 
     }
     console.log(`Legality is ${isMoveLegal}.`)
-    if (newSquareEl.childElementCount>0){
-        capturedPieceEl = newSquareEl.lastElementChild;
-        console.log(`${capturedPieceEl.id} captured!`);
-        if(capturedPieceEl.id.substr(-1,1)=="K"){
-            chessKingColour = capturedPieceEl.id.substr(-6,5);
-            chessWinner = otherPlayer(chessKingColour);
-            chessMessage.textContent = `Checkmate! ${pieceToMoveEl.id.substr(5)} has killed the ${chessKingColour} king! ${chessWinner} has won!`;
-            chessInput.style.display = "none";
-            chessInputButton.style.display = "none";
+    if (isMoveLegal) {
+        if (newSquareEl.childElementCount>0){
+            capturedPieceEl = newSquareEl.lastElementChild;
+            console.log(`${capturedPieceEl.id} captured!`);
+            if(capturedPieceEl.id.substr(-1,1)=="K"){
+                chessKingColour = capturedPieceEl.id.substr(-6,5);
+                chessWinner = otherPlayer(chessKingColour);
+                chessMessage.textContent = `Checkmate! ${pieceToMoveEl.id.substr(5)} has killed the ${chessKingColour} king! ${chessWinner} has won!`;
+                chessInput.style.display = "none";
+                chessInputButton.style.display = "none";
+            }
+            else {
+                chessMessage.textContent=`${capturedPieceEl.id.substr(5)} captured! `;
+            }
+            newSquareEl.removeChild(capturedPieceEl);
         }
-        else {
-            chessMessage.textContent=`${capturedPieceEl.id.substr(5)} captured! `;
+        newSquareEl.appendChild(pieceToMoveEl);
+        chessInput.value="";
+        if(chessMessage.textContent.substr(0,9)!=="Checkmate"){
+            currentPlayer=otherPlayer(currentPlayer);
+            chessMessage.textContent += `${currentPlayer} to play!`
         }
-        newSquareEl.removeChild(capturedPieceEl);
     }
-    newSquareEl.appendChild(pieceToMoveEl);
-    chessInput.value="";
-    if(chessMessage.textContent.substr(0,9)!=="Checkmate"){
-        currentPlayer=otherPlayer(currentPlayer);
-        chessMessage.textContent += `${currentPlayer} to play!`
-    }
+    else {chessMessage.textContent += `That's not legal! ${currentPlayer} to play!`}
 }
 
 chessInputButton.addEventListener("click",chessMovePiece)
