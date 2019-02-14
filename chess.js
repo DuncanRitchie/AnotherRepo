@@ -106,27 +106,32 @@ const areCellsBetweenEmpty = (coord1,coord2) => {
     console.log(rowDiff);
     rCBE = true;
     // if the cells are the same, there are no pieces in the way (but no move is happening).
-    if (colDiff==0&&rowDiff==0) {
+    if (colDiff==0 && rowDiff==0) {
+        console.log("The two cells are the same.");
         rCBE = true;
     }
     // check if the cells are in the same file (column).
     else if (colDiff==0) {
         // if one cell is directly above the other, there are no pieces in the way.
         if (rowDiff==1||rowDiff==-1) {
+            console.log("One cell is directly above the other.");
             rCBE = true
         }
         else {
-            rcBE = false
+            console.log("The two cells are the same file. Are there pieces in between? Who knows.");
+            rCBE = true
             // INSERT CODE HERE for determining whether there is a piece in cells between one row and the other
         }
     }
     else if (rowDiff==0){
         // if one cell is directly beside the other, there are no pieces in the way.
         if (colDiff==1||colDiff==-1) {
+            console.log("The two cells are directly beside each other.");
             rCBE = true
         }
         else {
-            rcBE = false
+            console.log("The two cells are the same rank. Are there pieces in between? Who knows.");
+            rCBE = true
             // INSERT CODE HERE for determining whether there is a piece in cells between one row and the other
         }
     }
@@ -183,14 +188,21 @@ const chessMovePiece = () => {
             break; 
         case "Q":
             console.log("This is a queen.");
+            if (areCellsBetweenEmpty(currentSquare,newSquare) && 
+            (subtractCoords(currentSquare,newSquare)[0]==0 || subtractCoords(currentSquare,newSquare)[1]==0) || (subtractCoords(currentSquare,newSquare)[0]==subtractCoords(currentSquare,newSquare)[1]))
+            {isMoveLegal=true;}
+            else {
+                isMoveLegal=false;
+            }
             break; 
         case "R":
             console.log("This is a rook.");
-            isMoveLegal=true;
-            if (subtractCoords(currentSquare,newSquare)[0]==0)
+            if (areCellsBetweenEmpty(currentSquare,newSquare) && 
+            (subtractCoords(currentSquare,newSquare)[0]==0 || subtractCoords(currentSquare,newSquare)[1]==0))
             {isMoveLegal=true;}
-            else if (subtractCoords(currentSquare,newSquare)[0]==1 && subtractCoords(currentSquare,newSquare)[1]==0)
-            {isMoveLegal=true;}
+            else {
+                isMoveLegal=false;
+            }
             break; 
         case "N":
             console.log("This is a knight.");
@@ -207,7 +219,13 @@ const chessMovePiece = () => {
             break;
         case "B":
             console.log("This is a bishop.");
-            break; 
+            if (areCellsBetweenEmpty(currentSquare,newSquare) && 
+            (subtractCoords(currentSquare,newSquare)[0]==subtractCoords(currentSquare,newSquare)[1]))
+                {isMoveLegal=true;}
+            else {
+                isMoveLegal=false;
+        }
+        break; 
         case "P":
             console.log("This is a pawn.");
             if (subtractCoords(currentSquare,newSquare)[0]==0 && subtractCoords(currentSquare,newSquare)[1]==1 && newSquareEl.childElementCount==0)
