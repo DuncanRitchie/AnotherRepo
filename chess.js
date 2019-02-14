@@ -109,6 +109,17 @@ const chessMovePiece = () => {
     switch (pieceToMoveType) {
         case "K":
             console.log("This is a king.");
+            if ((subtractCoords(currentSquare,newSquare)[0]==0 && subtractCoords(currentSquare,newSquare)[1]==1) ||
+            (subtractCoords(currentSquare,newSquare)[0]==0 && subtractCoords(currentSquare,newSquare)[1]==-1) ||
+            // King can move one square forwards or one square backwards.
+            (subtractCoords(currentSquare,newSquare)[0]==1 && subtractCoords(currentSquare,newSquare)[1]==1) ||
+            (subtractCoords(currentSquare,newSquare)[0]==1 && subtractCoords(currentSquare,newSquare)[1]==0) ||
+            (subtractCoords(currentSquare,newSquare)[0]==1 && subtractCoords(currentSquare,newSquare)[1]==-1))
+            // King can move one square sideways and one square forward/backward/not.
+                {isMoveLegal=true;}
+            else {
+                isMoveLegal=false
+            }
             break; 
         case "Q":
             console.log("This is a queen.");
