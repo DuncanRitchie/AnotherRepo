@@ -93,8 +93,6 @@ const getElementByFR = (fileNum,rankNum) => {
     return document.getElementById("chess"+numToLetter(fileNum)+rankNum)
 }
 
-console.log(getElementByFR(3,5))
-
 const subtractCoords = (coord1,coord2) => {
     file1Num = cellFileNum(coord1);
     file2Num = cellFileNum(coord2);
@@ -104,14 +102,12 @@ const subtractCoords = (coord1,coord2) => {
         subtractCoordsMultiplier = -1
     }
     else {subtractCoordsMultiplier = 1}
-    return [Math.abs(file2Num-file1Num),(rank2Num-rank1Num)*subtractCoordsMultiplier]
+    return [file2Num-file1Num,(rank2Num-rank1Num)*subtractCoordsMultiplier]
 }
 
 const areCellsBetweenEmpty = (coord1,coord2) => {
     colDiff=subtractCoords(coord1,coord2)[0];
     rowDiff=subtractCoords(coord1,coord2)[1];
-    console.log(colDiff);
-    console.log(rowDiff);
     file1Num = cellFileNum(coord1);
     file2Num = cellFileNum(coord2);
     rank1Num=parseInt(coord1.substr(1,1));
@@ -137,6 +133,7 @@ const areCellsBetweenEmpty = (coord1,coord2) => {
                 console.log(getElementByFR(file1Num,i))
                 if(getElementByFR(file1Num,i).childElementCount>0) {
                     rCBE = false;
+                    console.log("This cell contains a child.")
                 }
             }
         }
@@ -153,34 +150,56 @@ const areCellsBetweenEmpty = (coord1,coord2) => {
             rCBE = true;
             for (i=Math.min(file1Num,file2Num)+1;i<Math.max(file1Num,file2Num);i++){
                 console.log(getElementByFR(i,rank1Num))
-                if(getElementByFR(file1Num,i).childElementCount>0) {
+                if(getElementByFR(i,rank1Num).childElementCount>0) {
                     rCBE = false;
+                    console.log("This cell contains a child.")
                 }
             }
         }
     }
-    else if (colDiff==rowDiff){
-        // if one cell is directly diagonally touching the other, there are no pieces in the way.
-        if (colDiff==1) {
-            console.log("The two cells touch each other diagonally.");
+    else if (file2Num-file1Num==rank2Num-rank1Num){
+        // if one cell is touching the other on a positive diagonal, there are no pieces in the way.
+        if (Math.abs(colDiff)==1) {
+            console.log("The two cells touch each other on a positive diagonal.");
             rCBE = true
         }
         else {
-            console.log("The two cells are on the same diagonal. Are there pieces in between? Who knows.");
+            // Loops through the intermediary cells to check for children.
+            console.log("The two cells are on the same positive diagonal. Are there pieces in between? Here's the list of cells to check:");
             rCBE = true
-            // INSERT CODE HERE for determining whether there is a piece in cells between one cell and the other diagonally
+            for (i=Math.min(file1Num,file2Num)+1;i<Math.max(file1Num,file2Num);i++){
+                console.log(getElementByFR(i,rank1Num+i-file1Num))
+                if(getElementByFR(i,rank1Num+i-file1Num).childElementCount>0) {
+                    rCBE = false;
+                    console.log("This cell contains a child.")
+                }
+            }
+        }
+    }
+    else if (file2Num-file1Num==rank1Num-rank2Num){
+        // if one cell is touching the other on a negative diagonal, there are no pieces in the way.
+        if (Math.abs(colDiff)==1) {
+            console.log("The two cells touch each other on a negative diagonal.");
+            rCBE = true
+        }
+        else {
+            // Loops through the intermediary cells to check for children.
+            console.log("The two cells are on the same negative diagonal. Are there pieces in between? Here's the list of cells to check:");
+            rCBE = true;
+            j=Math.max(rank1Num,rank2Num)-1;
+            for (i=Math.min(file1Num,file2Num)+1;i<Math.max(file1Num,file2Num);i++){
+                console.log(getElementByFR(i,j))
+                if(getElementByFR(i,j).childElementCount>0) {
+                    rCBE = false;
+                    console.log("This cell contains a child.")
+                }
+                j--;
+            }
         }
     }
     else {rCBE = false}
     return rCBE
 }
-
-
-        
-// currentEl = document.getElementById("chess"+currentSquare.substr(0,1)+2);
-// rCBE = (currentEl.childElementCount==0);
-
-console.log(areCellsBetweenEmpty("b2","e2"))
 
 const chessMovePiece = () => {
     isMoveLegal=true;
@@ -211,17 +230,17 @@ const chessMovePiece = () => {
     console.log(subtractCoords(currentSquare,newSquare));
     rankDiff=subtractCoords(currentSquare,newSquare)[0];
     fileDiff=subtractCoords(currentSquare,newSquare)[1];
+    rankDiffAbs=Math.abs(rankDiff);
+    fileDiffAbs=Math.abs(fileDiff);
     pieceToMoveType = pieceToMove.substr(0,1);
     console.log(pieceToMoveType)
     switch (pieceToMoveType) {
         case "K":
             console.log("This is a king.");
-            if ((rankDiff==0 && fileDiff==1) ||
-            (rankDiff==0 && fileDiff==-1) ||
+            if ((rankDiff==0 && fileDiffAbs==1) ||
             // King can move one square forwards or one square backwards.
-            (rankDiff==1 && fileDiff==1) ||
-            (rankDiff==1 && fileDiff==0) ||
-            (rankDiff==1 && fileDiff==-1))
+            (rankDiffAbs==1 && fileDiffAbs==1) ||
+            (rankDiffAbs==1 && fileDiff==0))
             // King can move one square sideways and one square forward/backward/not.
                 {isMoveLegal=true;}
             else {
@@ -231,9 +250,9 @@ const chessMovePiece = () => {
         case "Q":
             console.log("This is a queen.");
             if (areCellsBetweenEmpty(currentSquare,newSquare) && 
-            (rankDiff==0 || fileDiff==0 || fileDiff==rankDiff || fileDiff==-1*rankDiff))
+            (rankDiff==0 || fileDiff==0 || fileDiffAbs==rankDiffAbs))
             {isMoveLegal=true;}
-            // Queen can move along a rank, along a file, the same distance sideways as forwards, or the same distance sideways as backwards.
+            // Queen can move along a rank, along a file, or the same distance sideways as vertically, if cells between are empty.
             else {
                 isMoveLegal=false;
             }
@@ -243,29 +262,25 @@ const chessMovePiece = () => {
             if (areCellsBetweenEmpty(currentSquare,newSquare) && 
             (rankDiff==0 || fileDiff==0))
             {isMoveLegal=true;}
+            // Rook can move along a rank or along a file, if cells between are empty.
             else {
                 isMoveLegal=false;
             }
             break; 
         case "N":
             console.log("This is a knight.");
-            if (rankDiff==2 && fileDiff==1)
+            if (rankDiffAbs==2 && fileDiffAbs==1)
                 {isMoveLegal=true;}
-            else if (rankDiff==2 && fileDiff==-1)
+            else if (rankDiffAbs==1 && fileDiffAbs==2)
                 {isMoveLegal=true;}
-            else if (rankDiff==1 && fileDiff==2)
-                {isMoveLegal=true;}
-            else if (rankDiff==1 && fileDiff==-2)
-                    {isMoveLegal=true;}
                 // Knight can move 2 in any direction and 1 in any perpendicular direction.
             else {isMoveLegal=false};
             break;
         case "B":
             console.log("This is a bishop.");
-            if (areCellsBetweenEmpty(currentSquare,newSquare) && 
-            (fileDiff==rankDiff || fileDiff==-1*rankDiff))
+            if (areCellsBetweenEmpty(currentSquare,newSquare) && fileDiffAbs==rankDiffAbs)
                 {isMoveLegal=true;}
-                // Bishop can move the same distance sideways as forwards, or as backwards.
+                // Bishop can move the same distance sideways as vertically, if cells between are empty.
             else {
                 isMoveLegal=false;
         }
@@ -278,7 +293,7 @@ const chessMovePiece = () => {
             else if (rankDiff==1 && fileDiff==1 && newSquareEl.childElementCount>0)
                 {isMoveLegal=true;}
                 // Pawn can go one square forwards and one sideways if new square is occupied.
-            else if (rankDiff==0 && fileDiff==2 && newSquareEl.childElementCount==0 && ((currentPlayer=="White"&&currentSquare.substr(1,1)=="2")||(currentPlayer=="Black"&&currentSquare.substr(1,1)=="7")))
+            else if (rankDiff==0 && fileDiff==2 && newSquareEl.childElementCount==0 && ((currentPlayer=="White"&&currentSquare.substr(1,1)=="2")||(currentPlayer=="Black"&&currentSquare.substr(1,1)=="7")) && areCellsBetweenEmpty(currentSquare,newSquare))
                 {isMoveLegal=true;}
                 // Pawn can go two squares forward if starting square is in rank 2 (White) or 7 (Black).
             else {isMoveLegal=false}
@@ -292,7 +307,7 @@ const chessMovePiece = () => {
             if(capturedPieceEl.id.substr(-1,1)=="K"){
                 chessKingColour = capturedPieceEl.id.substr(-6,5);
                 chessWinner = otherPlayer(chessKingColour);
-                chessMessage.textContent = `Checkmate! ${pieceToMoveEl.id.substr(5)} has killed the ${chessKingColour} king! ${chessWinner} has won!`;
+                chessMessage.textContent = `Checkmate! ${pieceToMoveEl.id.substr(5)} has captured the ${chessKingColour} king! ${chessWinner} has won!`;
                 chessInput.style.display = "none";
                 chessInputButton.style.display = "none";
             }
