@@ -490,11 +490,11 @@ font-size: 24pt;
     }
 
     #chessBoardEdge {
-        margin-top:7vw;
+        margin-top:8vw;
         display:grid;
         width:100vw;
         height:100vw;
-        grid-template: 7vw 3vw 80vw 3vw 7vw / 7vw 3vw 80vw 3vw 7vw;
+        grid-template: 8vw 2vw 80vw 2vw 8vw / 8vw 2vw 80vw 2vw 8vw;
         background-color:beige;
     }
     
@@ -537,7 +537,7 @@ font-size: 24pt;
         flex-direction:column;
         justify-content: space-around;
         height:80vw;
-        width:7vw;
+        width:8vw;
     }
     
     #chessRanksEdgeLeft div {
@@ -554,7 +554,7 @@ font-size: 24pt;
         flex-direction:column;
         justify-content: space-around;
         height:80vw;
-        width:7vw;
+        width:8vw;
     }
     
     #chessRanksEdgeRight div {
@@ -574,7 +574,7 @@ font-size: 24pt;
         align-items:center;
         width:80vw;
         height:80vw;
-        border:3vw solid saddlebrown;
+        border:2vw solid saddlebrown;
         font-size:18px;
     }
     
