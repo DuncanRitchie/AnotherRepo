@@ -89,6 +89,12 @@ const cellFileNum = (coord) => {
     return letterToNum(coord.substr(0,1).toLowerCase())
 }
 
+const getElementByFR = (fileNum,rankNum) => {
+    return document.getElementById("chess"+numToLetter(fileNum)+rankNum)
+}
+
+console.log(getElementByFR(3,5))
+
 const subtractCoords = (coord1,coord2) => {
     file1Num = cellFileNum(coord1);
     file2Num = cellFileNum(coord2);
@@ -106,6 +112,10 @@ const areCellsBetweenEmpty = (coord1,coord2) => {
     rowDiff=subtractCoords(coord1,coord2)[1];
     console.log(colDiff);
     console.log(rowDiff);
+    file1Num = cellFileNum(coord1);
+    file2Num = cellFileNum(coord2);
+    rank1Num=parseInt(coord1.substr(1,1));
+    rank2Num=parseInt(coord2.substr(1,1));
     rCBE = true;
     // if the cells are the same, there are no pieces in the way (but no move is happening).
     if (colDiff==0 && rowDiff==0) {
@@ -120,9 +130,15 @@ const areCellsBetweenEmpty = (coord1,coord2) => {
             rCBE = true
         }
         else {
-            console.log("The two cells are the same file. Are there pieces in between? Who knows.");
-            rCBE = true
-            // INSERT CODE HERE for determining whether there is a piece in cells between one row and the other
+            // Loops through the intermediary cells to check for children.
+            console.log("The two cells are the same file. Are there pieces in between? Here's the list of cells to check:");
+            rCBE = true;
+            for (i=Math.min(rank1Num,rank2Num)+1;i<Math.max(rank1Num,rank2Num);i++){
+                console.log(getElementByFR(file1Num,i))
+                if(getElementByFR(file1Num,i).childElementCount>0) {
+                    rCBE = false;
+                }
+            }
         }
     }
     else if (rowDiff==0){
@@ -132,9 +148,15 @@ const areCellsBetweenEmpty = (coord1,coord2) => {
             rCBE = true
         }
         else {
-            console.log("The two cells are the same rank. Are there pieces in between? Who knows.");
-            rCBE = true
-            // INSERT CODE HERE for determining whether there is a piece in cells between one row and the other
+            // Loops through the intermediary cells to check for children.
+            console.log("The two cells are the same rank. Are there pieces in between? Here's the list of cells to check:");
+            rCBE = true;
+            for (i=Math.min(file1Num,file2Num)+1;i<Math.max(file1Num,file2Num);i++){
+                console.log(getElementByFR(i,rank1Num))
+                if(getElementByFR(file1Num,i).childElementCount>0) {
+                    rCBE = false;
+                }
+            }
         }
     }
     else if (colDiff==rowDiff){
@@ -149,7 +171,7 @@ const areCellsBetweenEmpty = (coord1,coord2) => {
             // INSERT CODE HERE for determining whether there is a piece in cells between one cell and the other diagonally
         }
     }
-    else {rcBE = false}
+    else {rCBE = false}
     return rCBE
 }
 
