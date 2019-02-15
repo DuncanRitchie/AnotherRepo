@@ -208,7 +208,8 @@ const chessMovePiece = () => {
         chessMessage.textContent=`Please type a piece name and a cell. ${currentPlayer} to play!`;
     }
     else {
-        chessMessage.textContent="";
+        chessMessage.textContent=`Input not valid! ${currentPlayer} to play!`;
+        chessInput.value="";
     }
     if(inputValue.substr(0,1)=="K") {
         pieceToMove = inputValue.substr(0,1);
@@ -301,6 +302,7 @@ const chessMovePiece = () => {
     }
     console.log(`Legality is ${isMoveLegal}.`)
     if (isMoveLegal) {
+        chessMessage.textContent="";
         if (newSquareEl.childElementCount>0){
             capturedPieceEl = newSquareEl.lastElementChild;
             console.log(`${capturedPieceEl.id} captured!`);
@@ -321,7 +323,7 @@ const chessMovePiece = () => {
         else {promotionRow=1};
         if(pieceToMoveType=="P"&&cellRankNum(newSquare)==promotionRow)
             {
-                chessMessage.textContent += `Promotion! ${pieceToMoveEl.id.substr(5)} has turned into a Queen. `;
+                chessMessage.textContent = `Promotion! ${pieceToMoveEl.id.substr(5)} has turned into a Queen. `;
                 if (currentPlayer=="White") {
                     if (numOfWhiteQueens==1) {
                         document.getElementById("chessWhiteQ").id="chessWhiteQ1";
@@ -347,7 +349,13 @@ const chessMovePiece = () => {
             chessMessage.textContent += `${currentPlayer} to play!`
         }
     }
-    else {chessMessage.textContent += `That's not legal! ${currentPlayer} to play!`}
+    else {
+        if(newSquareEl!==null){
+            chessMessage.textContent = `${pieceToMove} to ${newSquare.toLowerCase()} is illegal! ${currentPlayer} to play!`
+        }
+    }
 }
+
+
 
 chessInputButton.addEventListener("click",chessMovePiece)
