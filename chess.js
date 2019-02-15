@@ -155,34 +155,35 @@ const areCellsBetweenEmpty = (coord1,coord2) => {
 
 
         
-// currentEl = document.getElementById("chess"+currentSquare.substr(0,1).toUpperCase()+2);
+// currentEl = document.getElementById("chess"+currentSquare.substr(0,1)+2);
 // rCBE = (currentEl.childElementCount==0);
 
 console.log(areCellsBetweenEmpty("b2","e2"))
 
 const chessMovePiece = () => {
     isMoveLegal=true;
-    if(chessInput.value==null){
+    inputValue=chessInput.value.toUpperCase();
+    if(inputValue==null){
         chessMessage.textContent=`Please type a piece name and a cell. ${currentPlayer} to play!`;
     }
     else {
         chessMessage.textContent="";
     }
-    if(chessInput.value.substr(0,1)=="K") {
-        pieceToMove = chessInput.value.substr(0,1);
+    if(inputValue.substr(0,1)=="K") {
+        pieceToMove = inputValue.substr(0,1);
     }
-    else if ((currentPlayer=="White"&&numOfWhiteQueens==1&&chessInput.value.substr(0,1)=="Q")||(currentPlayer=="Black"&&numOfBlackQueens==1&&chessInput.value.substr(0,1)=="Q")){
-        pieceToMove = chessInput.value.substr(0,1);
+    else if ((currentPlayer=="White"&&numOfWhiteQueens==1&&inputValue.substr(0,1)=="Q")||(currentPlayer=="Black"&&numOfBlackQueens==1&&inputValue.substr(0,1)=="Q")){
+        pieceToMove = inputValue.substr(0,1);
     }
     else {
-        pieceToMove = chessInput.value.substr(0,2);
+        pieceToMove = inputValue.substr(0,2);
     }
     pieceToMoveEl = document.getElementById("chess"+currentPlayer+pieceToMove);
     console.log(pieceToMoveEl);
     currentSquareEl=pieceToMoveEl.parentElement;
     currentSquare=currentSquareEl.id.substr(-2,2);
     console.log(currentSquare);
-    newSquare = chessInput.value.substr(-2,2).toUpperCase();
+    newSquare = inputValue.substr(-2,2);
     newSquareEl = document.getElementById("chess"+newSquare);
     console.log(newSquare);
     console.log(subtractCoords(currentSquare,newSquare));
