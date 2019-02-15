@@ -331,6 +331,12 @@ font-size: 24pt;
     font-size:24px;
 }
 
+#chessExampleReference {
+    font-family:Helvetica, Arial, sans-serif;
+    font-weight:lighter;
+    color:grey;
+}
+
 #chessBody {
     display:grid;
     justify-content:center

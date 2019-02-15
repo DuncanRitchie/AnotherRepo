@@ -300,6 +300,10 @@ const chessMovePiece = () => {
             else {isMoveLegal=false}
             break; 
     }
+    if (newSquareEl==currentSquareEl){
+        isMoveLegal = false;
+        chessMessage.textContent = `You can't move a piece to its current square! ${currentPlayer} to play!`
+    }
     console.log(`Legality is ${isMoveLegal}.`)
     if (isMoveLegal) {
         chessMessage.textContent="";
@@ -350,7 +354,7 @@ const chessMovePiece = () => {
         }
     }
     else {
-        if(newSquareEl!==null){
+        if(newSquareEl!==null&&newSquareEl!==currentSquareEl){
             chessMessage.textContent = `${pieceToMove} to ${newSquare.toLowerCase()} is illegal! ${currentPlayer} to play!`
         }
     }
