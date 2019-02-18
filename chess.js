@@ -235,7 +235,7 @@ const chessMovePiece = () => {
             newSquare=newSquareEl.id.substr(-2,2);
             console.log("The rook is in "+currentSquare);
             console.log("The king is in "+newSquare);
-            if ((areCellsBetweenEmpty(currentSquare,newSquare) || 1==1)) {
+            if (areCellsBetweenEmpty(currentSquare,newSquare)) {
                 if(currentPlayer=="White" && !whiteKingMoved){
                     console.log("White King is moving for the first time");
                     if(pieceToMove=="R1" && !whiteRook1Moved) {
