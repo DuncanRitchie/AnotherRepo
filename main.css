@@ -70,6 +70,40 @@ h1{
     color:indianred;
 }
 
+.hidden {display:none;}
+
+#animalPicsContainer {display:flex;padding:0;margin:0;}
+.animalPic {width:20%;height:20vw;padding:0;margin:0}
+#rubricDiv {display:none;}
+
+#nurtureContainer {display:none;}
+.nurtureBox {width: 25%;height:50px;float:left;padding-top:25px;padding-bottom:0px;text-align:center;}
+#giveFoodBox {background-color:#ff6666;}
+#giveWaterBox {background-color:#66ccff;}
+#givePlayBox {background-color:#66ffcc;}
+#giveWalkBox {background-color:#ccff66;}
+#giveFoodBox:hover {background-color:#ff9999;}
+#giveWaterBox:hover {background-color:#99ddff;}
+#givePlayBox:hover {background-color:#99ffdd;}
+#giveWalkBox:hover {background-color:#ddff99;}
+#giveFoodBox:active {background-color:#ffe6e6;}
+#giveWaterBox:active {background-color:#e6f7ff;}
+#givePlayBox:active {background-color:#e6fff7;}
+#giveWalkBox:active {background-color:#f7ffe6;}
+
+#lifesignContainer {display:none;}
+.lifesignBox {color:white;width: 20%;height:80px;float:left;padding-top:25px;padding-bottom:0px black;text-align:center;}
+#hungerBox {background-color:#cc0000;}
+#thirstBox {background-color:#336699;}
+#boredomBox {background-color:#339966;}
+#restlessnessBox {background-color:#999966;}
+#healthBox {background-color:#ff0066;}
+.lifesignValue {font-size:2em;}
+
+#petPic {width:20%;float:right;}
+#messageDiv {margin-top:220px;}
+#message {margin-top:200px;}
+
 #keyBody {
     display:flex;
     flex-flow:row;
