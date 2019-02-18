@@ -229,19 +229,19 @@ const chessMovePiece = () => {
     newSquareEl = document.getElementById("chess"+newSquare);
     console.log(newSquare);
     console.log(subtractCoords(currentSquare,newSquare));
-    rankDiff=subtractCoords(currentSquare,newSquare)[0];
-    fileDiff=subtractCoords(currentSquare,newSquare)[1];
-    rankDiffAbs=Math.abs(rankDiff);
+    fileDiff=subtractCoords(currentSquare,newSquare)[0];
+    rankDiff=subtractCoords(currentSquare,newSquare)[1];
     fileDiffAbs=Math.abs(fileDiff);
+    rankDiffAbs=Math.abs(rankDiff);
     pieceToMoveType = pieceToMove.substr(0,1);
     console.log(pieceToMoveType)
     switch (pieceToMoveType) {
         case "K":
             console.log("This is a king.");
-            if ((rankDiff==0 && fileDiffAbs==1) ||
+            if ((fileDiff==0 && rankDiffAbs==1) ||
             // King can move one square forwards or one square backwards.
-            (rankDiffAbs==1 && fileDiffAbs==1) ||
-            (rankDiffAbs==1 && fileDiff==0))
+            (fileDiffAbs==1 && rankDiffAbs==1) ||
+            (fileDiffAbs==1 && rankDiff==0))
             // King can move one square sideways and one square forward/backward/not.
                 {isMoveLegal=true;}
             else {
@@ -251,7 +251,7 @@ const chessMovePiece = () => {
         case "Q":
             console.log("This is a queen.");
             if (areCellsBetweenEmpty(currentSquare,newSquare) && 
-            (rankDiff==0 || fileDiff==0 || fileDiffAbs==rankDiffAbs))
+            (fileDiff==0 || rankDiff==0 || rankDiffAbs==fileDiffAbs))
             {isMoveLegal=true;}
             // Queen can move along a rank, along a file, or the same distance sideways as vertically, if cells between are empty.
             else {
@@ -261,7 +261,7 @@ const chessMovePiece = () => {
         case "R":
             console.log("This is a rook.");
             if (areCellsBetweenEmpty(currentSquare,newSquare) && 
-            (rankDiff==0 || fileDiff==0))
+            (fileDiff==0 || rankDiff==0))
             {isMoveLegal=true;}
             // Rook can move along a rank or along a file, if cells between are empty.
             else {
@@ -270,16 +270,16 @@ const chessMovePiece = () => {
             break; 
         case "N":
             console.log("This is a knight.");
-            if (rankDiffAbs==2 && fileDiffAbs==1)
+            if (fileDiffAbs==2 && rankDiffAbs==1)
                 {isMoveLegal=true;}
-            else if (rankDiffAbs==1 && fileDiffAbs==2)
+            else if (fileDiffAbs==1 && rankDiffAbs==2)
                 {isMoveLegal=true;}
                 // Knight can move 2 in any direction and 1 in any perpendicular direction.
             else {isMoveLegal=false};
             break;
         case "B":
             console.log("This is a bishop.");
-            if (areCellsBetweenEmpty(currentSquare,newSquare) && fileDiffAbs==rankDiffAbs)
+            if (areCellsBetweenEmpty(currentSquare,newSquare) && rankDiffAbs==fileDiffAbs)
                 {isMoveLegal=true;}
                 // Bishop can move the same distance sideways as vertically, if cells between are empty.
             else {
@@ -288,13 +288,13 @@ const chessMovePiece = () => {
         break; 
         case "P":
             console.log("This is a pawn.");
-            if (rankDiff==0 && fileDiff==1 && newSquareEl.childElementCount==0)
+            if (fileDiff==0 && rankDiff==1 && newSquareEl.childElementCount==0)
                 {isMoveLegal=true;}
                 // Pawn can go one square forwards if new square is empty.
-            else if (rankDiff==1 && fileDiff==1 && newSquareEl.childElementCount>0)
+            else if (fileDiffAbs==1 && rankDiff==1 && newSquareEl.childElementCount>0)
                 {isMoveLegal=true;}
                 // Pawn can go one square forwards and one sideways if new square is occupied.
-            else if (rankDiff==0 && fileDiff==2 && newSquareEl.childElementCount==0 && ((currentPlayer=="White"&&currentSquare.substr(1,1)=="2")||(currentPlayer=="Black"&&currentSquare.substr(1,1)=="7")) && areCellsBetweenEmpty(currentSquare,newSquare))
+            else if (fileDiff==0 && rankDiff==2 && newSquareEl.childElementCount==0 && ((currentPlayer=="White"&&currentSquare.substr(1,1)=="2")||(currentPlayer=="Black"&&currentSquare.substr(1,1)=="7")) && areCellsBetweenEmpty(currentSquare,newSquare))
                 {isMoveLegal=true;}
                 // Pawn can go two squares forward if starting square is in rank 2 (White) or 7 (Black).
             else {isMoveLegal=false}
