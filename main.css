@@ -34,18 +34,23 @@ h1{
     background-color:white;
 }
 
-.indexLinkDiv a {
+.indexLinkA {
     width:400px;
-    height:200px;
-    padding:50px;
+    height:140px;
+    padding:80px 50px 80px 50px;
     display:block;
     text-decoration:none;
     color:teal;
     font-weight:bold;
 }
 
-.indexLinkDiv a:hover {
+.indexLinkA:hover {
     color:darkseagreen;
+}
+
+.indexFinishDate{
+    color:grey;
+    font-weight:normal;
 }
 
 .indexLinkToBadPage {
