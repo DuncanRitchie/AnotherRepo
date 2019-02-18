@@ -9,8 +9,12 @@
 </head>
 <body>
     <h1>Duncan's chess game</h1>
-    <p class="explanation">Type a piece name and a cell (e.g. <a id="chessExampleReference">P1 a4</a>) into the input box, then hit submit!<br />
-    (Input is case-insensitive but must begin with a piece name and end with a cell.)</p>
+    <p class="explanation">
+        Type a piece name and a cell (e.g. <a class="chessExampleReference">P1 a4</a>) into the input box, then hit submit!<br />
+        (Input is case-insensitive but must begin with a piece and end with a cell.<br />
+        Or, if castling is possible, type <a class="chessExampleReference">Castle 1</a> or <a class="chessExampleReference">Castle 2</a>.)<br />
+        Be careful &mdash; this game will let you capture your own pieces, and will not tell you if you get into check(mate) until checkmate has deliberately been carried out.
+    </p>
     <div id="chessBody">
         <div id="chessBoardEdge">
             <div id="chessFilesEdgeBlack">
