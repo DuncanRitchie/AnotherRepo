@@ -210,13 +210,12 @@ const areCellsBetweenEmpty = (coord1,coord2) => {
 const chessMovePiece = () => {
     isMoveLegal=true;
     inputValue=chessInput.value.toUpperCase();
-    if(inputValue==null){
+    if(inputValue==""){
         chessMessage.textContent=`Please type a piece name and a cell. ${currentPlayer} to play!`;
     }
     else {
         chessMessage.textContent=`Input not valid! ${currentPlayer} to play!`;
         chessInput.value="";
-    }
         if(inputValue.substr(0,1)=="K") {
             pieceToMove = inputValue.substr(0,1);
         }
@@ -321,7 +320,7 @@ const chessMovePiece = () => {
                         chessMessage.textContent = `Castling with ${castlingRookToMove} is illegal! ${currentPlayer} to play!`
                     }
                 }
-        }  //End of castling code.
+        }  //End of castling code. The code below only runs if we're not castling.
         else {
             switch (pieceToMoveType) {
                 case "K":
@@ -409,36 +408,53 @@ const chessMovePiece = () => {
                         {isMoveLegal=true;}
                         // Pawn can go two squares forward if starting square is in rank 2 (White) or 7 (Black).
                     else {isMoveLegal=false}
+                    console.log("There are "+newSquareEl.childElementCount+" children in the new square.");
+                    console.log(`Legality is ${isMoveLegal}.`);
                     break; 
             } //end of switch
             if (newSquareEl==currentSquareEl){
                 isMoveLegal = false;
-                chessMessage.textContent = `You can't move a piece to its current square! ${currentPlayer} to play!`
+                chessMessage.innerHTML = `You&rsquo;re trying to move ${pieceToMove} to its current square! That&rsquo;s not a move! ${currentPlayer} to play!`
             }
-            console.log(`Legality is ${isMoveLegal}.`)
-            if (isMoveLegal) {
-                chessMessage.textContent="";
-                if (newSquareEl.childElementCount>0){
+            else { //The following code runs if the current and new squares are different.
+                if (newSquareEl.childElementCount>0) {
                     capturedPieceEl = newSquareEl.lastElementChild;
-                    console.log(`${capturedPieceEl.id} captured!`);
-                    if(capturedPieceEl.id.substr(-1,1)=="K"){
-                        chessKingColour = capturedPieceEl.id.substr(-6,5);
-                        chessWinner = otherPlayer(chessKingColour);
-                        chessMessage.textContent = `Checkmate! ${pieceToMoveEl.id.substr(5)} has captured the ${chessKingColour} king! ${chessWinner} has won!`;
-                        chessInput.style.display = "none";
-                        chessInputButton.style.display = "none";
+                    if (capturedPieceEl.id.substr(5,5)==currentPlayer) {
+                        isMoveLegal = false;
+                        chessMessage.innerHTML = `You&rsquo;re trying to capture your own ${capturedPieceEl.id.substr(10)}; that&rsquo;s illegal! ${currentPlayer} to play!`;
                     }
-                    else {
-                        chessMessage.textContent=`${capturedPieceEl.id.substr(5)} captured! `;
+                    else { //This section of code runs only on the capture of a piece.
+                        if (isMoveLegal == true){
+                            console.log(`${capturedPieceEl.id} captured!`);
+                            if(capturedPieceEl.id.substr(-1,1)=="K"){
+                                chessKingColour = capturedPieceEl.id.substr(-6,5);
+                                chessWinner = otherPlayer(chessKingColour);
+                                chessMessage.textContent = `Checkmate! ${pieceToMoveEl.id.substr(5)} has captured the ${chessKingColour} king! ${chessWinner} has won!`;
+                                chessInput.style.display = "none";
+                                chessInputButton.style.display = "none";
+                            }
+                            else {
+                                chessMessage.textContent=`${capturedPieceEl.id.substr(5)} captured!`;
+                            }
+                            newSquareEl.removeChild(capturedPieceEl);
+                        }
+                        else {
+                            chessMessage.textContent = `${pieceToMove} to ${newSquare.toLowerCase()} is illegal! ${currentPlayer} to play!`
+                        }
                     }
-                    newSquareEl.removeChild(capturedPieceEl);
                 }
-                newSquareEl.appendChild(pieceToMoveEl);
-                if (currentPlayer=="White"){promotionRow=8}
-                else {promotionRow=1};
-                if(pieceToMoveType=="P"&&cellRankNum(newSquare)==promotionRow)
-                    {
-                        chessMessage.textContent = `Promotion! ${pieceToMoveEl.id.substr(5)} has turned into a Queen. `;
+                else {
+                    chessMessage.textContent="";
+                }
+                // The following code runs regardless of whether we are capturing or not.
+                console.log(`Legality is ${isMoveLegal}.`)
+                if (isMoveLegal) {
+                    newSquareEl.appendChild(pieceToMoveEl);
+                    if (currentPlayer=="White"){promotionRow=8}
+                    else {promotionRow=1};
+                    if(pieceToMoveType=="P"&&cellRankNum(newSquare)==promotionRow) {
+                        console.log("We are promoting!");
+                        chessMessage.innerHTML += ` Promotion &mdash; ${pieceToMoveEl.id.substr(5)} has turned into a Queen! `;
                         if (currentPlayer=="White") {
                             if (numOfWhiteQueens==1) {
                                 document.getElementById("chessWhiteQ").id="chessWhiteQ1";
@@ -458,18 +474,20 @@ const chessMovePiece = () => {
                             pieceToMoveEl.textContent=`Q${numOfBlackQueens}`;
                         }
                     }
-                chessInput.value="";
-                if(chessMessage.textContent.substr(0,9)!=="Checkmate"){
-                    currentPlayer=otherPlayer(currentPlayer);
-                    chessMessage.textContent += `${currentPlayer} to play!`
+                    chessInput.value="";
+                    if(chessMessage.textContent.substr(0,9)!=="Checkmate"){
+                        currentPlayer=otherPlayer(currentPlayer);
+                        chessMessage.textContent += ` ${currentPlayer} to play!`
+                    }
                 }
-            }
-            else {
-                if(newSquareEl!==null&&newSquareEl!==currentSquareEl){
-                    chessMessage.textContent = `${pieceToMove} to ${newSquare.toLowerCase()} is illegal! ${currentPlayer} to play!`
+                else {
+                    if(newSquareEl!==null && newSquareEl.childElementCount==0){
+                        chessMessage.textContent = `${pieceToMove} to ${newSquare.toLowerCase()} is illegal! ${currentPlayer} to play!`
+                    }
                 }
             }
         }
+    }
 }
 
 
