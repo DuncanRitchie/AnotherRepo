@@ -3,7 +3,7 @@ let chessInput = document.getElementById("chessInput");
 let chessInputButton = document.getElementById("chessInputButton");
 let chessMessage = document.getElementById("chessMessageDiv");
 let currentPlayer = "White";
-let currentSquare, currentSquareEl, newSquare, newSquareEl, pieceToMove, pieceToMoveEl, kingToMoveEl;
+let currentSquare, currentSquareEl, newSquare, newSquareEl, pieceToMove, pieceToMoveEl, castlingRookToMove, castlingRookToMoveEl;
 let isMoveLegal = false;
 let whiteRook1Moved = false;
 let whiteRook2Moved = false;
@@ -243,82 +243,87 @@ const chessMovePiece = () => {
         console.log(pieceToMoveType)
         if ((pieceToMoveType=="K" && (newSquareEl.children[0].id==`chess${currentPlayer}R1`||newSquareEl.children[0].id==`chess${currentPlayer}R2`)) ||
         (pieceToMoveType=="R" && newSquareEl.children[0].id==`chess${currentPlayer}K`)) {
-            //Castling code here.
-        }
+                console.log("We are castling?");
+                if (pieceToMoveType=="R") {
+                    castlingRookToMove = pieceToMove;
+                    castlingRookToMoveEl =  pieceToMoveEl;
+                    pieceToMove = "K";
+                    pieceToMoveType="K";
+                    pieceToMoveEl = document.getElementById(`chess${currentPlayer}K`);
+                }
+            
+                pieceToMoveEl = newSquareEl.children[0];
+                pieceToMove = pieceToMoveEl.id;
+                console.log(pieceToMoveEl);
+                pieceToMoveEl = document.getElementById("chess"+currentPlayer+"K");
+                console.log(pieceToMoveEl);
+                isMoveLegal=false; //This changes to true as appropriate later.
+                if (castlingRookToMoveEl==null||pieceToMoveEl==null){
+                        console.log("Castling input invalid!")
+                }
+                else {
+                    currentSquareEl=pieceToMoveEl.parentElement; //This is the square the rook is on.
+                    newSquareEl=kingToMoveEl.parentElement; //This is the square the king is on.
+                    currentSquare=currentSquareEl.id.substr(-2,2);
+                    newSquare=newSquareEl.id.substr(-2,2);
+                    console.log("The rook is in "+currentSquare);
+                    console.log("The king is in "+newSquare);
+                    if (areCellsBetweenEmpty(currentSquare,newSquare) || 1==1) {
+                        if(currentPlayer=="White" && !whiteKingMoved){
+                            console.log("White King is moving for the first time");
+                            if(pieceToMove=="R1" && !whiteRook1Moved) {
+                                console.log("White Rook 1 is moving for the first time");
+                                console.log(whiteKingMoved);
+                                isMoveLegal=true;
+                                whiteRook1Moved=true;
+                                whiteKingMoved=true;
+                            }
+                            else if(pieceToMove=="R2" && !whiteRook2Moved) {
+                                console.log("White Rook 2 is moving for the first time");
+                                console.log(whiteKingMoved);
+                                isMoveLegal=true;
+                                whiteRook2Moved=true;
+                                whiteKingMoved=true;
+                            }
+                        }
+                        else if(currentPlayer=="Black" && !blackKingMoved) {
+                            console.log("Black King is moving for the first time");
+                            if(pieceToMove=="R1" && !blackRook1Moved) {
+                                console.log("Black Rook 1 is moving for the first time");
+                                console.log(blackKingMoved);
+                                isMoveLegal=true;
+                                blackRook1Moved=true;
+                                blackKingMoved=true;
+                            }
+                            else if(pieceToMove=="R2" && !blackRook2Moved) {
+                                console.log("Black Rook 2 is moving for the first time");
+                                console.log(blackKingMoved);
+                                isMoveLegal=true;
+                                blackRook2Moved=true;
+                                blackKingMoved=true;
+                            }
+                        }
+                        else {isMoveLegal=false};
+                    }
+                    if(isMoveLegal) {
+                        console.log("Castling is happening!");
+                        newSquareEl.appendChild(pieceToMoveEl); //This moves the rook to the king's square.
+                        currentSquareEl.appendChild(kingToMoveEl); //This moves the king to the rook's square.
+                        console.log(currentPlayer)
+                        currentPlayer=otherPlayer(currentPlayer);
+                        console.log(currentPlayer)
+                        chessMessage.textContent = `${otherPlayer(currentPlayer)} has castled successfully! ${currentPlayer} to play!`
+                    }
+                    else {
+                        console.log(`Castling with ${pieceToMove} is illegal! ${currentPlayer} to play!`);
+                        chessMessage.textContent = `Castling with ${pieceToMove} is illegal! ${currentPlayer} to play!`
+                    }
+                }
+        }  //End of castling code.
         else {
             switch (pieceToMoveType) {
                 case "K":
                     console.log("This is a king.");
-                    if (newSquareEl.children[0].id==`chess${currentPlayer}R1`||newSquareEl.children[0].id==`chess${currentPlayer}R2`){
-                        console.log("We are castling?");
-                        pieceToMoveEl = newSquareEl.children[0];
-                        pieceToMove = pieceToMoveE;;
-                        console.log(pieceToMoveEl);
-                        kingToMoveEl = document.getElementById("chess"+currentPlayer+"K");
-                        console.log(kingToMoveEl);
-                        isMoveLegal=false; //This changes to true as appropriate later.
-                        if (kingToMoveEl==null||pieceToMoveEl==null){
-                                console.log("Castling input invalid!")
-                        }
-                        else {
-                            currentSquareEl=pieceToMoveEl.parentElement; //This is the square the rook is on.
-                            newSquareEl=kingToMoveEl.parentElement; //This is the square the king is on.
-                            currentSquare=currentSquareEl.id.substr(-2,2);
-                            newSquare=newSquareEl.id.substr(-2,2);
-                            console.log("The rook is in "+currentSquare);
-                            console.log("The king is in "+newSquare);
-                            if (areCellsBetweenEmpty(currentSquare,newSquare)) {
-                                if(currentPlayer=="White" && !whiteKingMoved){
-                                    console.log("White King is moving for the first time");
-                                    if(pieceToMove=="R1" && !whiteRook1Moved) {
-                                        console.log("White Rook 1 is moving for the first time");
-                                        console.log(whiteKingMoved);
-                                        isMoveLegal=true;
-                                        whiteRook1Moved=true;
-                                        whiteKingMoved=true;
-                                    }
-                                    else if(pieceToMove=="R2" && !whiteRook2Moved) {
-                                        console.log("White Rook 2 is moving for the first time");
-                                        console.log(whiteKingMoved);
-                                        isMoveLegal=true;
-                                        whiteRook2Moved=true;
-                                        whiteKingMoved=true;
-                                    }
-                                }
-                                else if(currentPlayer=="Black" && !blackKingMoved) {
-                                    console.log("Black King is moving for the first time");
-                                    if(pieceToMove=="R1" && !blackRook1Moved) {
-                                        console.log("Black Rook 1 is moving for the first time");
-                                        console.log(blackKingMoved);
-                                        isMoveLegal=true;
-                                        blackRook1Moved=true;
-                                        blackKingMoved=true;
-                                    }
-                                    else if(pieceToMove=="R2" && !blackRook2Moved) {
-                                        console.log("Black Rook 2 is moving for the first time");
-                                        console.log(blackKingMoved);
-                                        isMoveLegal=true;
-                                        blackRook2Moved=true;
-                                        blackKingMoved=true;
-                                    }
-                                }
-                                else {isMoveLegal=false};
-                            }
-                            if(isMoveLegal) {
-                                console.log("Castling is happening!");
-                                newSquareEl.appendChild(pieceToMoveEl); //This moves the rook to the king's square.
-                                currentSquareEl.appendChild(kingToMoveEl); //This moves the king to the rook's square.
-                                console.log(currentPlayer)
-                                currentPlayer=otherPlayer(currentPlayer);
-                                console.log(currentPlayer)
-                                chessMessage.textContent = `${otherPlayer(currentPlayer)} has castled successfully! ${currentPlayer} to play!`
-                            }
-                            else {
-                                console.log(`Castling with ${pieceToMove} is illegal! ${currentPlayer} to play!`);
-                                chessMessage.textContent = `Castling with ${pieceToMove} is illegal! ${currentPlayer} to play!`
-                            }
-                        }
-                    }
                     if ((fileDiff==0 && rankDiffAbs==1) ||
                     // King can move one square forwards or one square backwards.
                     (fileDiffAbs==1 && rankDiffAbs==1) ||
