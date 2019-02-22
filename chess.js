@@ -13,7 +13,7 @@ let whiteKingMoved = false;
 let blackKingMoved = false;
 let numOfWhiteQueens = 1;
 let numOfBlackQueens = 1;
-let file1Num,file2Num,rank1Num,rank2Num;
+let file1Num,file2Num,rank1Num,rank2Num,castlingRank,newRookFile;
 
 const otherPlayer = (colour) => {
     if (colour == "White") {
@@ -239,9 +239,9 @@ const chessMovePiece = () => {
         fileDiffAbs=Math.abs(fileDiff);
         rankDiffAbs=Math.abs(rankDiff);
         pieceToMoveType = pieceToMove.substr(0,1);
-        console.log(pieceToMoveType)
-        if ((pieceToMoveType=="K" && (newSquareEl.children[0].id==`chess${currentPlayer}R1`||newSquareEl.children[0].id==`chess${currentPlayer}R2`)) ||
-        (pieceToMoveType=="R" && newSquareEl.children[0].id==`chess${currentPlayer}K`)) {
+        console.log(pieceToMoveType);
+        if ((pieceToMoveType=="K" && (newSquare=="C1" || newSquare=="G1" || newSquare=="C8" || newSquare=="G8")) ||
+        (pieceToMoveType=="R" && (newSquare=="D1" || newSquare=="F1" || newSquare=="D8" || newSquare=="F8"))) {
                 console.log("We are castling?");
                 if (pieceToMoveType=="R") {
                     castlingRookToMove = pieceToMove;
@@ -251,8 +251,13 @@ const chessMovePiece = () => {
                     pieceToMoveEl = document.getElementById(`chess${currentPlayer}K`);
                 }
                 else {
-                    castlingRookToMoveEl = newSquareEl.children[0];
-                    castlingRookToMove = castlingRookToMoveEl.id.substr(-2,2);
+                    if (newSquare.substr(-2,1)=="C") {
+                        castlingRookToMove = "R1"
+                    }
+                    else if (newSquare.substr(-2,1)=="G") {
+                        castlingRookToMove = "R2"
+                    }
+                    castlingRookToMoveEl = document.getElementById("chess"+currentPlayer+castlingRookToMove);
                 }
                 console.log(pieceToMove);
                 console.log(pieceToMoveEl);
@@ -263,13 +268,23 @@ const chessMovePiece = () => {
                         console.log("Castling input invalid!")
                 }
                 else {
+                    if (currentPlayer=="White") {castlingRank=1} else {castlingRank=8}; //Castling happens on Rank 1 or 8.
                     currentSquareEl=pieceToMoveEl.parentElement; //This is the square the king is on.
-                    newSquareEl=castlingRookToMoveEl.parentElement; //This is the square the rook is on.
+                    if (castlingRookToMove == "R1") {
+                        newRookFile=4;
+                        newKingFile=3
+                    } else {
+                        newRookFile=6;
+                        newKingFile=7;
+                    }; //The king should move two squares towards the rook and the rook should move to the file the king passed through.
+                    newRookSquareEl = getElementByFR(newRookFile,castlingRank); //This is the square the rook is going to.
+                    newSquareEl = getElementByFR(newKingFile,castlingRank); //This is the square the king is going to.
                     currentSquare=currentSquareEl.id.substr(-2,2);
                     newSquare=newSquareEl.id.substr(-2,2);
                     console.log("The king is in "+currentSquare);
-                    console.log("The rook is in "+newSquare);
-                    if (areCellsBetweenEmpty(currentSquare,newSquare)) {
+                    console.log("The king should go to "+newSquare);
+                    console.log("The rook should go to "+newRookSquareEl.id.substr(-2,2));
+                    if (areCellsBetweenEmpty(currentSquare,castlingRookToMoveEl.parentElement.id.substr(-2,2)) || 1==1) {
                         if(currentPlayer=="White" && !whiteKingMoved){
                             console.log("White King is moving for the first time");
                             if(castlingRookToMove=="R1" && !whiteRook1Moved) {
@@ -309,7 +324,7 @@ const chessMovePiece = () => {
                     if(isMoveLegal) {
                         console.log("Castling is happening!");
                         newSquareEl.appendChild(pieceToMoveEl); //This moves the rook to the king's square.
-                        currentSquareEl.appendChild(castlingRookToMoveEl); //This moves the king to the rook's square.
+                        newRookSquareEl.appendChild(castlingRookToMoveEl); //This moves the king to the rook's square.
                         console.log("That was a move played by "+currentPlayer+".")
                         currentPlayer=otherPlayer(currentPlayer);
                         console.log("Now the current player is "+currentPlayer+".")
