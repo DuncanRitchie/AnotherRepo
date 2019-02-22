@@ -207,9 +207,104 @@ const areCellsBetweenEmpty = (coord1,coord2) => {
     return rCBE
 }
 
+const isNonCastlingMoveLegal = () => {
+    switch (pieceToMoveType) {
+        case "K":
+            console.log("This is a king.");
+            if ((fileDiff==0 && rankDiffAbs==1) ||
+            // King can move one square forwards or one square backwards.
+            (fileDiffAbs==1 && rankDiffAbs==1) ||
+            (fileDiffAbs==1 && rankDiff==0)) {
+            // King can move one square sideways and one square forward/backward/not.
+                if(currentPlayer=="White"){
+                    whiteKingMoved = true;
+                }
+                else {
+                    blackKingMoved = true;
+                };
+                isMoveLegal=true;}
+            else {
+                isMoveLegal=false
+            }
+            break; 
+        case "Q":
+            console.log("This is a queen.");
+            if (areCellsBetweenEmpty(currentSquare,newSquare) && 
+            (fileDiff==0 || rankDiff==0 || rankDiffAbs==fileDiffAbs))
+            {isMoveLegal=true;}
+            // Queen can move along a rank, along a file, or the same distance sideways as vertically, if cells between are empty.
+            else {
+                isMoveLegal=false;
+            }
+            break; 
+        case "R":
+            console.log("This is a rook.");
+            if (areCellsBetweenEmpty(currentSquare,newSquare) && 
+            (fileDiff==0 || rankDiff==0))
+            {isMoveLegal=true;
+            // Rook can move along a rank or along a file, if cells between are empty.
+                if (currentPlayer=="White") {
+                    if (pieceToMove=="R1"){
+                        whiteRook1Moved=true
+                    }
+                    else if (pieceToMove=="R2"){
+                        whiteRook2Moved=true
+                    }
+                }
+                else if (currentPlayer=="White") {
+                    if (pieceToMove=="R1"){
+                        whiteRook1Moved=true
+                    }
+                    else if (pieceToMove=="R2"){
+                        whiteRook2Moved=true
+                    }
+                }
+            }
+            else {
+                isMoveLegal=false;
+            }
+            break; 
+        case "N":
+            console.log("This is a knight.");
+            if (fileDiffAbs==2 && rankDiffAbs==1)
+                {isMoveLegal=true;}
+            else if (fileDiffAbs==1 && rankDiffAbs==2)
+                {isMoveLegal=true;}
+                // Knight can move 2 in any direction and 1 in any perpendicular direction.
+            else {isMoveLegal=false};
+            break;
+        case "B":
+            console.log("This is a bishop.");
+            if (areCellsBetweenEmpty(currentSquare,newSquare) && rankDiffAbs==fileDiffAbs)
+                {isMoveLegal=true;}
+                // Bishop can move the same distance sideways as vertically, if cells between are empty.
+            else {
+                isMoveLegal=false;
+        }
+        break; 
+        case "P":
+            console.log("This is a pawn.");
+            if (fileDiff==0 && rankDiff==1 && newSquareEl.childElementCount==0)
+                {isMoveLegal=true;}
+                // Pawn can go one square forwards if new square is empty.
+            else if (fileDiffAbs==1 && rankDiff==1 && newSquareEl.childElementCount>0)
+                {isMoveLegal=true;}
+                // Pawn can go one square forwards and one sideways if new square is occupied.
+            else if (fileDiff==0 && rankDiff==2 && newSquareEl.childElementCount==0 && ((currentPlayer=="White"&&currentSquare.substr(1,1)=="2")||(currentPlayer=="Black"&&currentSquare.substr(1,1)=="7")) && areCellsBetweenEmpty(currentSquare,newSquare))
+                {isMoveLegal=true;}
+                // Pawn can go two squares forward if starting square is in rank 2 (White) or 7 (Black).
+            else {isMoveLegal=false}
+            console.log("There are "+newSquareEl.childElementCount+" children in the new square.");
+            console.log(`Legality is ${isMoveLegal}.`);
+            break; 
+    } //end of switch
+}
+
+
 const chessMovePiece = () => {
     isMoveLegal=true;
     inputValue=chessInput.value.toUpperCase();
+    pieceToMove=null;
     if(inputValue==""){
         chessMessage.textContent=`Please type a piece name and a cell. ${currentPlayer} to play!`;
     }
@@ -226,284 +321,202 @@ const chessMovePiece = () => {
             pieceToMove = inputValue.substr(0,2);
         }
         pieceToMoveEl = document.getElementById("chess"+currentPlayer+pieceToMove);
-        console.log(pieceToMoveEl);
-        currentSquareEl=pieceToMoveEl.parentElement;
-        currentSquare=currentSquareEl.id.substr(-2,2);
-        console.log(currentSquare);
-        newSquare = inputValue.substr(-2,2);
-        newSquareEl = document.getElementById("chess"+newSquare);
-        console.log(newSquare);
-        console.log(subtractCoords(currentSquare,newSquare));
-        fileDiff=subtractCoords(currentSquare,newSquare)[0];
-        rankDiff=subtractCoords(currentSquare,newSquare)[1];
-        fileDiffAbs=Math.abs(fileDiff);
-        rankDiffAbs=Math.abs(rankDiff);
-        pieceToMoveType = pieceToMove.substr(0,1);
-        console.log(pieceToMoveType);
-        if ((currentPlayer=="White" && 
-        !whiteKingMoved && 
-        (pieceToMove=="K" && (newSquare=="C1" || newSquare=="G1")) || (pieceToMove=="R1" && !whiteRook1Moved && newSquare=="D1") || (pieceToMove == "R2" && !whiteRook2Moved && newSquare=="F1")) || 
-        (currentPlayer=="Black" && 
-        !blackKingMoved && 
-        (pieceToMove=="K" && (newSquare=="C8" || newSquare=="G8")) || (pieceToMove=="R1" && !blackRook1Moved && newSquare=="D8") || (pieceToMove == "R2" && !blackRook2Moved && newSquare=="F8"))) {
-                console.log("We are castling?");
-                if (pieceToMoveType=="R") {
-                    castlingRookToMove = pieceToMove;
-                    castlingRookToMoveEl =  pieceToMoveEl;
-                    pieceToMove = "K";
-                    pieceToMoveType="K";
-                    pieceToMoveEl = document.getElementById(`chess${currentPlayer}K`);
-                }
-                else {
-                    if (newSquare.substr(-2,1)=="C") {
-                        castlingRookToMove = "R1"
-                    }
-                    else if (newSquare.substr(-2,1)=="G") {
-                        castlingRookToMove = "R2"
-                    }
-                    castlingRookToMoveEl = document.getElementById("chess"+currentPlayer+castlingRookToMove);
-                }
-                console.log(pieceToMove);
-                console.log(pieceToMoveEl);
-                console.log(castlingRookToMove);
-                console.log(castlingRookToMoveEl);
-                isMoveLegal=false; //This changes to true as appropriate later.
-                if (castlingRookToMoveEl==null||pieceToMoveEl==null){
-                        console.log("Castling input invalid!")
-                }
-                else {
-                    if (currentPlayer=="White") {castlingRank=1} else {castlingRank=8}; //Castling happens on Rank 1 or 8.
-                    currentSquareEl=pieceToMoveEl.parentElement; //This is the square the king is on.
-                    if (castlingRookToMove == "R1") {
-                        newRookFile=4;
-                        newKingFile=3
-                    } else {
-                        newRookFile=6;
-                        newKingFile=7;
-                    }; //The king should move two squares towards the rook and the rook should move to the file the king passed through.
-                    newRookSquareEl = getElementByFR(newRookFile,castlingRank); //This is the square the rook is going to.
-                    newSquareEl = getElementByFR(newKingFile,castlingRank); //This is the square the king is going to.
-                    currentSquare=currentSquareEl.id.substr(-2,2);
-                    newSquare=newSquareEl.id.substr(-2,2);
-                    console.log("The king is in "+currentSquare);
-                    console.log("The king should go to "+newSquare);
-                    console.log("The rook should go to "+newRookSquareEl.id.substr(-2,2));
-                    if (areCellsBetweenEmpty(currentSquare,castlingRookToMoveEl.parentElement.id.substr(-2,2))) {
-                        if(currentPlayer=="White" && !whiteKingMoved){
-                            if(castlingRookToMove=="R1" && !whiteRook1Moved) {
-                                console.log("White King is moving for the first time");
-                                console.log("White Rook 1 is moving for the first time");
-                                console.log(whiteKingMoved);
-                                isMoveLegal=true;
-                                whiteRook1Moved=true;
-                                whiteKingMoved=true;
-                            }
-                            else if(castlingRookToMove=="R2" && !whiteRook2Moved) {
-                                console.log("White King is moving for the first time");
-                                console.log("White Rook 2 is moving for the first time");
-                                console.log(whiteKingMoved);
-                                isMoveLegal=true;
-                                whiteRook2Moved=true;
-                                whiteKingMoved=true;
-                            }
-                        }
-                        else if(currentPlayer=="Black" && !blackKingMoved) {
-                            if(castlingRookToMove=="R1" && !blackRook1Moved) {
-                                console.log("Black King is moving for the first time");
-                                console.log("Black Rook 1 is moving for the first time");
-                                console.log(blackKingMoved);
-                                isMoveLegal=true;
-                                blackRook1Moved=true;
-                                blackKingMoved=true;
-                            }
-                            else if(castlingRookToMove=="R2" && !blackRook2Moved) {
-                                console.log("Black King is moving for the first time");
-                                console.log("Black Rook 2 is moving for the first time");
-                                console.log(blackKingMoved);
-                                isMoveLegal=true;
-                                blackRook2Moved=true;
-                                blackKingMoved=true;
-                            }
-                        }
-                        else {isMoveLegal=false};
-                    }
-                    if(isMoveLegal) {
-                        console.log("Castling is happening!");
-                        newSquareEl.appendChild(pieceToMoveEl); //This moves the king to its new square.
-                        newRookSquareEl.appendChild(castlingRookToMoveEl); //This moves the rook to its new square.
-                        console.log("That was a move played by "+currentPlayer+".")
-                        currentPlayer=otherPlayer(currentPlayer);
-                        console.log("Now the current player is "+currentPlayer+".")
-                        chessMessage.textContent = `${otherPlayer(currentPlayer)} has castled successfully! ${currentPlayer} to play!`
-                    }
-                    else {
-                        console.log(`Castling with ${castlingRookToMove} is illegal! ${currentPlayer} to play!`);
-                        chessMessage.textContent = `Castling with ${castlingRookToMove} is illegal! ${currentPlayer} to play!`
-                    }
-                }
-        }  //End of castling code. The code below only runs if we're not castling.
-        else {
-            switch (pieceToMoveType) {
-                case "K":
-                    console.log("This is a king.");
-                    if ((fileDiff==0 && rankDiffAbs==1) ||
-                    // King can move one square forwards or one square backwards.
-                    (fileDiffAbs==1 && rankDiffAbs==1) ||
-                    (fileDiffAbs==1 && rankDiff==0)) {
-                    // King can move one square sideways and one square forward/backward/not.
-                        if(currentPlayer=="White"){
-                            whiteKingMoved = true;
-                        }
-                        else {
-                            blackKingMoved = true;
-                        };
-                        isMoveLegal=true;}
-                    else {
-                        isMoveLegal=false
-                    }
-                    break; 
-                case "Q":
-                    console.log("This is a queen.");
-                    if (areCellsBetweenEmpty(currentSquare,newSquare) && 
-                    (fileDiff==0 || rankDiff==0 || rankDiffAbs==fileDiffAbs))
-                    {isMoveLegal=true;}
-                    // Queen can move along a rank, along a file, or the same distance sideways as vertically, if cells between are empty.
-                    else {
-                        isMoveLegal=false;
-                    }
-                    break; 
-                case "R":
-                    console.log("This is a rook.");
-                    if (areCellsBetweenEmpty(currentSquare,newSquare) && 
-                    (fileDiff==0 || rankDiff==0))
-                    {isMoveLegal=true;
-                    // Rook can move along a rank or along a file, if cells between are empty.
-                        if (currentPlayer=="White") {
-                            if (pieceToMove=="R1"){
-                                whiteRook1Moved=true
-                            }
-                            else if (pieceToMove=="R2"){
-                                whiteRook2Moved=true
-                            }
-                        }
-                        else if (currentPlayer=="White") {
-                            if (pieceToMove=="R1"){
-                                whiteRook1Moved=true
-                            }
-                            else if (pieceToMove=="R2"){
-                                whiteRook2Moved=true
-                            }
-                        }
-                    }
-                    else {
-                        isMoveLegal=false;
-                    }
-                    break; 
-                case "N":
-                    console.log("This is a knight.");
-                    if (fileDiffAbs==2 && rankDiffAbs==1)
-                        {isMoveLegal=true;}
-                    else if (fileDiffAbs==1 && rankDiffAbs==2)
-                        {isMoveLegal=true;}
-                        // Knight can move 2 in any direction and 1 in any perpendicular direction.
-                    else {isMoveLegal=false};
-                    break;
-                case "B":
-                    console.log("This is a bishop.");
-                    if (areCellsBetweenEmpty(currentSquare,newSquare) && rankDiffAbs==fileDiffAbs)
-                        {isMoveLegal=true;}
-                        // Bishop can move the same distance sideways as vertically, if cells between are empty.
-                    else {
-                        isMoveLegal=false;
-                }
-                break; 
-                case "P":
-                    console.log("This is a pawn.");
-                    if (fileDiff==0 && rankDiff==1 && newSquareEl.childElementCount==0)
-                        {isMoveLegal=true;}
-                        // Pawn can go one square forwards if new square is empty.
-                    else if (fileDiffAbs==1 && rankDiff==1 && newSquareEl.childElementCount>0)
-                        {isMoveLegal=true;}
-                        // Pawn can go one square forwards and one sideways if new square is occupied.
-                    else if (fileDiff==0 && rankDiff==2 && newSquareEl.childElementCount==0 && ((currentPlayer=="White"&&currentSquare.substr(1,1)=="2")||(currentPlayer=="Black"&&currentSquare.substr(1,1)=="7")) && areCellsBetweenEmpty(currentSquare,newSquare))
-                        {isMoveLegal=true;}
-                        // Pawn can go two squares forward if starting square is in rank 2 (White) or 7 (Black).
-                    else {isMoveLegal=false}
-                    console.log("There are "+newSquareEl.childElementCount+" children in the new square.");
-                    console.log(`Legality is ${isMoveLegal}.`);
-                    break; 
-            } //end of switch
-            if (newSquareEl==currentSquareEl){
-                isMoveLegal = false;
-                chessMessage.innerHTML = `You&rsquo;re trying to move ${pieceToMove} to its current square! That&rsquo;s not a move! ${currentPlayer} to play!`
-            }
-            else { //The following code runs if the current and new squares are different.
-                if (newSquareEl.childElementCount>0) {
-                    capturedPieceEl = newSquareEl.lastElementChild;
-                    if (capturedPieceEl.id.substr(5,5)==currentPlayer) {
-                        isMoveLegal = false;
-                        chessMessage.innerHTML = `You&rsquo;re trying to capture your own ${capturedPieceEl.id.substr(10)}; that&rsquo;s illegal! ${currentPlayer} to play!`;
-                    }
-                    else { //This section of code runs only on the capture of a piece.
-                        if (isMoveLegal == true){
-                            console.log(`${capturedPieceEl.id} captured!`);
-                            if(capturedPieceEl.id.substr(-1,1)=="K"){
-                                chessKingColour = capturedPieceEl.id.substr(-6,5);
-                                chessWinner = otherPlayer(chessKingColour);
-                                chessMessage.textContent = `Checkmate! ${pieceToMoveEl.id.substr(5)} has captured the ${chessKingColour} king! ${chessWinner} has won!`;
-                                chessInput.style.display = "none";
-                                chessInputButton.style.display = "none";
+        if (pieceToMoveEl!==null) {
+            currentSquareEl=pieceToMoveEl.parentElement;
+            currentSquare=currentSquareEl.id.substr(-2,2);
+            if (currentSquareEl!==null) {
+                newSquare = inputValue.substr(-2,2);
+                newSquareEl = document.getElementById("chess"+newSquare);
+                console.log(newSquare);
+                if (newSquareEl!==null && pieceToMoveEl!==null) {
+                    currentSquareEl=pieceToMoveEl.parentElement;
+                    console.log(currentSquare);
+                    console.log(pieceToMoveEl);
+                    console.log(subtractCoords(currentSquare,newSquare));
+                    fileDiff=subtractCoords(currentSquare,newSquare)[0];
+                    rankDiff=subtractCoords(currentSquare,newSquare)[1];
+                    fileDiffAbs=Math.abs(fileDiff);
+                    rankDiffAbs=Math.abs(rankDiff);
+                    pieceToMoveType = pieceToMove.substr(0,1);
+                    console.log(pieceToMoveType);
+                    if ((currentPlayer=="White" && 
+                    !whiteKingMoved && 
+                    (pieceToMove=="K" && (newSquare=="C1" || newSquare=="G1")) || (pieceToMove=="R1" && !whiteRook1Moved && newSquare=="D1") || (pieceToMove == "R2" && !whiteRook2Moved && newSquare=="F1")) || 
+                    (currentPlayer=="Black" && 
+                    !blackKingMoved && 
+                    (pieceToMove=="K" && (newSquare=="C8" || newSquare=="G8")) || (pieceToMove=="R1" && !blackRook1Moved && newSquare=="D8") || (pieceToMove == "R2" && !blackRook2Moved && newSquare=="F8"))) {
+                            console.log("We are castling?");
+                            if (pieceToMoveType=="R") {
+                                castlingRookToMove = pieceToMove;
+                                castlingRookToMoveEl =  pieceToMoveEl;
+                                pieceToMove = "K";
+                                pieceToMoveType="K";
+                                pieceToMoveEl = document.getElementById(`chess${currentPlayer}K`);
                             }
                             else {
-                                chessMessage.textContent=`${capturedPieceEl.id.substr(5)} captured!`;
+                                if (newSquare.substr(-2,1)=="C") {
+                                    castlingRookToMove = "R1"
+                                }
+                                else if (newSquare.substr(-2,1)=="G") {
+                                    castlingRookToMove = "R2"
+                                }
+                                castlingRookToMoveEl = document.getElementById("chess"+currentPlayer+castlingRookToMove);
                             }
-                            newSquareEl.removeChild(capturedPieceEl);
-                        }
-                        else {
-                            chessMessage.textContent = `${pieceToMove} to ${newSquare.toLowerCase()} is illegal! ${currentPlayer} to play!`
-                        }
-                    }
-                }
-                else {
-                    chessMessage.textContent="";
-                }
-                // The following code runs regardless of whether we are capturing or not.
-                console.log(`Legality is ${isMoveLegal}.`)
-                if (isMoveLegal) {
-                    newSquareEl.appendChild(pieceToMoveEl);
-                    if (currentPlayer=="White"){promotionRow=8}
-                    else {promotionRow=1};
-                    if(pieceToMoveType=="P"&&cellRankNum(newSquare)==promotionRow) {
-                        console.log("We are promoting!");
-                        chessMessage.innerHTML += ` Promotion &mdash; ${pieceToMoveEl.id.substr(5)} has turned into a Queen! `;
-                        if (currentPlayer=="White") {
-                            if (numOfWhiteQueens==1) {
-                                document.getElementById("chessWhiteQ").id="chessWhiteQ1";
-                                document.getElementById("chessWhiteQ1").textContent="Q1";
+                            console.log(pieceToMove);
+                            console.log(pieceToMoveEl);
+                            console.log(castlingRookToMove);
+                            console.log(castlingRookToMoveEl);
+                            isMoveLegal=false; //This changes to true as appropriate later.
+                            if (castlingRookToMoveEl==null||pieceToMoveEl==null){
+                                    console.log("Castling input invalid!")
                             }
-                            numOfWhiteQueens++;
-                            pieceToMoveEl.id=`chessWhiteQ${numOfWhiteQueens}`;
-                            pieceToMoveEl.textContent=`Q${numOfWhiteQueens}`;
-                        }
-                        else {
-                            if (numOfBlackQueens==1) {
-                                document.getElementById("chessBlackQ").id="chessBlackQ1";
-                                document.getElementById("chessBlackQ1").textContent="Q1";
+                            else {
+                                if (currentPlayer=="White") {castlingRank=1} else {castlingRank=8}; //Castling happens on Rank 1 or 8.
+                                currentSquareEl=pieceToMoveEl.parentElement; //This is the square the king is on.
+                                if (castlingRookToMove == "R1") {
+                                    newRookFile=4;
+                                    newKingFile=3
+                                } else {
+                                    newRookFile=6;
+                                    newKingFile=7;
+                                }; //The king should move two squares towards the rook and the rook should move to the file the king passed through.
+                                newRookSquareEl = getElementByFR(newRookFile,castlingRank); //This is the square the rook is going to.
+                                newSquareEl = getElementByFR(newKingFile,castlingRank); //This is the square the king is going to.
+                                currentSquare=currentSquareEl.id.substr(-2,2);
+                                newSquare=newSquareEl.id.substr(-2,2);
+                                console.log("The king is in "+currentSquare);
+                                console.log("The king should go to "+newSquare);
+                                console.log("The rook should go to "+newRookSquareEl.id.substr(-2,2));
+                                if (areCellsBetweenEmpty(currentSquare,castlingRookToMoveEl.parentElement.id.substr(-2,2))) {
+                                    if(currentPlayer=="White" && !whiteKingMoved){
+                                        if(castlingRookToMove=="R1" && !whiteRook1Moved) {
+                                            console.log("White King is moving for the first time");
+                                            console.log("White Rook 1 is moving for the first time");
+                                            console.log(whiteKingMoved);
+                                            isMoveLegal=true;
+                                            whiteRook1Moved=true;
+                                            whiteKingMoved=true;
+                                        }
+                                        else if(castlingRookToMove=="R2" && !whiteRook2Moved) {
+                                            console.log("White King is moving for the first time");
+                                            console.log("White Rook 2 is moving for the first time");
+                                            console.log(whiteKingMoved);
+                                            isMoveLegal=true;
+                                            whiteRook2Moved=true;
+                                            whiteKingMoved=true;
+                                        }
+                                    }
+                                    else if(currentPlayer=="Black" && !blackKingMoved) {
+                                        if(castlingRookToMove=="R1" && !blackRook1Moved) {
+                                            console.log("Black King is moving for the first time");
+                                            console.log("Black Rook 1 is moving for the first time");
+                                            console.log(blackKingMoved);
+                                            isMoveLegal=true;
+                                            blackRook1Moved=true;
+                                            blackKingMoved=true;
+                                        }
+                                        else if(castlingRookToMove=="R2" && !blackRook2Moved) {
+                                            console.log("Black King is moving for the first time");
+                                            console.log("Black Rook 2 is moving for the first time");
+                                            console.log(blackKingMoved);
+                                            isMoveLegal=true;
+                                            blackRook2Moved=true;
+                                            blackKingMoved=true;
+                                        }
+                                    }
+                                    else {isMoveLegal=false};
+                                }
+                                if(isMoveLegal) {
+                                    console.log("Castling is happening!");
+                                    newSquareEl.appendChild(pieceToMoveEl); //This moves the king to its new square.
+                                    newRookSquareEl.appendChild(castlingRookToMoveEl); //This moves the rook to its new square.
+                                    console.log("That was a move played by "+currentPlayer+".")
+                                    currentPlayer=otherPlayer(currentPlayer);
+                                    console.log("Now the current player is "+currentPlayer+".")
+                                    chessMessage.textContent = `${otherPlayer(currentPlayer)} has castled successfully! ${currentPlayer} to play!`
+                                }
+                                else {
+                                    console.log(`Castling with ${castlingRookToMove} is illegal! ${currentPlayer} to play!`);
+                                    chessMessage.textContent = `Castling with ${castlingRookToMove} is illegal! ${currentPlayer} to play!`
+                                }
                             }
-                            numOfBlackQueens++;
-                            pieceToMoveEl.id=`chessBlackQ${numOfBlackQueens}`;
-                            pieceToMoveEl.textContent=`Q${numOfBlackQueens}`;
+                    }  //End of castling code. The code below only runs if we're not castling.
+                    else {
+                        isNonCastlingMoveLegal();
+                        if (newSquareEl==currentSquareEl){
+                            isMoveLegal = false;
+                            chessMessage.innerHTML = `You&rsquo;re trying to move ${pieceToMove} to its current square! That&rsquo;s not a move! ${currentPlayer} to play!`
                         }
-                    }
-                    chessInput.value="";
-                    if(chessMessage.textContent.substr(0,9)!=="Checkmate"){
-                        currentPlayer=otherPlayer(currentPlayer);
-                        chessMessage.textContent += ` ${currentPlayer} to play!`
-                    }
-                }
-                else {
-                    if(newSquareEl!==null && newSquareEl.childElementCount==0){
-                        chessMessage.textContent = `${pieceToMove} to ${newSquare.toLowerCase()} is illegal! ${currentPlayer} to play!`
+                        else { //The following code runs if the current and new squares are different.
+                            if (newSquareEl.childElementCount>0) {
+                                capturedPieceEl = newSquareEl.lastElementChild;
+                                if (capturedPieceEl.id.substr(5,5)==currentPlayer) {
+                                    isMoveLegal = false;
+                                    chessMessage.innerHTML = `You&rsquo;re trying to capture your own ${capturedPieceEl.id.substr(10)}; that&rsquo;s illegal! ${currentPlayer} to play!`;
+                                }
+                                else { //This section of code runs only on the capture of a piece.
+                                    if (isMoveLegal == true){
+                                        console.log(`${capturedPieceEl.id} captured!`);
+                                        if(capturedPieceEl.id.substr(-1,1)=="K"){
+                                            chessKingColour = capturedPieceEl.id.substr(-6,5);
+                                            chessWinner = otherPlayer(chessKingColour);
+                                            chessMessage.textContent = `Checkmate! ${pieceToMoveEl.id.substr(5)} has captured the ${chessKingColour} king! ${chessWinner} has won!`;
+                                            chessInput.style.display = "none";
+                                            chessInputButton.style.display = "none";
+                                        }
+                                        else {
+                                            chessMessage.textContent=`${capturedPieceEl.id.substr(5)} captured!`;
+                                        }
+                                        newSquareEl.removeChild(capturedPieceEl);
+                                    }
+                                    else {
+                                        chessMessage.textContent = `${pieceToMove} to ${newSquare.toLowerCase()} is illegal! ${currentPlayer} to play!`
+                                    }
+                                }
+                            }
+                            else {
+                                chessMessage.textContent="";
+                            }
+                            // The following code runs regardless of whether we are capturing or not.
+                            console.log(`Legality is ${isMoveLegal}.`)
+                            if (isMoveLegal) {
+                                newSquareEl.appendChild(pieceToMoveEl);
+                                if (currentPlayer=="White"){promotionRow=8}
+                                else {promotionRow=1};
+                                if(pieceToMoveType=="P"&&cellRankNum(newSquare)==promotionRow) {
+                                    console.log("We are promoting!");
+                                    chessMessage.innerHTML += ` Promotion &mdash; ${pieceToMoveEl.id.substr(5)} has turned into a Queen! `;
+                                    if (currentPlayer=="White") {
+                                        if (numOfWhiteQueens==1) {
+                                            document.getElementById("chessWhiteQ").id="chessWhiteQ1";
+                                            document.getElementById("chessWhiteQ1").textContent="Q1";
+                                        }
+                                        numOfWhiteQueens++;
+                                        pieceToMoveEl.id=`chessWhiteQ${numOfWhiteQueens}`;
+                                        pieceToMoveEl.textContent=`Q${numOfWhiteQueens}`;
+                                    }
+                                    else {
+                                        if (numOfBlackQueens==1) {
+                                            document.getElementById("chessBlackQ").id="chessBlackQ1";
+                                            document.getElementById("chessBlackQ1").textContent="Q1";
+                                        }
+                                        numOfBlackQueens++;
+                                        pieceToMoveEl.id=`chessBlackQ${numOfBlackQueens}`;
+                                        pieceToMoveEl.textContent=`Q${numOfBlackQueens}`;
+                                    }
+                                }
+                                chessInput.value="";
+                                if(chessMessage.textContent.substr(0,9)!=="Checkmate"){
+                                    currentPlayer=otherPlayer(currentPlayer);
+                                    chessMessage.textContent += ` ${currentPlayer} to play!`
+                                }
+                            }
+                            else {
+                                if(newSquareEl!==null && newSquareEl.childElementCount==0){
+                                    chessMessage.textContent = `${pieceToMove} to ${newSquare.toLowerCase()} is illegal! ${currentPlayer} to play!`
+                                }
+                            }
+                        }
                     }
                 }
             }
