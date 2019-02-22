@@ -240,8 +240,12 @@ const chessMovePiece = () => {
         rankDiffAbs=Math.abs(rankDiff);
         pieceToMoveType = pieceToMove.substr(0,1);
         console.log(pieceToMoveType);
-        if ((pieceToMoveType=="K" && (newSquare=="C1" || newSquare=="G1" || newSquare=="C8" || newSquare=="G8")) ||
-        (pieceToMoveType=="R" && (newSquare=="D1" || newSquare=="F1" || newSquare=="D8" || newSquare=="F8"))) {
+        if ((currentPlayer=="White" && 
+        !whiteKingMoved && 
+        (pieceToMove=="K" && (newSquare=="C1" || newSquare=="G1")) || (pieceToMove=="R1" && !whiteRook1Moved && newSquare=="D1") || (pieceToMove == "R2" && !whiteRook2Moved && newSquare=="F1")) || 
+        (currentPlayer=="Black" && 
+        !blackKingMoved && 
+        (pieceToMove=="K" && (newSquare=="C8" || newSquare=="G8")) || (pieceToMove=="R1" && !blackRook1Moved && newSquare=="D8") || (pieceToMove == "R2" && !blackRook2Moved && newSquare=="F8"))) {
                 console.log("We are castling?");
                 if (pieceToMoveType=="R") {
                     castlingRookToMove = pieceToMove;
@@ -286,8 +290,8 @@ const chessMovePiece = () => {
                     console.log("The rook should go to "+newRookSquareEl.id.substr(-2,2));
                     if (areCellsBetweenEmpty(currentSquare,castlingRookToMoveEl.parentElement.id.substr(-2,2)) || 1==1) {
                         if(currentPlayer=="White" && !whiteKingMoved){
-                            console.log("White King is moving for the first time");
                             if(castlingRookToMove=="R1" && !whiteRook1Moved) {
+                                console.log("White King is moving for the first time");
                                 console.log("White Rook 1 is moving for the first time");
                                 console.log(whiteKingMoved);
                                 isMoveLegal=true;
@@ -295,6 +299,7 @@ const chessMovePiece = () => {
                                 whiteKingMoved=true;
                             }
                             else if(castlingRookToMove=="R2" && !whiteRook2Moved) {
+                                console.log("White King is moving for the first time");
                                 console.log("White Rook 2 is moving for the first time");
                                 console.log(whiteKingMoved);
                                 isMoveLegal=true;
@@ -303,8 +308,8 @@ const chessMovePiece = () => {
                             }
                         }
                         else if(currentPlayer=="Black" && !blackKingMoved) {
-                            console.log("Black King is moving for the first time");
                             if(castlingRookToMove=="R1" && !blackRook1Moved) {
+                                console.log("Black King is moving for the first time");
                                 console.log("Black Rook 1 is moving for the first time");
                                 console.log(blackKingMoved);
                                 isMoveLegal=true;
@@ -312,6 +317,7 @@ const chessMovePiece = () => {
                                 blackKingMoved=true;
                             }
                             else if(castlingRookToMove=="R2" && !blackRook2Moved) {
+                                console.log("Black King is moving for the first time");
                                 console.log("Black Rook 2 is moving for the first time");
                                 console.log(blackKingMoved);
                                 isMoveLegal=true;
@@ -323,8 +329,8 @@ const chessMovePiece = () => {
                     }
                     if(isMoveLegal) {
                         console.log("Castling is happening!");
-                        newSquareEl.appendChild(pieceToMoveEl); //This moves the rook to the king's square.
-                        newRookSquareEl.appendChild(castlingRookToMoveEl); //This moves the king to the rook's square.
+                        newSquareEl.appendChild(pieceToMoveEl); //This moves the king to its new square.
+                        newRookSquareEl.appendChild(castlingRookToMoveEl); //This moves the rook to its new square.
                         console.log("That was a move played by "+currentPlayer+".")
                         currentPlayer=otherPlayer(currentPlayer);
                         console.log("Now the current player is "+currentPlayer+".")
