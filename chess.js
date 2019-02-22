@@ -288,7 +288,7 @@ const chessMovePiece = () => {
                     console.log("The king is in "+currentSquare);
                     console.log("The king should go to "+newSquare);
                     console.log("The rook should go to "+newRookSquareEl.id.substr(-2,2));
-                    if (areCellsBetweenEmpty(currentSquare,castlingRookToMoveEl.parentElement.id.substr(-2,2)) || 1==1) {
+                    if (areCellsBetweenEmpty(currentSquare,castlingRookToMoveEl.parentElement.id.substr(-2,2))) {
                         if(currentPlayer=="White" && !whiteKingMoved){
                             if(castlingRookToMove=="R1" && !whiteRook1Moved) {
                                 console.log("White King is moving for the first time");
