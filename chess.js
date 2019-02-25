@@ -214,12 +214,11 @@ const isInCheck = () => {
     }
 }
 
-const isHypotheticalMoveLegal = (hypotheticalPieceType,fromSquare,toSquare) => {
+const isHypotheticalMoveLegal = (hypotheticalPlayer,hypotheticalPieceType,fromSquare,toSquare) => {
     hypotheticalFileDiff=subtractCoords(fromSquare,toSquare)[0];
     hypotheticalRankDiff=subtractCoords(fromSquare,toSquare)[1];
     hypotheticalFileDiffAbs=Math.abs(hypotheticalFileDiff);
     hypotheticalRankDiffAbs=Math.abs(hypotheticalRankDiff);
-    hypotheticalPlayer=otherPlayer(currentPlayer);
     toSquareEl=document.getElementById("chess"+toSquare)
     switch (hypotheticalPieceType) {
         case "K":
@@ -292,101 +291,7 @@ const isHypotheticalMoveLegal = (hypotheticalPieceType,fromSquare,toSquare) => {
     return hypotheticalMoveIsLegal;
 }
 
-console.log(isHypotheticalMoveLegal("N","E2","F4"))
-
-const isNonCastlingMoveLegal = () => {
-    switch (pieceToMoveType) {
-        case "K":
-            console.log("This is a king.");
-            if ((fileDiff==0 && rankDiffAbs==1) ||
-            // King can move one square forwards or one square backwards.
-            (fileDiffAbs==1 && rankDiffAbs==1) ||
-            (fileDiffAbs==1 && rankDiff==0)) {
-            // King can move one square sideways and one square forward/backward/not.
-                if(currentPlayer=="White"){
-                    whiteKingMoved = true;
-                }
-                else {
-                    blackKingMoved = true;
-                };
-                isMoveLegal=true;}
-            else {
-                isMoveLegal=false
-            }
-            break; 
-        case "Q":
-            console.log("This is a queen.");
-            if (areCellsBetweenEmpty(currentSquare,newSquare) && 
-            (fileDiff==0 || rankDiff==0 || rankDiffAbs==fileDiffAbs))
-            {isMoveLegal=true;}
-            // Queen can move along a rank, along a file, or the same distance sideways as vertically, if cells between are empty.
-            else {
-                isMoveLegal=false;
-            }
-            break; 
-        case "R":
-            console.log("This is a rook.");
-            if (areCellsBetweenEmpty(currentSquare,newSquare) && 
-            (fileDiff==0 || rankDiff==0))
-            {isMoveLegal=true;
-            // Rook can move along a rank or along a file, if cells between are empty.
-                if (currentPlayer=="White") {
-                    if (pieceToMove=="R1"){
-                        whiteRook1Moved=true
-                    }
-                    else if (pieceToMove=="R2"){
-                        whiteRook2Moved=true
-                    }
-                }
-                else if (currentPlayer=="White") {
-                    if (pieceToMove=="R1"){
-                        whiteRook1Moved=true
-                    }
-                    else if (pieceToMove=="R2"){
-                        whiteRook2Moved=true
-                    }
-                }
-            }
-            else {
-                isMoveLegal=false;
-            }
-            break; 
-        case "N":
-            console.log("This is a knight.");
-            if (fileDiffAbs==2 && rankDiffAbs==1)
-                {isMoveLegal=true;}
-            else if (fileDiffAbs==1 && rankDiffAbs==2)
-                {isMoveLegal=true;}
-                // Knight can move 2 in any direction and 1 in any perpendicular direction.
-            else {isMoveLegal=false};
-            break;
-        case "B":
-            console.log("This is a bishop.");
-            if (areCellsBetweenEmpty(currentSquare,newSquare) && rankDiffAbs==fileDiffAbs)
-                {isMoveLegal=true;}
-                // Bishop can move the same distance sideways as vertically, if cells between are empty.
-            else {
-                isMoveLegal=false;
-        }
-        break; 
-        case "P":
-            console.log("This is a pawn.");
-            if (fileDiff==0 && rankDiff==1 && newSquareEl.childElementCount==0)
-                {isMoveLegal=true;}
-                // Pawn can go one square forwards if new square is empty.
-            else if (fileDiffAbs==1 && rankDiff==1 && newSquareEl.childElementCount>0)
-                {isMoveLegal=true;}
-                // Pawn can go one square forwards and one sideways if new square is occupied.
-            else if (fileDiff==0 && rankDiff==2 && newSquareEl.childElementCount==0 && ((currentPlayer=="White"&&currentSquare.substr(1,1)=="2")||(currentPlayer=="Black"&&currentSquare.substr(1,1)=="7")) && areCellsBetweenEmpty(currentSquare,newSquare))
-                {isMoveLegal=true;}
-                // Pawn can go two squares forward if starting square is in rank 2 (White) or 7 (Black).
-            else {isMoveLegal=false}
-            console.log("There are "+newSquareEl.childElementCount+" children in the new square.");
-            console.log(`Legality is ${isMoveLegal}.`);
-            break; 
-    } //end of switch
-}
-
+console.log(isHypotheticalMoveLegal("White","N","E2","F4"))
 
 const chessMovePiece = () => {
     isMoveLegal=true;
@@ -529,12 +434,40 @@ const chessMovePiece = () => {
                             }
                     }  //End of castling code. The code below only runs if we're not castling.
                     else {
-                        isNonCastlingMoveLegal();
+                        isMoveLegal=isHypotheticalMoveLegal(currentPlayer,pieceToMoveType,currentSquare,newSquare);
                         if (newSquareEl==currentSquareEl){
                             isMoveLegal = false;
                             chessMessage.innerHTML = `You&rsquo;re trying to move ${pieceToMove} to its current square! That&rsquo;s not a move! ${currentPlayer} to play!`
                         }
                         else { //The following code runs if the current and new squares are different.
+                        if (isMoveLegal) {
+                            switch (pieceToMoveType) {
+                                case "K":
+                                        if(currentPlayer=="White"){
+                                            whiteKingMoved = true;
+                                        }
+                                        else {
+                                            blackKingMoved = true;
+                                        };
+                                    break; 
+                                case "R":
+                                        if (currentPlayer=="White") {
+                                            if (pieceToMove=="R1"){
+                                                whiteRook1Moved=true
+                                            }
+                                            else if (pieceToMove=="R2"){
+                                                whiteRook2Moved=true
+                                            }
+                                        }
+                                        else if (currentPlayer=="White") {
+                                            if (pieceToMove=="R1"){
+                                                whiteRook1Moved=true
+                                            }
+                                            else if (pieceToMove=="R2"){
+                                                whiteRook2Moved=true
+                                            }
+                                        }
+                            } //end of switch
                             if (newSquareEl.childElementCount>0) {
                                 capturedPieceEl = newSquareEl.lastElementChild;
                                 if (capturedPieceEl.id.substr(5,5)==currentPlayer) {
@@ -565,7 +498,6 @@ const chessMovePiece = () => {
                                 chessMessage.textContent="";
                             }
                             // The following code runs regardless of whether we are capturing or not.
-                            console.log(`Legality is ${isMoveLegal}.`)
                             if (isMoveLegal) {
                                 newSquareEl.appendChild(pieceToMoveEl);
                                 if (currentPlayer=="White"){promotionRow=8}
@@ -598,12 +530,13 @@ const chessMovePiece = () => {
                                     chessMessage.textContent += ` ${currentPlayer} to play!`
                                 }
                             }
-                            else {
-                                if(newSquareEl!==null && newSquareEl.childElementCount==0){
-                                    chessMessage.textContent = `${pieceToMove} to ${newSquare.toLowerCase()} is illegal! ${currentPlayer} to play!`
-                                }
+                        }
+                        else {
+                            if(newSquareEl!==null && newSquareEl.childElementCount==0){
+                                chessMessage.textContent = `${pieceToMove} to ${newSquare.toLowerCase()} is illegal! ${currentPlayer} to play!`
                             }
                         }
+                    }
                     }
                 }
             }
