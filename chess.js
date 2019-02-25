@@ -207,6 +207,93 @@ const areCellsBetweenEmpty = (coord1,coord2) => {
     return rCBE
 }
 
+const isInCheck = () => {
+    allOpponentPieces = document.querySelectorAll(`.chessPiece${otherPlayer(currentPlayer)}`);
+    for (i=0;i<allDivs.length;i++) {
+        
+    }
+}
+
+const isHypotheticalMoveLegal = (hypotheticalPieceType,fromSquare,toSquare) => {
+    hypotheticalFileDiff=subtractCoords(fromSquare,toSquare)[0];
+    hypotheticalRankDiff=subtractCoords(fromSquare,toSquare)[1];
+    hypotheticalFileDiffAbs=Math.abs(hypotheticalFileDiff);
+    hypotheticalRankDiffAbs=Math.abs(hypotheticalRankDiff);
+    hypotheticalPlayer=otherPlayer(currentPlayer);
+    toSquareEl=document.getElementById("chess"+toSquare)
+    switch (hypotheticalPieceType) {
+        case "K":
+            console.log("This is a king.");
+            if ((hypotheticalFileDiff==0 && hypotheticalRankDiffAbs==1) ||
+            // King can move one square forwards or one square backwards.
+            (hypotheticalFileDiffAbs==1 && hypotheticalRankDiffAbs==1) ||
+            (hypotheticalFileDiffAbs==1 && hypotheticalRankDiff==0)) {
+            // King can move one square sideways and one square forward/backward/not.
+                hypotheticalMoveIsLegal=true;}
+            else {
+                hypotheticalMoveIsLegal=false
+            }
+            break; 
+        case "Q":
+            console.log("This is a queen.");
+            if (areCellsBetweenEmpty(fromSquare,toSquare) && 
+            (hypotheticalFileDiff==0 || hypotheticalRankDiff==0 || hypotheticalRankDiffAbs==hypotheticalFileDiffAbs))
+            {hypotheticalMoveIsLegal=true;}
+            // Queen can move along a rank, along a file, or the same distance sideways as vertically, if cells between are empty.
+            else {
+                hypotheticalMoveIsLegal=false;
+            }
+            break; 
+        case "R":
+            console.log("This is a rook.");
+            if (areCellsBetweenEmpty(fromSquare,toSquare) && 
+            (hypotheticalFileDiff==0 || hypotheticalRankDiff==0))
+            {hypotheticalMoveIsLegal=true;
+            // Rook can move along a rank or along a file, if cells between are empty.
+            }
+            else {
+                hypotheticalMoveIsLegal=false;
+            }
+            break; 
+        case "N":
+            console.log("This is a knight.");
+            if (hypotheticalFileDiffAbs==2 && hypotheticalRankDiffAbs==1)
+                {hypotheticalMoveIsLegal=true;}
+            else if (hypotheticalFileDiffAbs==1 && hypotheticalRankDiffAbs==2)
+                {hypotheticalMoveIsLegal=true;}
+                // Knight can move 2 in any direction and 1 in any perpendicular direction.
+            else {hypotheticalMoveIsLegal=false};
+            break;
+        case "B":
+            console.log("This is a bishop.");
+            if (areCellsBetweenEmpty(fromSquare,toSquare) && hypotheticalRankDiffAbs==hypotheticalFileDiffAbs)
+                {hypotheticalMoveIsLegal=true;}
+                // Bishop can move the same distance sideways as vertically, if cells between are empty.
+            else {
+                hypotheticalMoveIsLegal=false;
+        }
+        break; 
+        case "P":
+            console.log("This is a pawn.");
+            if (hypotheticalFileDiff==0 && hypotheticalRankDiff==1 && toSquareEl.childElementCount==0)
+                {hypotheticalMoveIsLegal=true;}
+                // Pawn can go one square forwards if new square is empty.
+            else if (hypotheticalFileDiffAbs==1 && hypotheticalRankDiff==1 && toSquareEl.childElementCount>0)
+                {hypotheticalMoveIsLegal=true;}
+                // Pawn can go one square forwards and one sideways if new square is occupied.
+            else if (hypotheticalFileDiff==0 && hypotheticalRankDiff==2 && toSquareEl.childElementCount==0 && ((hypotheticalPlayer=="White"&&fromSquare.substr(1,1)=="2")||(hypotheticalPlayer=="Black"&&fromSquare.substr(1,1)=="7")) && areCellsBetweenEmpty(fromSquare,toSquare))
+                {hypotheticalMoveIsLegal=true;}
+                // Pawn can go two squares forward if starting square is in rank 2 (White) or 7 (Black).
+            else {hypotheticalMoveIsLegal=false}
+            console.log("There are "+toSquareEl.childElementCount+" children in the new square.");
+            console.log(`Legality is ${hypotheticalMoveIsLegal}.`);
+            break; 
+    } //end of switch
+    return hypotheticalMoveIsLegal;
+}
+
+console.log(isHypotheticalMoveLegal("N","E2","F4"))
+
 const isNonCastlingMoveLegal = () => {
     switch (pieceToMoveType) {
         case "K":
