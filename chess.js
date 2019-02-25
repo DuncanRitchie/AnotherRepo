@@ -207,19 +207,14 @@ const areCellsBetweenEmpty = (coord1,coord2) => {
     return rCBE
 }
 
-const isInCheck = () => {
-    allOpponentPieces = document.querySelectorAll(`.chessPiece${otherPlayer(currentPlayer)}`);
-    for (i=0;i<allDivs.length;i++) {
-        
-    }
-}
-
 const isHypotheticalMoveLegal = (hypotheticalPlayer,hypotheticalPieceType,fromSquare,toSquare) => {
     hypotheticalFileDiff=subtractCoords(fromSquare,toSquare)[0];
     hypotheticalRankDiff=subtractCoords(fromSquare,toSquare)[1];
     hypotheticalFileDiffAbs=Math.abs(hypotheticalFileDiff);
     hypotheticalRankDiffAbs=Math.abs(hypotheticalRankDiff);
-    toSquareEl=document.getElementById("chess"+toSquare)
+    toSquareEl=document.getElementById("chess"+fromSquare)
+    toSquareEl=document.getElementById("chess"+toSquare);
+    hypotheticalMoveIsLegal=false;
     switch (hypotheticalPieceType) {
         case "K":
             console.log("This is a king.");
@@ -291,6 +286,31 @@ const isHypotheticalMoveLegal = (hypotheticalPlayer,hypotheticalPieceType,fromSq
     return hypotheticalMoveIsLegal;
 }
 
+const isInCheck = (hypoPlayer) => {
+    youAreInCheck = false;
+    allOpponentPieces = document.querySelectorAll(`.chessPiece${otherPlayer(hypoPlayer)}`);
+    console.log(allOpponentPieces)
+    toSq=document.getElementById("chess"+hypoPlayer+"K").parentElement.id.substr(-2,2);
+    console.log("The king is in "+toSq+".");
+    for (i=0;i<allOpponentPieces.length;i++) {
+        hypoPieceType = allOpponentPieces[i].id.substr(10,1);
+        fromSq = allOpponentPieces[i].parentElement.id.substr(-2,2);
+        console.log(allOpponentPieces[i]);
+        console.log(hypoPieceType);
+        console.log(fromSq);
+        if(isHypotheticalMoveLegal(otherPlayer(hypoPlayer),hypoPieceType,fromSq,toSq)) {
+            console.log("This piece can capture the king!")
+            youAreInCheck = true;
+        };
+    }
+    console.log(`It is ${youAreInCheck} that ${hypoPlayer} is in check.`)
+    return youAreInCheck
+}
+
+isInCheck("White")
+isInCheck("Black")
+
+console.log("Let's just check whether it is legal to move a White Knight from E2 to F4")
 console.log(isHypotheticalMoveLegal("White","N","E2","F4"))
 
 const chessMovePiece = () => {
@@ -432,7 +452,7 @@ const chessMovePiece = () => {
                                     chessMessage.textContent = `Castling with ${castlingRookToMove} is illegal! ${currentPlayer} to play!`
                                 }
                             }
-                    }  //End of castling code. The code below only runs if we're not castling.
+                    }  //End of castling code. The code below only runs if we're not castling, and/or if we're in check.
                     else {
                         isMoveLegal=isHypotheticalMoveLegal(currentPlayer,pieceToMoveType,currentSquare,newSquare);
                         if (newSquareEl==currentSquareEl){
@@ -440,103 +460,106 @@ const chessMovePiece = () => {
                             chessMessage.innerHTML = `You&rsquo;re trying to move ${pieceToMove} to its current square! That&rsquo;s not a move! ${currentPlayer} to play!`
                         }
                         else { //The following code runs if the current and new squares are different.
-                        if (isMoveLegal) {
-                            switch (pieceToMoveType) {
-                                case "K":
-                                        if(currentPlayer=="White"){
-                                            whiteKingMoved = true;
-                                        }
-                                        else {
-                                            blackKingMoved = true;
-                                        };
-                                    break; 
-                                case "R":
-                                        if (currentPlayer=="White") {
-                                            if (pieceToMove=="R1"){
-                                                whiteRook1Moved=true
+                            if (isMoveLegal) {
+                                switch (pieceToMoveType) {
+                                    case "K":
+                                            if(currentPlayer=="White"){
+                                                whiteKingMoved = true;
                                             }
-                                            else if (pieceToMove=="R2"){
-                                                whiteRook2Moved=true
+                                            else {
+                                                blackKingMoved = true;
+                                            };
+                                        break; 
+                                    case "R":
+                                            if (currentPlayer=="White") {
+                                                if (pieceToMove=="R1"){
+                                                    whiteRook1Moved=true
+                                                }
+                                                else if (pieceToMove=="R2"){
+                                                    whiteRook2Moved=true
+                                                }
                                             }
-                                        }
-                                        else if (currentPlayer=="White") {
-                                            if (pieceToMove=="R1"){
-                                                whiteRook1Moved=true
+                                            else if (currentPlayer=="White") {
+                                                if (pieceToMove=="R1"){
+                                                    whiteRook1Moved=true
+                                                }
+                                                else if (pieceToMove=="R2"){
+                                                    whiteRook2Moved=true
+                                                }
                                             }
-                                            else if (pieceToMove=="R2"){
-                                                whiteRook2Moved=true
-                                            }
-                                        }
-                            } //end of switch
-                            if (newSquareEl.childElementCount>0) {
-                                capturedPieceEl = newSquareEl.lastElementChild;
-                                if (capturedPieceEl.id.substr(5,5)==currentPlayer) {
-                                    isMoveLegal = false;
-                                    chessMessage.innerHTML = `You&rsquo;re trying to capture your own ${capturedPieceEl.id.substr(10)}; that&rsquo;s illegal! ${currentPlayer} to play!`;
-                                }
-                                else { //This section of code runs only on the capture of a piece.
-                                    if (isMoveLegal == true){
-                                        console.log(`${capturedPieceEl.id} captured!`);
-                                        if(capturedPieceEl.id.substr(-1,1)=="K"){
-                                            chessKingColour = capturedPieceEl.id.substr(-6,5);
-                                            chessWinner = otherPlayer(chessKingColour);
-                                            chessMessage.textContent = `Checkmate! ${pieceToMoveEl.id.substr(5)} has captured the ${chessKingColour} king! ${chessWinner} has won!`;
-                                            chessInput.style.display = "none";
-                                            chessInputButton.style.display = "none";
-                                        }
-                                        else {
-                                            chessMessage.textContent=`${capturedPieceEl.id.substr(5)} captured!`;
-                                        }
-                                        newSquareEl.removeChild(capturedPieceEl);
+                                } //end of switch
+                                if (newSquareEl.childElementCount>0) {
+                                    capturedPieceEl = newSquareEl.lastElementChild;
+                                    if (capturedPieceEl.id.substr(5,5)==currentPlayer) {
+                                        isMoveLegal = false;
+                                        chessMessage.innerHTML = `You&rsquo;re trying to capture your own ${capturedPieceEl.id.substr(10)}; that&rsquo;s illegal! ${currentPlayer} to play!`;
                                     }
-                                    else {
-                                        chessMessage.textContent = `${pieceToMove} to ${newSquare.toLowerCase()} is illegal! ${currentPlayer} to play!`
+                                    else { //This section of code runs only on the capture of a piece.
+                                        if (isMoveLegal == true){
+                                            console.log(`${capturedPieceEl.id} captured!`);
+                                            if(capturedPieceEl.id.substr(-1,1)=="K"){
+                                                chessKingColour = capturedPieceEl.id.substr(-6,5);
+                                                chessWinner = otherPlayer(chessKingColour);
+                                                chessMessage.textContent = `Checkmate! ${pieceToMoveEl.id.substr(5)} has captured the ${chessKingColour} king! ${chessWinner} has won!`;
+                                                chessInput.style.display = "none";
+                                                chessInputButton.style.display = "none";
+                                            }
+                                            else {
+                                                chessMessage.textContent=`${capturedPieceEl.id.substr(5)} captured!`;
+                                            }
+                                            newSquareEl.removeChild(capturedPieceEl);
+                                        }
+                                        else {
+                                            chessMessage.textContent = `${pieceToMove} to ${newSquare.toLowerCase()} is illegal! ${currentPlayer} to play!`
+                                        }
+                                    }
+                                }
+                                else {
+                                    chessMessage.textContent="";
+                                }
+                                // The following code runs regardless of whether we are capturing or not.
+                                if (isMoveLegal) {
+                                    newSquareEl.appendChild(pieceToMoveEl);
+                                    if (currentPlayer=="White"){promotionRow=8}
+                                    else {promotionRow=1};
+                                    if(pieceToMoveType=="P"&&cellRankNum(newSquare)==promotionRow) {
+                                        console.log("We are promoting!");
+                                        chessMessage.innerHTML += ` Promotion &mdash; ${pieceToMoveEl.id.substr(5)} has turned into a Queen! `;
+                                        if (currentPlayer=="White") {
+                                            if (numOfWhiteQueens==1) {
+                                                document.getElementById("chessWhiteQ").id="chessWhiteQ1";
+                                                document.getElementById("chessWhiteQ1").textContent="Q1";
+                                            }
+                                            numOfWhiteQueens++;
+                                            pieceToMoveEl.id=`chessWhiteQ${numOfWhiteQueens}`;
+                                            pieceToMoveEl.textContent=`Q${numOfWhiteQueens}`;
+                                        }
+                                        else {
+                                            if (numOfBlackQueens==1) {
+                                                document.getElementById("chessBlackQ").id="chessBlackQ1";
+                                                document.getElementById("chessBlackQ1").textContent="Q1";
+                                            }
+                                            numOfBlackQueens++;
+                                            pieceToMoveEl.id=`chessBlackQ${numOfBlackQueens}`;
+                                            pieceToMoveEl.textContent=`Q${numOfBlackQueens}`;
+                                        }
+                                    }
+                                    chessInput.value="";
+                                    if(chessMessage.textContent.substr(0,9)!=="Checkmate"){
+                                        currentPlayer=otherPlayer(currentPlayer);
+                                        chessMessage.textContent += ` ${currentPlayer} to play!`
                                     }
                                 }
                             }
                             else {
-                                chessMessage.textContent="";
-                            }
-                            // The following code runs regardless of whether we are capturing or not.
-                            if (isMoveLegal) {
-                                newSquareEl.appendChild(pieceToMoveEl);
-                                if (currentPlayer=="White"){promotionRow=8}
-                                else {promotionRow=1};
-                                if(pieceToMoveType=="P"&&cellRankNum(newSquare)==promotionRow) {
-                                    console.log("We are promoting!");
-                                    chessMessage.innerHTML += ` Promotion &mdash; ${pieceToMoveEl.id.substr(5)} has turned into a Queen! `;
-                                    if (currentPlayer=="White") {
-                                        if (numOfWhiteQueens==1) {
-                                            document.getElementById("chessWhiteQ").id="chessWhiteQ1";
-                                            document.getElementById("chessWhiteQ1").textContent="Q1";
-                                        }
-                                        numOfWhiteQueens++;
-                                        pieceToMoveEl.id=`chessWhiteQ${numOfWhiteQueens}`;
-                                        pieceToMoveEl.textContent=`Q${numOfWhiteQueens}`;
-                                    }
-                                    else {
-                                        if (numOfBlackQueens==1) {
-                                            document.getElementById("chessBlackQ").id="chessBlackQ1";
-                                            document.getElementById("chessBlackQ1").textContent="Q1";
-                                        }
-                                        numOfBlackQueens++;
-                                        pieceToMoveEl.id=`chessBlackQ${numOfBlackQueens}`;
-                                        pieceToMoveEl.textContent=`Q${numOfBlackQueens}`;
-                                    }
+                                if(newSquareEl!==null && newSquareEl.childElementCount==0){
+                                    chessMessage.textContent = `${pieceToMove} to ${newSquare.toLowerCase()} is illegal! ${currentPlayer} to play!`
                                 }
-                                chessInput.value="";
-                                if(chessMessage.textContent.substr(0,9)!=="Checkmate"){
-                                    currentPlayer=otherPlayer(currentPlayer);
-                                    chessMessage.textContent += ` ${currentPlayer} to play!`
-                                }
-                            }
-                        }
-                        else {
-                            if(newSquareEl!==null && newSquareEl.childElementCount==0){
-                                chessMessage.textContent = `${pieceToMove} to ${newSquare.toLowerCase()} is illegal! ${currentPlayer} to play!`
                             }
                         }
                     }
+                    if(isInCheck(currentPlayer)) {
+                        chessMessage.textContent+=` ${currentPlayer} is in check!`
                     }
                 }
             }
