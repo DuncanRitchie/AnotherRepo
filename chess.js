@@ -212,7 +212,7 @@ const isHypotheticalMoveLegal = (hypotheticalPlayer,hypotheticalPieceType,fromSq
     hypotheticalRankDiff=subtractCoords(fromSquare,toSquare)[1];
     hypotheticalFileDiffAbs=Math.abs(hypotheticalFileDiff);
     hypotheticalRankDiffAbs=Math.abs(hypotheticalRankDiff);
-    toSquareEl=document.getElementById("chess"+fromSquare)
+    fromSquareEl=document.getElementById("chess"+fromSquare)
     toSquareEl=document.getElementById("chess"+toSquare);
     hypotheticalMoveIsLegal=false;
     switch (hypotheticalPieceType) {
@@ -292,7 +292,7 @@ const isInCheck = (hypoPlayer) => {
     console.log(allOpponentPieces)
     toSq=document.getElementById("chess"+hypoPlayer+"K").parentElement.id.substr(-2,2);
     console.log("The king is in "+toSq+".");
-    for (i=0;i<allOpponentPieces.length;i++) {
+    for (i=0;i<allOpponentPieces.length && !youAreInCheck;i++) {
         hypoPieceType = allOpponentPieces[i].id.substr(10,1);
         fromSq = allOpponentPieces[i].parentElement.id.substr(-2,2);
         console.log(allOpponentPieces[i]);
@@ -309,9 +309,6 @@ const isInCheck = (hypoPlayer) => {
 
 isInCheck("White")
 isInCheck("Black")
-
-console.log("Let's just check whether it is legal to move a White Knight from E2 to F4")
-console.log(isHypotheticalMoveLegal("White","N","E2","F4"))
 
 const chessMovePiece = () => {
     isMoveLegal=true;
