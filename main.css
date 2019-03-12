@@ -541,11 +541,73 @@ font-size: 24pt;
     .explanation {
         display:block;
         padding:10px 8px;
-        margin:-8px -8px -16px;
+        margin:-8px -8px 0px;
         align-self:center;
         width:calc(100vw -  16px)
     }
 
+    #clockFace {
+        width:calc(100vw - 36px);
+        height:calc(100vw - 36px);
+    }
+
+    #clockHourHandWrap {
+        position:absolute;
+        align-self:center;
+        display:block;
+        margin-top:calc(100vw / 4);
+        margin-left:calc(100vw /2);
+        margin-right:calc(100vw /2);
+        margin-bottom:calc(100vw / 4);
+        height:calc(100vw / 2);
+        width:10px;
+    }
+    
+    #clockHourHand {
+        display:block;
+        height:calc(100vw / 4);
+        width:10px;
+        background-color:saddlebrown;
+    }
+    
+    #clockMinuteHandWrap {
+        position:absolute;
+        align-self:center;
+        display:block;
+        margin-top:50px;
+        margin-left:290px;
+        margin-right:290px;
+        margin-bottom:50px;
+        height:500px;
+        width:20px;
+    }
+    
+    #clockMinuteHand {
+        display:block;
+        height:250px;
+        width:20px;
+        background-color:sienna;
+    }
+    
+    #clockSecondHandWrap {
+        position:absolute;
+        align-self:center;
+        display:block;
+        margin-top:50px;
+        margin-left:296px;
+        margin-right:296px;
+        margin-bottom:50px;
+        height:500px;
+        width:10px;
+    }
+    
+    #clockSecondHand {
+        display:block;
+        height:250px;
+        width:8px;
+        background-color:goldenrod;
+    }
+    
     #chessBoardEdge {
         margin-top:8vw;
         display:grid;
