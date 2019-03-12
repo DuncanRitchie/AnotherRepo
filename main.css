@@ -541,9 +541,22 @@ font-size: 24pt;
     .explanation {
         display:block;
         padding:10px 8px;
-        margin:-8px -8px 0px;
+        margin:-8px -8px -0px;
         align-self:center;
         width:calc(100vw -  16px)
+    }
+
+    #drumkitBody {
+        height:fit-content;
+    }
+
+    #drumkitPart {
+        padding:0
+    }
+
+    #drumkitLetter {
+        font-size: 12px;
+        padding:0;
     }
 
     #clockFace {
@@ -555,55 +568,44 @@ font-size: 24pt;
         position:absolute;
         align-self:center;
         display:block;
-        margin-top:calc(100vw / 4);
-        margin-left:calc(100vw /2);
-        margin-right:calc(100vw /2);
-        margin-bottom:calc(100vw / 4);
-        height:calc(100vw / 2);
-        width:10px;
+        margin-top:calc(25vw - 16px);
+        margin-bottom:calc(25vw - 16px);
+        margin-left:calc(50vw - 27px);
+        margin-right:calc(50vw - 27px);
+        height:calc(50vw - 4px);
+        width:18px;
     }
     
     #clockHourHand {
-        display:block;
-        height:calc(100vw / 4);
-        width:10px;
-        background-color:saddlebrown;
+        height:calc(25vw - 2px);
+        width:18px;
     }
     
     #clockMinuteHandWrap {
-        position:absolute;
-        align-self:center;
-        display:block;
-        margin-top:50px;
-        margin-left:290px;
-        margin-right:290px;
-        margin-bottom:50px;
-        height:500px;
+        margin-top:6px;
+        margin-bottom:6px;
+        margin-left:calc(50vw - 28px);
+        margin-right:calc(50vw - 28px);
+        height:calc(100vw - 48px);
         width:20px;
     }
     
     #clockMinuteHand {
-        display:block;
-        height:250px;
+        height:calc(50vw - 24px);
         width:20px;
-        background-color:sienna;
     }
     
     #clockSecondHandWrap {
-        position:absolute;
-        align-self:center;
-        display:block;
-        margin-top:50px;
-        margin-left:296px;
-        margin-right:296px;
-        margin-bottom:50px;
-        height:500px;
-        width:10px;
+        margin-top:6px;
+        margin-bottom:6px;
+        margin-left:calc(50vw - 22px);
+        margin-right:calc(50vw - 22px);
+        height:calc(100vw - 48px);
+        width:8px;
     }
     
     #clockSecondHand {
-        display:block;
-        height:250px;
+        height:calc(50vw - 24px);
         width:8px;
         background-color:goldenrod;
     }
