@@ -10,6 +10,14 @@ h1{
     width:100%
 }
 
+a{
+    text-decoration:none;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
 .explanation {
     display:block;
     text-align:center;
