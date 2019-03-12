@@ -11,12 +11,15 @@ h1{
 }
 
 .explanation {
+    display:block;
     text-align:center;
     background-color:lightcoral;
     color:rgb(20,20,20);
     font-weight:bold;
-    padding:10px;
-    margin:0px;
+    padding:10px 8px;
+    margin:0px -8px;
+    align-self:center;
+    width:calc(100vw -  16px)
 }
 
 #indexLinksBody {
@@ -537,7 +540,10 @@ font-size: 24pt;
 @media screen and (max-width: 715px) {
     .explanation {
         display:block;
-        width:100vw;
+        padding:10px 8px;
+        margin:-8px -8px -16px;
+        align-self:center;
+        width:calc(100vw -  16px)
     }
 
     #chessBoardEdge {
