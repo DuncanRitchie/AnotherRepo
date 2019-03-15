@@ -770,3 +770,9 @@ font-size: 24pt;
     }
     
 }
+
+@media screen and (max-width: 375px) {
+    #indexLinkA {
+        padding-top:20px;
+    }
+}
