@@ -136,7 +136,7 @@ a:hover{
 #drumkitBody {
     width:100%;
     height:750px;
-    background: url(JSdrumkit-files/images/bg.png) orange center no-repeat;
+    background: url(keycode-drumkit/images/bg.png) orange center no-repeat;
     display:grid;
     align-items: stretch;
     grid-template-columns: repeat(9,auto);

@@ -43,7 +43,7 @@ const dicePlay = () => {
     let diceTotalP = document.getElementsByClassName("diceTotalP")[diceCurrentPlayer-1];
     randNum = Math.ceil(Math.random()*6);
     console.log(`You rolled a ${randNum}`);
-    diceImg.src=`./JSdiceGame/img/dice${randNum}.png`;
+    diceImg.src=`./img/dice${randNum}.png`;
     diceTotals[diceCurrentPlayer-1] += randNum;
     if(randNum==1){
         diceTotals[diceCurrentPlayer-1]=0;
