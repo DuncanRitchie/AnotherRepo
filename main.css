@@ -1,3 +1,5 @@
+/* CSS for all pages */
+
 @import url('https://fonts.googleapis.com/css?family=Alegreya');
 
 body {
@@ -29,6 +31,8 @@ a:hover{
     align-self:center;
     width:calc(100vw -  16px)
 }
+
+/* CSS for index.html */
 
 #indexLinksBody {
     display:flex;
@@ -87,6 +91,15 @@ a:hover{
     color:indianred;
 }
 
+/* Cash Machine */
+
+#cashMachine {
+    margin-top: 12px;
+    text-align: center
+}
+
+/* Cyber-pet */
+
 .hidden {display:none;}
 
 #animalPicsContainer {display:flex;padding:0;margin:0;}
@@ -121,6 +134,8 @@ a:hover{
 #messageDiv {margin-top:220px;}
 #message {margin-top:200px;}
 
+/* Keycode */
+
 #keyBody {
     display:flex;
     flex-flow:row;
@@ -132,6 +147,8 @@ a:hover{
     width:33%;
     text-align:center;
 }
+
+/* Drum-kit  */
 
 #drumkitBody {
     width:100%;
@@ -203,6 +220,8 @@ font-size: 24pt;
     grid-row: 1 / span 1;
 }
 
+/* Dice */
+
 #diceBody {
     display:flex;
     flex-flow:column;
@@ -269,6 +288,8 @@ font-size: 24pt;
     width:100%;
 }
 
+/* Whack-a-mole */
+
 #whackamoleBody{
     display:grid;
     grid-template: repeat(12, 1fr) / repeat(12, 1fr);
@@ -306,6 +327,8 @@ font-size: 24pt;
     text-align:center;
     color:indianred;
 }
+
+/* Clock */
 
 #clockBody{
     display:grid;
@@ -386,6 +409,8 @@ font-size: 24pt;
     text-align:center;
     font-size:24px;
 }
+
+/* Chess */
 
 .chessExampleReference {
     font-family:Helvetica, Arial, sans-serif;
@@ -545,6 +570,8 @@ font-size: 24pt;
     border:1px solid grey;
 }
 
+/* Media query for mobile */
+
 @media screen and (max-width: 715px) {
     .explanation {
         display:block;
@@ -553,6 +580,8 @@ font-size: 24pt;
         align-self:center;
         width:calc(100vw -  16px)
     }
+
+    /* Drum-kit (mobile) */
 
     #drumkitBody {
         height:fit-content;
@@ -566,6 +595,8 @@ font-size: 24pt;
         font-size: 12px;
         padding:0;
     }
+
+    /* Clock (mobile) */
 
     #clockFace {
         width:calc(100vw - 36px);
@@ -617,6 +648,8 @@ font-size: 24pt;
         width:8px;
         background-color:goldenrod;
     }
+
+    /* Chess (mobile) */
     
     #chessBoardEdge {
         margin-top:8vw;
@@ -770,6 +803,8 @@ font-size: 24pt;
     }
     
 }
+
+/* Media query for tiny screens */
 
 @media screen and (max-width: 375px) {
     #indexLinkA {

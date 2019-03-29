@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Duncan&rsquo;s Cash Machine</title>
+    <link rel="stylesheet" type="text/css" href="../main.css" />
+    <link rel="icon" href="https://duncanritchie.github.io/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="https://duncanritchie.github.io/favicon-96x96.png" type="image/png" />
+</head>
+<body>
+    <h1>Duncan&rsquo;s Cash Machine</h1>
+    <p class="explanation">This is a simple simulation of a cash machine, demonstrating browser alerts, if/else statements, and simple manipulation of JavaScript variables and HTML text.<br />
+        Your starting PIN is 1234 and your starting balance is £1000.<br />
+        This is a very generous cash machine because you can add to your balance by completing a quiz about JavaScript and Git.
+        Answers are case-insensitive, but otherwise yours have to match mine exactly.<br />
+        Click a button to withdraw cash, view your balance, play the quiz, or change your PIN.</p>
+        <div id="cashMachine">
+            <button onclick="launchPrompt()">Withdraw cash / View balance / Play quiz</button><button onclick="changePinPrompt()">Change PIN</button>
+            <p id="Message"></p>
+        </div>
+    <script src="cashmachine.js"></script>
+</body>
+</html>
