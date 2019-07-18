@@ -52,6 +52,7 @@ const dicePlay = () => {
     }
     diceTotalP.textContent = diceTotals[diceCurrentPlayer-1];
     if(diceTotals[diceCurrentPlayer-1]>=20){
+        dicePlayH.style.cursor = "unset"
         dicePlayH.textContent = `Player ${diceCurrentPlayer} wins with ${diceTotals[diceCurrentPlayer-1]} points!`;
         diceMessage.innerHTML = "Your score reached 20! You have won your bet!";
         diceIsAndTs.style.display="none";

@@ -4,12 +4,26 @@
 
 body {
     font-family: "Alegreya", serif;
+    margin:0;
+    padding:0 0 12px 0
+}
+
+body::after {
+    content: "Made by Duncan Ritchie";
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: palegoldenrod
 }
 
 h1{
     color:darkolivegreen;
     text-align:center;
-    width:100%
+    width:100%;
+    position: sticky;
+    top: 0;
+    background-color: white
 }
 
 a{
@@ -26,10 +40,9 @@ a:hover{
     background-color:lightcoral;
     color:rgb(20,20,20);
     font-weight:bold;
-    padding:10px 8px;
-    margin:0px -8px;
-    align-self:center;
-    width:calc(100vw -  16px)
+    padding:12px 24px;
+    margin:0;
+    width:calc(100% - 48px)
 }
 
 /* CSS for index.html */
@@ -98,6 +111,11 @@ a:hover{
     text-align: center
 }
 
+.cash-machine-button {
+    position: sticky;
+    top: 40px
+}
+
 /* Cyber-pet */
 
 .hidden {display:none;}
@@ -107,7 +125,14 @@ a:hover{
 #rubricDiv {display:none;}
 
 #nurtureContainer {display:none;}
-.nurtureBox {width: 25%;height:50px;float:left;padding-top:25px;padding-bottom:0px;text-align:center;}
+.nurtureBox {
+    width: 25%;
+    height:50px;
+    float:left;
+    padding-top:25px;
+    padding-bottom:0px;
+    text-align:center;
+}
 #giveFoodBox {background-color:#ff6666;}
 #giveWaterBox {background-color:#66ccff;}
 #givePlayBox {background-color:#66ffcc;}
@@ -131,8 +156,8 @@ a:hover{
 .lifesignValue {font-size:2em;}
 
 #petPic {width:20%;float:right;}
-#messageDiv {margin-top:220px;}
-#message {margin-top:200px;}
+#messageDiv {margin-top:220px;padding: 0 6px}
+#message {margin-top:200px;padding: 0 6px}
 
 /* Keycode */
 
@@ -153,7 +178,7 @@ a:hover{
 #drumkitBody {
     width:100%;
     height:750px;
-    background: url(keycode-drumkit/images/bg.png) orange center no-repeat;
+    background: radial-gradient(#e2d95c, #bb5353);;
     display:grid;
     align-items: stretch;
     grid-template-columns: repeat(9,auto);
@@ -241,6 +266,7 @@ font-size: 24pt;
     font-size:24pt;
     width:100%;
     background-color:palevioletred;
+    cursor: pointer
 }
 
 #diceStartButton:hover {
@@ -256,6 +282,9 @@ font-size: 24pt;
     width:100%;
     background-color:palevioletred;
     color:#400000;
+    cursor: pointer;
+    position: sticky;
+    top: 42px
 }
 
 #dicePlayH:hover{
@@ -273,19 +302,33 @@ font-size: 24pt;
     background-color:lightpink;
 }
 
+.diceImgAndTotal {
+    margin-top: 12px
+}
+
 .diceImg {
     width:100px;
-    height:100px;
+    height:100px
 }
 
 .diceTotalDiv {
-    width:100px;
+    width: 100px;
+    height: 100px;
     background-color: peachpuff;
     text-align:center;
 }
 
+.diceTotalH {
+    margin: 0;
+    padding-top: 3px
+}
+
 #diceMessage{
-    width:100%;
+    width: calc(100% - 12px);
+    background-color: lightcoral;
+    padding: 6px;
+    position: sticky;
+    bottom: 24px
 }
 
 /* Whack-a-mole */
@@ -576,9 +619,8 @@ font-size: 24pt;
     .explanation {
         display:block;
         padding:10px 8px;
-        margin:-4px -8px 0px;
-        align-self:center;
-        width:calc(100vw -  16px)
+        margin: 4px 0;
+        width:calc(100% -  16px)
     }
 
     /* Drum-kit (mobile) */
