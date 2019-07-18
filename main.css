@@ -178,7 +178,7 @@ a:hover{
 
 #drumkitBody {
     width:100%;
-    height:750px;
+    height:360px;
     background: radial-gradient(#e2d95c, #bb5353);;
     display:grid;
     align-items: stretch;
