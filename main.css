@@ -21,6 +21,7 @@ h1{
     color:darkolivegreen;
     text-align:center;
     width:100%;
+    z-index: 1;
     position: sticky;
     top: 0;
     background-color: white
@@ -607,14 +608,27 @@ font-size: 24pt;
 }
 
 #chessMessageDiv {
+    position: sticky;
+    bottom: 70px;
     text-align:center;
     padding:5px;
+    margin-top: 12px;
+    background-color: rgba(255, 248, 220, 0.8);
+    border-top: 2px solid saddlebrown
 }
 
 #chessInput {
+    position: sticky;
+    bottom: 42px;
+    padding: 6px 0;
     text-align:center;
     font-size:16px;
     border:1px solid grey;
+}
+
+#chessInputButton {
+    position: sticky;
+    bottom: 22px;
 }
 
 /* Media query for mobile */
@@ -788,7 +802,6 @@ font-size: 24pt;
     
     .chessRow {
         display:flex;
-        /* grid-template:repeat(8 1fr)/1; */
         width:80vw;
         height:10vw;
         grid-column:1/9;
