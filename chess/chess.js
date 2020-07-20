@@ -133,7 +133,7 @@ const areCellsBetweenEmpty = (coord1,coord2) => {
         }
         else {
             // Loops through the intermediary cells to check for children.
-            console.log("The two cells are the same file. Are there pieces in between? Here's the list of cells to check:");
+            console.log("The two cells are the same file. Are there pieces in between? Here’s the list of cells to check:");
             rCBE = true;
             for (i=Math.min(rank1Num,rank2Num)+1;i<Math.max(rank1Num,rank2Num);i++){
                 console.log(getElementByFR(file1Num,i))
@@ -152,7 +152,7 @@ const areCellsBetweenEmpty = (coord1,coord2) => {
         }
         else {
             // Loops through the intermediary cells to check for children.
-            console.log("The two cells are the same rank. Are there pieces in between? Here's the list of cells to check:");
+            console.log("The two cells are the same rank. Are there pieces in between? Here’s the list of cells to check:");
             rCBE = true;
             for (i=Math.min(file1Num,file2Num)+1;i<Math.max(file1Num,file2Num);i++){
                 console.log(getElementByFR(i,rank1Num))
@@ -171,7 +171,7 @@ const areCellsBetweenEmpty = (coord1,coord2) => {
         }
         else {
             // Loops through the intermediary cells to check for children.
-            console.log("The two cells are on the same positive diagonal. Are there pieces in between? Here's the list of cells to check:");
+            console.log("The two cells are on the same positive diagonal. Are there pieces in between? Here’s the list of cells to check:");
             rCBE = true
             for (i=Math.min(file1Num,file2Num)+1;i<Math.max(file1Num,file2Num);i++){
                 console.log(getElementByFR(i,rank1Num+i-file1Num))
@@ -190,7 +190,7 @@ const areCellsBetweenEmpty = (coord1,coord2) => {
         }
         else {
             // Loops through the intermediary cells to check for children.
-            console.log("The two cells are on the same negative diagonal. Are there pieces in between? Here's the list of cells to check:");
+            console.log("The two cells are on the same negative diagonal. Are there pieces in between? Here’s the list of cells to check:");
             rCBE = true;
             j=Math.max(rank1Num,rank2Num)-1;
             for (i=Math.min(file1Num,file2Num)+1;i<Math.max(file1Num,file2Num);i++){
@@ -449,7 +449,7 @@ const chessMovePiece = () => {
                                     chessMessage.textContent = `Castling with ${castlingRookToMove} is illegal! ${currentPlayer} to play!`
                                 }
                             }
-                    }  //End of castling code. The code below only runs if we're not castling, and/or if we're in check.
+                    }  //End of castling code. The code below only runs if we’re not castling, and/or if we’re in check.
                     else {
                         isMoveLegal=isHypotheticalMoveLegal(currentPlayer,pieceToMoveType,currentSquare,newSquare);
                         if (newSquareEl==currentSquareEl){

@@ -14,7 +14,7 @@ if (pin == accountPin) {
   pinCorrect = true;
     let amount = prompt("Please enter a positive number to withdraw that amount, enter 0 to view your balance, or enter a negative number to play a quiz for that amount.",10);
   if (isNaN(amount)){
-  message=`You didn't enter an amount to withdraw. Your balance is still £${accountTotal}.`
+  message=`You didn’t enter an amount to withdraw. Your balance is still £${accountTotal}.`
                     }
  else if (amount == 0){
     message = `Your balance is £${accountTotal}.`
@@ -23,7 +23,7 @@ if (pin == accountPin) {
        if (amount <= accountTotal){
      oldTotal = accountTotal;
      accountTotal -= amount;
-     message = `Withdrawing £${amount} from your account. Your balance was £${oldTotal}, but now it's £${accountTotal}.`
+     message = `Withdrawing £${amount} from your account. Your balance was £${oldTotal}, but now it’s £${accountTotal}.`
                                   }
         else {
       message = `Insufficient funds! You cannot withdraw £${amount} because you only have £${accountTotal} in this account.`
@@ -40,15 +40,15 @@ if (pin == accountPin) {
         if (are2ArraysTheSame(quizAnswers,quizCorrectAnswers)) {
         accountTotal -= amount;
         message = `You got it all right! Adding £${Math.abs(amount)}. Your balance is now £${accountTotal}.`}
-        else {message = `You answered ${quizAnswers}. The correct answers were ${quizCorrectAnswers}. You've gone wrong. Try again. Your balance is still £${accountTotal}.`}
+        else {message = `You answered ${quizAnswers}. The correct answers were ${quizCorrectAnswers}. You’ve gone wrong. Try again. Your balance is still £${accountTotal}.`}
       }
       else {message = "You have to complete the quiz to add money to your account."}
                  }
  else {
-  message=`You didn't enter a valid amount to withdraw. Your balance is still £${accountTotal}.`
+  message=`You didn’t enter a valid amount to withdraw. Your balance is still £${accountTotal}.`
       }   
   if (accountTotal == 0 && pinCorrect == true){
-    message+=` You have £0. You're bankrupt!`
+    message+=` You have £0. You’re bankrupt!`
      }}
 else { 
     accountTotal = accountTotal

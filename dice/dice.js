@@ -29,10 +29,10 @@ const diceStart = () => {
         diceInputDiv.style.display="none";
         diceStartButton.style.display="none";
         dicePA.style.display="block";
-        diceMessage.textContent = "Roll the die! What's the first score you will get?"
+        diceMessage.textContent = "Roll the die! What’s the first score you will get?"
 }
     else {
-        diceInputP.textContent = "That's not a valid number we can let!"
+        diceInputP.textContent = "That’s not a valid number we can let!"
     }
 }
 

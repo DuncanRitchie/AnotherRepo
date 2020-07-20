@@ -52,7 +52,7 @@ const startPet = {
     startROT();
   }
   
-  //setSynonyms() changes the pet's pronouns and death message according to its gender and type.
+  //setSynonyms() changes the pet’s pronouns and death message according to its gender and type.
   const setSynonyms = () => {
     switch (pet.gender) {
       case "male":
@@ -89,14 +89,14 @@ const startPet = {
       break;
     case "parrot":
       picURL = "https://farm1.staticflickr.com/621/22243094746_b96fd558a8_b.jpg";
-      synonymOfIsDead = `is 'pining for the fjords'`;
+      synonymOfIsDead = `is “pining for the fjords”`;
       break;
     case "snake":
       picURL = "https://farm5.staticflickr.com/4831/31237635227_ae50d4a8d0_b.jpg";
       synonymOfIsDead = `has slithered off ${pet.possessive} mortal coil`;
       break;
     default:
-      synonymOfIsDead = `is an ex-${pet.type}, ${pet.subject}'s kicked the bucket, ${pet.subject}'s shuffled off ${pet.possessive} mortal coil, run down the curtain and joined the choir invisible`
+      synonymOfIsDead = `is an ex-${pet.type}, ${pet.subject}’s kicked the bucket, ${pet.subject}’s shuffled off ${pet.possessive} mortal coil, run down the curtain, and joined the choir invisible`
   }
     document.getElementById("petPic").src=picURL;
     document.getElementById("petPic").style.display="block";
