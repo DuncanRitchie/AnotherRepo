@@ -99,6 +99,7 @@ const startPet = {
       synonymOfIsDead = `is an ex-${pet.type}, ${pet.subject}'s kicked the bucket, ${pet.subject}'s shuffled off ${pet.possessive} mortal coil, run down the curtain and joined the choir invisible`
   }
     document.getElementById("petPic").src=picURL;
+    document.getElementById("petPic").style.display="block";
   }
   
   //update() updates the lifesign values and messages onscreen.
