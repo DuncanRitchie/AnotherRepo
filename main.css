@@ -5,16 +5,7 @@
 body {
     font-family: "Alegreya", serif;
     margin:0;
-    padding:0 0 12px 0
-}
-
-body::after {
-    content: "Made by Duncan Ritchie";
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    background-color: palegoldenrod
+    padding:0;
 }
 
 h1{
@@ -46,13 +37,7 @@ a:hover{
     width:calc(100% - 48px)
 }
 
-/* CSS for index.html */
-
-#index *:focus {
-    outline:2.5px dashed black;
-}
-
-#index ul {
+ul {
     display:flex;
     flex-flow:row;
     flex-wrap:wrap;
@@ -61,7 +46,21 @@ a:hover{
     padding-left:0;
 }
 
-#index li {
+footer {
+    background-color:#d4cefa;
+    margin-top:40px;
+    padding:10px;
+    position:sticky;
+    top:0;
+}
+
+/* CSS for index.html */
+
+#index *:focus {
+    outline:2.5px dashed black;
+}
+
+#index main li {
     margin-top:20px;
     width:300px;
     height:200px;
@@ -73,11 +72,11 @@ a:hover{
     border:5px solid teal;
 }
 
-#index li:hover {
+#index main li:hover {
     background-color:white;
 }
 
-#index li a {
+#index main li a {
     width:100%;
     height:inherit;
     box-sizing: border-box;
@@ -88,7 +87,7 @@ a:hover{
     font-weight:bold;
 }
 
-#index li a:hover {
+#index main li a:hover {
     color:darkseagreen;
 }
 

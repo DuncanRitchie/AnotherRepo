@@ -10,33 +10,54 @@
     <link rel="icon" href="https://www.duncanritchie.co.uk/favicon-96x96.png" type="image/png" />
 </head>
 <body>
-<h1>Duncan&rsquo;s Dice Game</h1>
-<p class="explanation">How to play: <br />
-    Type the number of players in the white box. Click the purple start button. <br />
-    Then, clicking the purple roll button will roll the die for each successive player. <br />
-    Every player&rsquo;s total starts at 0, and when they roll the die the die&rsquo;s value is added to their total, <br />
-    unless they roll a one, at which point their total resets to zero. <br />
-    The winner is the first player whose total equals or exceeds 20.</p>
-<div id="diceBody">
-    <div id="diceInputDiv">
-        <p id="diceInputP">Please type how many players will be set!</p>
-        <input id="diceInput" type="text" value="3" />
-    </div>
-    <div id="diceStartButton">Start game</div>
-    <div id="dicePlayArea">
-        <h2 id="dicePlayH" onclick="dicePlay()">Player 1: Click to roll!</h2>
-        <div id="diceImgsAndTotals">
-            <div class="diceImgAndTotal">
-               <img class="diceImg" src="https://www.duncanritchie.co.uk/favicon.ico" alt="Player’s last roll"/>
-                <div class="diceTotalDiv">
-                    <h3 class="diceTotalH">Total</h3>
-                    <p class="diceTotalP">0</p>
-                </div> 
+    <main>
+        <h1>Duncan&rsquo;s Dice Game</h1>
+        <p class="explanation">How to play: <br />
+            Type the number of players in the white box. Click the purple start button. <br />
+            Then, clicking the purple roll button will roll the die for each successive player. <br />
+            Every player&rsquo;s total starts at 0, and when they roll the die the die&rsquo;s value is added to their total, <br />
+            unless they roll a one, at which point their total resets to zero. <br />
+            The winner is the first player whose total equals or exceeds 20.</p>
+        <div id="diceBody">
+            <div id="diceInputDiv">
+                <p id="diceInputP">Please type how many players will be set!</p>
+                <input id="diceInput" type="text" value="3" />
             </div>
+            <div id="diceStartButton">Start game</div>
+            <div id="dicePlayArea">
+                <h2 id="dicePlayH" onclick="dicePlay()">Player 1: Click to roll!</h2>
+                <div id="diceImgsAndTotals">
+                    <div class="diceImgAndTotal">
+                    <img class="diceImg" src="https://www.duncanritchie.co.uk/favicon.ico" alt="Player’s last roll"/>
+                        <div class="diceTotalDiv">
+                            <h3 class="diceTotalH">Total</h3>
+                            <p class="diceTotalP">0</p>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            <p id="diceMessage">Click &ldquo;Start game&rdquo;! Can a winning score be met?</p>
         </div>
-    </div>
-    <p id="diceMessage">Click &ldquo;Start game&rdquo;! Can a winning score be met?</p>
-</div>
+    </main>
+    <footer>
+        <ul>
+            <li>
+                <a href="https://www.duncanritchie.co.uk" title="Duncan Ritchie&rsquo;s website">
+                    Made by Duncan Ritchie
+                </a>
+            </li>
+            <li>
+                <a href="../" title="Duncan Ritchie&rsquo;s game page">
+                    Games homepage
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/DuncanRitchie/jsChallenges/tree/main/dice" title="Code on GitHub">
+                    See the code
+                </a>
+            </li>
+        </ul>
+    </footer>
 <script src="dice.js"></script>
 </body>
 </html>

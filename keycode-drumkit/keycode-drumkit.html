@@ -10,35 +10,56 @@
     <link rel="icon" href="https://www.duncanritchie.co.uk/favicon-96x96.png" type="image/png" />
 </head>
 <body onkeypress="keycode()">
-<h1>Duncan&rsquo;s Keycode Generator</h1>
-<p class="explanation">Press a key on your keyboard!</p>
-<div id="keyBody">
-<div id="keyDiv" class="oneOfThree">
-    <h2>event.key</h2>
-    <p id="keyP"></p>
-</div>
-<div id="codeDiv" class="oneOfThree">
-    <h2>event.code</h2>
-    <p id="codeP"></p>
-</div>
-<div id="whichDiv" class="oneOfThree">
-    <h2>event.which</h2>
-    <p id="whichP"></p>
-</div>
-</div>
-<h1>Duncan&rsquo;s Drumkit</h1>
-<p class="explanation">Click a drumbox or press a key out of [ASDFGHJKL] on your keyboard!</p>
-<div id="drumkitBody" onkeypress="drumkit(event)">
-    <div id="drumkitBoom" class="drumkitPart" onclick='drumkitPlay("Boom")'><p>Boom</p><p class="drumkitLetter">A</p></div>
-    <div id="drumkitClap" class="drumkitPart" onclick='drumkitPlay("Clap")'><p>Clap</p><p class="drumkitLetter">S</p></div>
-    <div id="drumkitHihat" class="drumkitPart" onclick='drumkitPlay("Hihat")'><p>Hihat</p><p class="drumkitLetter">D</p></div>
-    <div id="drumkitKick" class="drumkitPart" onclick='drumkitPlay("Kick")'><p>Kick</p><p class="drumkitLetter">F</p></div>
-    <div id="drumkitOpenhat" class="drumkitPart" onclick='drumkitPlay("Openhat")'><p>Openhat</p><p class="drumkitLetter">G</p></div>
-    <div id="drumkitRide" class="drumkitPart" onclick='drumkitPlay("Ride")'><p>Ride</p><p class="drumkitLetter">H</p></div>
-    <div id="drumkitSnare" class="drumkitPart" onclick='drumkitPlay("Snare")'><p>Snare</p><p class="drumkitLetter">J</p></div>
-    <div id="drumkitTink" class="drumkitPart" onclick='drumkitPlay("Tink")'><p>Tink</p><p class="drumkitLetter">K</p></div>
-    <div id="drumkitTom" class="drumkitPart" onclick='drumkitPlay("Tom")'><p>Tom</p><p class="drumkitLetter">L</p></div>
-</div>
+    <main>
+        <h1>Duncan&rsquo;s Keycode Generator</h1>
+        <p class="explanation">Press a key on your keyboard!</p>
+        <div id="keyBody">
+        <div id="keyDiv" class="oneOfThree">
+            <h2>event.key</h2>
+            <p id="keyP"></p>
+        </div>
+        <div id="codeDiv" class="oneOfThree">
+            <h2>event.code</h2>
+            <p id="codeP"></p>
+        </div>
+        <div id="whichDiv" class="oneOfThree">
+            <h2>event.which</h2>
+            <p id="whichP"></p>
+        </div>
+        </div>
+        <h1>Duncan&rsquo;s Drumkit</h1>
+        <p class="explanation">Click a drumbox or press a key out of [ASDFGHJKL] on your keyboard!</p>
+        <div id="drumkitBody" onkeypress="drumkit(event)">
+            <div id="drumkitBoom" class="drumkitPart" onclick='drumkitPlay("Boom")'><p>Boom</p><p class="drumkitLetter">A</p></div>
+            <div id="drumkitClap" class="drumkitPart" onclick='drumkitPlay("Clap")'><p>Clap</p><p class="drumkitLetter">S</p></div>
+            <div id="drumkitHihat" class="drumkitPart" onclick='drumkitPlay("Hihat")'><p>Hihat</p><p class="drumkitLetter">D</p></div>
+            <div id="drumkitKick" class="drumkitPart" onclick='drumkitPlay("Kick")'><p>Kick</p><p class="drumkitLetter">F</p></div>
+            <div id="drumkitOpenhat" class="drumkitPart" onclick='drumkitPlay("Openhat")'><p>Openhat</p><p class="drumkitLetter">G</p></div>
+            <div id="drumkitRide" class="drumkitPart" onclick='drumkitPlay("Ride")'><p>Ride</p><p class="drumkitLetter">H</p></div>
+            <div id="drumkitSnare" class="drumkitPart" onclick='drumkitPlay("Snare")'><p>Snare</p><p class="drumkitLetter">J</p></div>
+            <div id="drumkitTink" class="drumkitPart" onclick='drumkitPlay("Tink")'><p>Tink</p><p class="drumkitLetter">K</p></div>
+            <div id="drumkitTom" class="drumkitPart" onclick='drumkitPlay("Tom")'><p>Tom</p><p class="drumkitLetter">L</p></div>
+        </div>
+    </main>
+    <footer>
+        <ul>
+            <li>
+                <a href="https://www.duncanritchie.co.uk" title="Duncan Ritchie&rsquo;s website">
+                    Made by Duncan Ritchie
+                </a>
+            </li>
+            <li>
+                <a href="../" title="Duncan Ritchie&rsquo;s game page">
+                    Games homepage
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/DuncanRitchie/jsChallenges/tree/main/keycode-drumkit" title="Code on GitHub">
+                    See the code
+                </a>
+            </li>
+        </ul>
+    </footer>
 <script src="keycode-drumkit.js"></script>
 </body>
 </html>
