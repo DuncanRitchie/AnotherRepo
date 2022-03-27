@@ -48,14 +48,15 @@ a:hover{
 
 /* CSS for index.html */
 
-#indexLinksBody {
+ul {
     display:flex;
     flex-flow:row;
     flex-wrap:wrap;
     justify-content:space-around;
+    list-style:none;
 }
 
-.indexLinkDiv {
+li {
     margin-top:20px;
     width:500px;
     height:300px;
@@ -65,11 +66,11 @@ a:hover{
     border:5px solid teal;
 }
 
-.indexLinkDiv:hover {
+li:hover {
     background-color:white;
 }
 
-.indexLinkA {
+li a {
     width:400px;
     height:140px;
     padding:80px 50px 80px 50px;
@@ -79,7 +80,7 @@ a:hover{
     font-weight:bold;
 }
 
-.indexLinkA:hover {
+li a:hover {
     color:darkseagreen;
 }
 
