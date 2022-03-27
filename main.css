@@ -48,18 +48,25 @@ a:hover{
 
 /* CSS for index.html */
 
+#index *:focus {
+    outline:2.5px dashed black;
+}
+
 #index ul {
     display:flex;
     flex-flow:row;
     flex-wrap:wrap;
     justify-content:space-around;
     list-style:none;
+    padding-left:0;
 }
 
 #index li {
     margin-top:20px;
-    width:500px;
-    height:300px;
+    width:300px;
+    height:200px;
+    max-width:calc(100vw-20px);
+    max-height:calc(100vh-20px);
     background-color:azure;
     text-align:center;
     align-items:center;
@@ -71,9 +78,10 @@ a:hover{
 }
 
 #index li a {
-    width:400px;
-    height:140px;
-    padding:80px 50px 80px 50px;
+    width:100%;
+    height:inherit;
+    box-sizing: border-box;
+    padding-top:20%;
     display:block;
     text-decoration:none;
     color:teal;
